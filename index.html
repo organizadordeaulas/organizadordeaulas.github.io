@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="media/icone.png">
+<title>Organizador de Aulas — Prometeu | App para professores organizarem aulas em vídeo</title>
+<meta name="description" content="App 100% offline para professores organizarem aulas em vídeo: Matéria → Série → Aula → Capítulo → Vídeo. Resumos, anexos, relatórios em Word/PDF, 5 temas e 4 idiomas (incl. 中文).">
+<meta property="og:title" content="Organizador de Aulas — Prometeu">
+<meta property="og:description" content="Organize suas aulas em vídeo, do jeito de um professor. 100% offline.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://organizadordeaulas.github.io/">
+<meta property="og:site_name" content="Organizador de Aulas">
+<meta property="og:image" content="https://organizadordeaulas.github.io/media/og-image-neon.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Organizador de Aulas — app para professores organizarem aulas em vídeo">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Organizador de Aulas — Prometeu">
+<meta name="twitter:description" content="Organize suas aulas em vídeo, do jeito de um professor. 100% offline.">
+<meta name="twitter:image" content="https://organizadordeaulas.github.io/media/og-image-neon.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
+<style>
+:root{ /* Prometeu (P) — tema padrão */
+  --bg:#050b13; --bg2:#081420; --card:#0a1a28; --card2:#0e2436;
+  --txt:#e3f6ff; --txt2:#8fb6cc; --txt3:#4f7183;
+  --acc:#22d3ee; --acc2:#0ea5b7; --gl:rgba(34,211,238,.35);
+  --brd:rgba(34,211,238,.18); --brd2:rgba(255,255,255,.06);
+  --glow1:rgba(34,211,238,.10); --glow2:rgba(14,165,183,.08);
+  --nav:rgba(5,11,19,.72); --btxt:#04121a; --htmlbg:#050b13;
+  --font-h:'Orbitron',sans-serif;           /* títulos (sci-fi) */
+  --font-b:'Rajdhani',system-ui,sans-serif; /* texto corrido */
+  --maxw:1080px;
+}
+html.t-D{ --bg:#000;--bg2:#070707;--card:#0d0d0d;--card2:#141414;
+  --txt:#fff;--txt2:#b8b8b8;--txt3:#6f6f6f;--acc:#f2f2f2;--acc2:#cfcfcf;
+  --gl:rgba(255,255,255,.22);--brd:rgba(255,255,255,.16);--brd2:rgba(255,255,255,.06);
+  --glow1:rgba(255,255,255,.05);--glow2:rgba(255,255,255,.03);
+  --nav:rgba(0,0,0,.8);--btxt:#000;--htmlbg:#000;
+  --font-h:'Segoe UI',system-ui,Arial,sans-serif;--font-b:'Segoe UI',system-ui,Arial,sans-serif; }
+html.t-PR{ --bg:#120407;--bg2:#1a060a;--card:#1f0a10;--card2:#2a0e15;
+  --txt:#ffe6ea;--txt2:#e0a3ad;--txt3:#8a5560;--acc:#ff3b5c;--acc2:#c62740;
+  --gl:rgba(255,59,92,.33);--brd:rgba(255,59,92,.20);--brd2:rgba(255,255,255,.06);
+  --glow1:rgba(255,59,92,.10);--glow2:rgba(198,39,64,.07);
+  --nav:rgba(18,4,7,.75);--btxt:#fff;--htmlbg:#120407; }
+html.t-PB{ --bg:#04060f;--bg2:#070c1a;--card:#0a1226;--card2:#0e1832;
+  --txt:#e6edff;--txt2:#9db0d8;--txt3:#556685;--acc:#3b82f6;--acc2:#2563eb;
+  --gl:rgba(59,130,246,.33);--brd:rgba(59,130,246,.20);--brd2:rgba(255,255,255,.06);
+  --glow1:rgba(59,130,246,.10);--glow2:rgba(37,99,235,.07);
+  --nav:rgba(4,6,15,.75);--btxt:#fff;--htmlbg:#04060f; }
+html.t-L{ --bg:#F0EDE8;--bg2:#e7e2da;--card:#ffffff;--card2:#faf7f2;
+  --txt:#2a2320;--txt2:#6b5f57;--txt3:#9a8d83;--acc:#c0563c;--acc2:#a5432b;
+  --gl:rgba(192,86,60,.22);--brd:rgba(192,86,60,.22);--brd2:rgba(0,0,0,.08);
+  --glow1:rgba(192,86,60,.08);--glow2:rgba(165,67,43,.05);
+  --nav:rgba(255,255,255,.82);--btxt:#fff;--htmlbg:#F0EDE8;
+  --font-h:'Segoe UI',system-ui,Arial,sans-serif;--font-b:'Segoe UI',system-ui,Arial,sans-serif; }
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;background:var(--htmlbg);-webkit-text-size-adjust:100%;text-size-adjust:100%;overflow-x:clip}
+body{font-family:var(--font-b);background:var(--bg);color:var(--txt);line-height:1.55;overflow-x:clip;font-size:17px}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(1200px 600px at 80% -10%,var(--glow1),transparent 60%),
+             radial-gradient(900px 500px at -10% 20%,var(--glow2),transparent 55%);}
+/* Arte em mármore do Prometeu como marca d'água do fundo:
+   negra com dourado nos temas escuros, branca no claro */
+:root{--arte:url("media/artes/arte-02-fundo.webp");--arteop:.22}
+html.t-L{--arte:url("media/artes/arte-01-fundo.webp");--arteop:.28}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:var(--arte) center 30%/min(92vmin,940px) no-repeat;opacity:var(--arteop)}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px;position:relative;z-index:1}
+h1,h2,h3,.brand,.eyebrow,.badge{font-family:var(--font-h)}
+a{color:inherit;text-decoration:none}
+.eyebrow{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--acc);font-weight:700}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(10px);background:var(--nav);border-bottom:1px solid var(--brd2)}
+.nav-in{display:flex;align-items:center;gap:10px 14px;min-height:62px;flex-wrap:wrap;padding:8px 0}
+.brand{font-weight:900;font-size:16px;letter-spacing:1px;display:flex;align-items:center;gap:9px;color:var(--txt)}
+.brand .dot{width:26px;height:26px;border-radius:50%;box-shadow:0 0 10px var(--gl);display:block}
+.nav-links{margin-left:auto;display:flex;gap:8px 18px;align-items:center;flex-wrap:wrap}
+.nav-links a{color:var(--txt2);font-size:15px;font-weight:600;transition:color .2s}
+.nav-links a:hover,.nav-links a.here{color:var(--acc)}
+.themes{display:flex;gap:6px;align-items:center}
+.sw{width:20px;height:20px;border-radius:50%;border:1px solid var(--brd2);cursor:pointer;padding:0}
+.sw.on{box-shadow:0 0 0 2px var(--acc)}
+.lang{display:flex;gap:2px;border:1px solid var(--brd);border-radius:20px;overflow:hidden}
+.lang button{background:none;border:none;color:var(--txt2);padding:5px 10px;font-family:var(--font-h);font-size:11px;font-weight:700;cursor:pointer}
+.lang button.on{background:var(--acc);color:var(--btxt)}
+@media(max-width:720px){ .nav-links{gap:6px 12px;width:100%} .nav-links a{font-size:13px} .brand{font-size:14px} }
+
+/* Animação de abertura: apresenta os 5 modos de cor (1ª visita) */
+.themes{position:relative}
+.theme-tip{position:absolute;top:calc(100% + 12px);right:-8px;background:var(--card2);border:1px solid var(--acc);border-radius:10px;padding:11px 16px;font-size:16px;font-weight:700;color:var(--txt);white-space:nowrap;box-shadow:0 8px 30px rgba(0,0,0,.4),0 0 20px var(--gl);opacity:0;pointer-events:none;transition:opacity .25s;z-index:60}
+.theme-tip::before{content:"";position:absolute;top:-6px;right:40px;width:10px;height:10px;background:var(--card2);border-left:1px solid var(--acc);border-top:1px solid var(--acc);transform:rotate(45deg)}
+.theme-tip.show{opacity:1}
+@media(max-width:720px){
+  .theme-tip{position:fixed;left:50%;right:auto;top:auto;margin-top:14px;transform:translateX(-50%);white-space:normal;text-align:center;max-width:calc(100vw - 28px);width:max-content}
+  .theme-tip::before{display:none}
+}
+@media (prefers-reduced-motion:no-preference){
+  .themes.intro .sw{animation:swpulse 1.1s ease-in-out infinite}
+  .themes.intro .sw:nth-child(2){animation-delay:.12s}
+  .themes.intro .sw:nth-child(3){animation-delay:.24s}
+  .themes.intro .sw:nth-child(4){animation-delay:.36s}
+  .themes.intro .sw:nth-child(5){animation-delay:.48s}
+  @keyframes swpulse{0%,100%{transform:scale(1)}50%{transform:scale(1.4)}}
+}
+
+/* HERO */
+/* atenção: .hero também é .wrap — o padding daqui vence o do .wrap,
+   então a lateral (22px) tem de ser declarada de novo */
+.hero{padding:70px 22px 40px;display:grid;grid-template-columns:1fr 1.5fr;gap:32px;align-items:center}
+.hero h1{font-size:clamp(26px,3.4vw,44px);line-height:1.05;font-weight:800;margin:16px 0 14px;letter-spacing:.5px}
+.hero h1 .cy{color:var(--acc);text-shadow:0 0 24px var(--gl)}
+.hero p.lead{font-size:19px;color:var(--txt2);max-width:520px;margin-bottom:12px}
+.flow{display:flex;flex-wrap:wrap;gap:6px;margin:16px 0 26px}
+.flow span{font-family:var(--font-h);font-size:11px;letter-spacing:1px;padding:5px 11px;border:1px solid var(--brd);border-radius:6px;color:var(--txt2)}
+.flow i{color:var(--acc);align-self:center;font-style:normal}
+.cta{display:flex;gap:14px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:9px;padding:14px 24px;border-radius:10px;font-family:var(--font-h);font-weight:700;font-size:14px;letter-spacing:.5px;cursor:pointer;border:1px solid var(--acc);transition:transform .15s,box-shadow .2s}
+.btn.pri{background:var(--acc);color:var(--btxt);box-shadow:0 6px 26px var(--gl)}
+.btn.pri:hover{transform:translateY(-2px);box-shadow:0 10px 32px var(--gl)}
+.btn.sec{background:transparent;color:var(--acc)}
+.btn.sec:hover{background:var(--glow1)}
+
+/* PHONE + TABLET (demonstração em movimento no topo; o TABLET é o destaque:
+   maior — os dois LADO A LADO, sem sobreposição, pedido de 07/08) */
+.devices{display:flex;align-items:center;justify-content:center;gap:22px;width:100%;min-width:0}
+.tab{flex:0 1 500px;min-width:300px;border-radius:22px;background:linear-gradient(160deg,#0d2233,#071521);border:1px solid var(--brd);box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 0 6px rgba(127,127,127,.05),0 0 60px var(--gl);padding:10px;position:relative;z-index:2}
+.tab::before{content:"";position:absolute;top:3px;left:50%;transform:translateX(-50%);width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.16)}
+.tab-show{position:relative;width:100%;aspect-ratio:880/631;border-radius:14px;overflow:hidden;background:#050b13}
+.tab-show .ps-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .7s ease}
+.tab-show .ps-img.on{opacity:1}
+@media (prefers-reduced-motion:reduce){.tab-show .ps-img{transition:none}}
+.phone{justify-self:center;flex:0 0 auto;z-index:1;width:212px;border-radius:36px;background:linear-gradient(160deg,#0d2233,#071521);border:1px solid var(--brd);box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 0 6px rgba(127,127,127,.05),0 0 60px var(--gl);padding:13px 12px;position:relative;overflow:hidden}
+.phone::before{content:"";position:absolute;top:11px;left:50%;transform:translateX(-50%);width:92px;height:6px;border-radius:6px;background:rgba(255,255,255,.14);z-index:2}
+.phone-vid{width:100%;display:block;border-radius:24px;background:#050b13;aspect-ratio:400/866;object-fit:cover}
+.phone-show{position:relative;width:100%;aspect-ratio:400/866;border-radius:24px;overflow:hidden;background:#050b13}
+.phone-show .ps-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .7s ease}
+.phone-show .ps-img.on{opacity:1}
+@media (prefers-reduced-motion:reduce){.phone-show .ps-img{transition:none}}
+
+/* PHONE MOCKUP (cores fixas: representa a tela do app; só o destaque segue o tema) */
+.mock{justify-self:center;width:270px;height:552px;border-radius:34px;background:linear-gradient(160deg,#0d2233,#071521);border:1px solid var(--brd);box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 0 6px rgba(34,211,238,.05),0 0 60px var(--gl);padding:14px 12px;position:relative;overflow:hidden}
+.mock::before{content:"";position:absolute;top:12px;left:50%;transform:translateX(-50%);width:96px;height:6px;border-radius:6px;background:rgba(255,255,255,.12)}
+.m-top{margin-top:18px;display:flex;align-items:center;gap:8px;padding:6px 4px 12px;border-bottom:1px solid rgba(255,255,255,.08)}
+.m-top .mb{width:22px;height:3px;background:#8fb6cc;border-radius:3px;box-shadow:0 6px 0 #8fb6cc,0 12px 0 #8fb6cc}
+.m-title{font-family:'Orbitron',sans-serif;font-size:12px;font-weight:700;letter-spacing:.5px;color:#e3f6ff}
+.m-chip{margin-left:auto;font-family:'Orbitron',sans-serif;font-size:8px;padding:3px 8px;border:1px solid var(--acc);border-radius:12px;color:var(--acc)}
+.m-card{margin-top:10px;background:#0a1a28;border:1px solid rgba(34,211,238,.14);border-left:3px solid var(--acc);border-radius:10px;padding:10px 11px}
+.m-card .t{font-weight:700;font-size:13px;color:#e3f6ff}
+.m-card .s{font-size:11px;color:#8fb6cc}
+.m-card .bar{margin-top:7px;display:flex;gap:3px}
+.m-card .bar i{height:5px;flex:1;border-radius:2px;background:rgba(255,255,255,.08)}
+.m-card .bar i.on{background:var(--acc);box-shadow:0 0 6px var(--gl)}
+.m-pend{color:var(--acc);font-weight:700}
+.m-fab{position:absolute;left:12px;right:12px;bottom:16px;background:var(--acc);color:var(--btxt);text-align:center;font-family:'Orbitron',sans-serif;font-weight:700;font-size:12px;padding:12px;border-radius:12px;box-shadow:0 8px 24px var(--gl)}
+
+/* TRUST */
+.trust{display:flex;flex-wrap:wrap;gap:10px 26px;justify-content:center;padding:22px;border-top:1px solid var(--brd2);border-bottom:1px solid var(--brd2);margin-top:20px}
+.trust div{font-size:14px;color:var(--txt2);display:flex;align-items:center;gap:8px}
+.trust b{color:var(--acc)}
+
+/* SECTIONS */
+section{padding:66px 0}
+.sec-h{text-align:center;max-width:660px;margin:0 auto 42px}
+.sec-h h2{font-size:clamp(24px,3.6vw,34px);font-weight:800;margin:10px 0}
+.sec-h p{color:var(--txt2);font-size:17px}
+
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.feat{background:linear-gradient(180deg,var(--card),var(--bg2));border:1px solid var(--brd);border-radius:14px;padding:22px;transition:transform .18s,border-color .2s}
+.feat:hover{transform:translateY(-4px);border-color:var(--acc)}
+.feat .ic{width:46px;height:46px;border-radius:11px;background:var(--glow1);border:1px solid var(--brd);display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+.feat .ic svg{width:24px;height:24px;stroke:var(--acc);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.feat h3{font-size:17px;font-family:var(--font-b);font-weight:700;margin-bottom:6px}
+.feat p{color:var(--txt2);font-size:15px}
+
+/* SCREENSHOTS */
+.shots-marquee{overflow:hidden;position:relative;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);
+          mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent)}
+.shots-track{display:flex;width:max-content;padding:8px 0 18px}
+@media (prefers-reduced-motion:no-preference){
+  .shots-track{animation:marq 66s linear infinite}
+  .shots-marquee:hover .shots-track{animation-play-state:paused}
+}
+@keyframes marq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.shot{flex:0 0 auto;width:210px;margin-right:16px}
+.shot img{width:100%;border-radius:18px;border:1px solid var(--brd);box-shadow:0 18px 50px rgba(0,0,0,.45),0 0 0 5px rgba(127,127,127,.05),0 0 40px var(--gl);display:block;background:#050b13}
+.shot .cap{text-align:center;color:var(--txt2);font-size:13px;margin-top:10px;font-family:var(--font-h);letter-spacing:.5px}
+.shots-note{text-align:center;color:var(--txt3);font-size:13px;margin-top:14px}
+
+/* FLOW DIAGRAM */
+.steps{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;align-items:stretch}
+.step{flex:1;min-width:150px;max-width:190px;background:var(--card);border:1px solid var(--brd);border-radius:12px;padding:18px 14px;text-align:center;position:relative}
+.step .n{font-family:var(--font-h);font-size:11px;color:var(--acc)}
+.step .l{font-family:var(--font-h);font-weight:700;font-size:15px;margin-top:6px}
+.step .d{font-size:13px;color:var(--txt2);margin-top:6px}
+.step::after{content:"›";position:absolute;right:-13px;top:50%;transform:translateY(-50%);color:var(--acc);font-size:26px;font-family:var(--font-h)}
+.step:last-child::after{display:none}
+@media(max-width:860px){.step::after{display:none}}
+
+/* PRICING / PAYMENT */
+.price{max-width:480px;margin:0 auto;background:linear-gradient(180deg,var(--card2),var(--bg2));border:1px solid var(--acc);border-radius:18px;padding:34px;text-align:center;box-shadow:0 0 50px var(--gl)}
+.price .tag{font-family:var(--font-h);font-size:12px;letter-spacing:2px;color:var(--acc)}
+.price .val{font-family:var(--font-h);font-size:46px;font-weight:900;margin:8px 0 2px}
+.price .val small{font-size:18px;color:var(--txt2)}
+.price .sub{color:var(--txt2);margin-bottom:18px}
+.price ul{list-style:none;text-align:left;margin:18px 0;display:inline-block}
+.price li{padding:6px 0;color:var(--txt);font-size:15px;display:flex;gap:10px;align-items:center}
+.price li::before{content:"✓";color:var(--acc);font-weight:900}
+.pay-btns{display:flex;flex-direction:column;gap:12px;margin-top:8px}
+.pay-btns .btn{justify-content:center;width:100%}
+#buyEmail{padding:13px 15px;border-radius:10px;border:1px solid var(--brd);background:var(--card2);color:var(--txt);font-size:16px;font-family:var(--font-b);text-align:center}
+#buyEmail::placeholder{color:var(--txt3)}
+#buyEmail:focus{outline:none;border-color:var(--acc);box-shadow:0 0 0 3px var(--glow1)}
+.pay-err{color:#ff6b6b;font-size:13px;text-align:center;margin-top:-4px}
+.pay-note{margin-top:16px;padding:14px 16px;border:1px dashed var(--brd);border-radius:12px;color:var(--txt2);font-size:14px;text-align:left;line-height:1.5}
+.pay-note b{color:var(--txt)}
+.pay-steps{margin:8px 0 0 0;padding-left:18px}
+.pay-steps li{display:list-item;color:var(--txt2);font-size:14px;padding:2px 0}
+.pay-steps li::before{content:none}
+
+/* INSTALL */
+.install{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.icard{background:var(--card);border:1px solid var(--brd);border-radius:14px;padding:24px}
+.icard h3{font-family:var(--font-b);font-size:19px;margin-bottom:10px}
+.icard ol{margin-left:18px;color:var(--txt2);font-size:15px}
+.icard ol li{margin-bottom:6px}
+.stores{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px}
+.store{border:1px solid var(--brd);border-radius:10px;padding:10px 16px;font-family:var(--font-h);font-size:12px;color:var(--txt2)}
+.store b{color:var(--txt);font-size:14px;display:block}
+.soon{color:var(--acc);font-size:10px;letter-spacing:1px}
+
+/* FAQ */
+.faq details{background:var(--card);border:1px solid var(--brd2);border-radius:12px;margin-bottom:10px;overflow:hidden}
+.faq summary{padding:16px 18px;cursor:pointer;font-weight:700;font-size:16px;list-style:none;display:flex;justify-content:space-between;align-items:center}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--acc);font-family:var(--font-h);font-size:20px}
+.faq details[open] summary::after{content:"−"}
+.faq p{padding:0 18px 16px;color:var(--txt2);font-size:15px}
+
+/* FOOTER */
+footer{border-top:1px solid var(--brd2);padding:40px 0 60px;margin-top:30px}
+.foot{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between;align-items:center}
+.foot a{color:var(--txt2);font-size:14px;margin-right:16px}
+.foot a:hover{color:var(--acc)}
+.foot .cr{color:var(--txt3);font-size:13px}
+.mailtag{color:var(--acc)}
+
+@media(max-width:860px){
+  .hero{grid-template-columns:1fr;text-align:center;padding-top:44px}
+  .hero .lead,.flow{margin-left:auto;margin-right:auto}
+  .flow,.cta{justify-content:center}
+  .grid{grid-template-columns:1fr}
+  .install{grid-template-columns:1fr}
+  .devices{order:-1}
+}
+@media(max-width:600px){
+  /* tela estreita: não cabe lado a lado — o tablet (destaque) fica em cima,
+     o celular embaixo */
+  .devices{flex-direction:column;gap:20px}
+  .tab{flex:none;width:100%;max-width:360px}
+}
+@media(max-width:480px){
+  body{font-size:16px}
+  section{padding:44px 0}
+  .hero{padding:32px 16px 24px;gap:28px}
+  .sec-h{margin-bottom:28px}
+  .phone{width:190px}
+  .price{padding:26px 20px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap nav-in">
+    <div class="brand"><img class="dot" src="media/icone.png" alt=""> ORGANIZADOR DE AULAS</div>
+    <div class="nav-links">
+      <a href="#recursos" data-i="nav1">Recursos</a>
+      <a href="#preco" data-i="nav3">Preço</a>
+      <a href="comprar.html" data-i="nav9">Comprar</a>
+      <a href="galeria.html" data-i="nav6">Galeria</a>
+      <a href="tablet.html" data-i="nav8">Tablet</a>
+      <a href="manual.html" data-i="nav5">Manual</a>
+      <a href="#instalar" data-i="nav4">Instalar</a>
+      <div class="themes" id="themes" title="Tema">
+        <button class="sw" data-t="P"  style="background:#0a1a28" aria-label="Prometeu"></button>
+        <button class="sw" data-t="PB" style="background:#0a1226" aria-label="Azul"></button>
+        <button class="sw" data-t="PR" style="background:#1f0a10" aria-label="Vermelho"></button>
+        <button class="sw" data-t="D"  style="background:#0d0d0d" aria-label="Escuro"></button>
+        <button class="sw" data-t="L"  style="background:#efe9e1" aria-label="Claro"></button>
+        <div class="theme-tip" id="themeTip"><span id="tipTxt"></span></div>
+      </div>
+      <div class="lang" id="lang">
+        <button data-l="pt" class="on">PT</button><button data-l="en">EN</button><button data-l="es">ES</button><button data-l="zh">中文</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<header class="hero wrap">
+  <div>
+    <div class="eyebrow" data-i="eyebrow">PWA · 100% Offline</div>
+    <h1 data-i="h1">Organize suas aulas em vídeo, <span class="cy">do jeito de um professor.</span></h1>
+    <p class="lead" data-i="lead">Um caderno digital para quem ensina com vídeos: cinco níveis do geral ao específico, resumos, anexos e relatórios — tudo salvo no seu aparelho, funcionando sem internet.</p>
+    <div class="flow">
+      <span data-i="f1">MATÉRIA</span><i>›</i><span data-i="f2">SÉRIE</span><i>›</i><span data-i="f3">AULA</span><i>›</i><span data-i="f4">CAPÍTULO</span><i>›</i><span data-i="f5">VÍDEO</span>
+    </div>
+    <div class="cta">
+      <a class="btn pri" href="comprar.html" data-i="cta1">▶ Testar grátis (14 dias)</a>
+      <a class="btn sec" href="#preco" data-i="cta2">Comprar · US$ 5</a>
+    </div>
+  </div>
+  <div class="devices" aria-hidden="true">
+    <div class="tab">
+      <div id="heroTab" class="tab-show">
+        <img class="ps-img on" alt="">
+        <img class="ps-img" alt="">
+      </div>
+    </div>
+    <div class="phone">
+      <div id="heroShow" class="phone-show">
+        <img class="ps-img on" alt="">
+        <img class="ps-img" alt="">
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="trust">
+    <div data-i="t1">🔒 <b>Sem contas</b>, sem anúncios</div>
+    <div data-i="t2">📴 Funciona <b>offline</b></div>
+    <div data-i="t3">💾 Dados <b>no seu aparelho</b></div>
+    <div data-i="t4">🌐 <b>4 idiomas</b> (中文)</div>
+  </div>
+</div>
+
+<section id="recursos" class="wrap">
+  <div class="sec-h">
+    <div class="eyebrow" data-i="s1e">Recursos</div>
+    <h2 data-i="s1h">Feito para o dia a dia de quem dá aula</h2>
+    <p data-i="s1p">Tudo que um professor precisa para preparar e acompanhar suas aulas em vídeo — sem planilha, sem confusão.</p>
+  </div>
+  <div class="grid">
+    <div class="feat"><div class="ic"><svg viewBox="0 0 24 24"><path d="M5 4h14v16H7a2 2 0 0 1-2-2z"/><path d="M9 8h6M9 12h6M9 16h4"/></svg></div><h3 data-i="feat1t">Hierarquia de 5 níveis</h3><p data-i="feat1p">Matéria → Série/Ano → Aula → Capítulo → Vídeo. Cada aula no seu lugar, fácil de achar.</p></div>
+    <div class="feat"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3a12 12 0 0 0 8.5 3 12 12 0 0 1-8.5 15 12 12 0 0 1-8.5-15A12 12 0 0 0 12 3"/></svg></div><h3 data-i="feat2t">100% offline e privado</h3><p data-i="feat2p">Os dados ficam só no seu aparelho. Nada é enviado para a internet — nem precisa dela.</p></div>
+    <div class="feat"><div class="ic"><svg viewBox="0 0 24 24"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2"/><path d="M9 9h1M9 13h6M9 17h6"/></svg></div><h3 data-i="feat3t">Resumos e anexos</h3><p data-i="feat3p">Cada vídeo tem um campo para você escrever ou colar o seu resumo (até 3 páginas) — o app não gera resumos sozinho. Anexe também materiais citados e documentos (PDF, imagem, Word).</p></div>
+    <div class="feat"><div class="ic"><svg viewBox="0 0 24 24"><path d="M8 5H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h6"/><path d="M18 12V7a2 2 0 0 0-2-2h-2"/><path d="M8 3h4v3H8z"/><path d="M8 11h4M8 15h3"/><circle cx="16.5" cy="17.5" r="2.5"/></svg></div><h3 data-i="feat4t">Relatórios Word e PDF</h3><p data-i="feat4p">Exporte a estrutura completa da série ou o resumo de um vídeo em um clique.</p></div>
+    <div class="feat"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 21a9 9 0 1 1 0-18c4.97 0 9 3.58 9 8 0 2.2-1.8 4-4 4h-2.5a2 2 0 0 0-1 3.75A1.3 1.3 0 0 1 12 21"/><circle cx="8.5" cy="10.5" r="1"/><circle cx="12.5" cy="7.5" r="1"/><circle cx="16.5" cy="10.5" r="1"/></svg></div><h3 data-i="feat5t">5 temas visuais</h3><p data-i="feat5p">Do claro suave ao HUD sci-fi ciano do Prometeu. Escolha o que combina com você.</p></div>
+    <div class="feat"><div class="ic"><svg viewBox="0 0 24 24"><path d="M4 5h7M9 3v2c0 4.4-2.2 8-5 8"/><path d="M5 9c0 2.1 3 3.9 6.7 4"/><path d="M12 20l4-9 4 9M19.1 18h-6.2"/></svg></div><h3 data-i="feat6t">4 idiomas</h3><p data-i="feat6p">Português (Brasil e Portugal), inglês, espanhol e chinês (中文) — troca com um toque.</p></div>
+  </div>
+</section>
+
+<section id="telas" class="wrap">
+  <div class="sec-h">
+    <div class="eyebrow" data-i="s6e">Telas</div>
+    <h2 data-i="s6h">Veja o app por dentro</h2>
+    <p data-i="s6p">Capturas reais do aplicativo, passando sozinhas.</p>
+  </div>
+  <div class="shots-marquee"><div class="shots-track" id="shotsTrack"></div></div>
+  <p class="shots-note" data-i="sh-note">As telas seguem o idioma e o modo de cor escolhidos no topo.</p>
+</section>
+
+<section id="como" class="wrap">
+  <div class="sec-h">
+    <div class="eyebrow" data-i="s2e">Como funciona</div>
+    <h2 data-i="s2h">Do geral ao específico, em cinco passos</h2>
+  </div>
+  <div class="steps">
+    <div class="step"><div class="n">01</div><div class="l" data-i="st1l">MATÉRIA</div><div class="d" data-i="st1d">Ex.: História, Biologia</div></div>
+    <div class="step"><div class="n">02</div><div class="l" data-i="st2l">SÉRIE/ANO</div><div class="d" data-i="st2d">Ex.: 2º ano do E.M.</div></div>
+    <div class="step"><div class="n">03</div><div class="l" data-i="st3l">AULA</div><div class="d" data-i="st3d">Ex.: Revolução Francesa</div></div>
+    <div class="step"><div class="n">04</div><div class="l" data-i="st4l">CAPÍTULO</div><div class="d" data-i="st4d">Marca o que já foi dado</div></div>
+    <div class="step"><div class="n">05</div><div class="l" data-i="st5l">VÍDEO</div><div class="d" data-i="st5d">Link, resumo e anexos</div></div>
+  </div>
+</section>
+
+<section id="preco" class="wrap">
+  <div class="sec-h">
+    <div class="eyebrow" data-i="s3e">Preço justo</div>
+    <h2 data-i="s3h">Teste por 14 dias. Depois, um valor único.</h2>
+    <p data-i="s3p">Sem assinatura, sem cobrança mensal. Pague uma vez e use para sempre.</p>
+  </div>
+  <div class="price">
+    <div class="tag" data-i="pr-tag">LICENÇA VITALÍCIA</div>
+    <div class="val">US$ 5 <small>≈ R$ 25</small></div>
+    <div class="sub" data-i="pr-sub">pagamento único · sem assinatura</div>
+    <ul>
+      <li data-i="pr1">14 dias grátis com tudo liberado</li>
+      <li data-i="pr5">Sem anúncios — nunca</li>
+      <li data-i="pr2">Seus dados nunca ficam bloqueados</li>
+      <li data-i="pr3">Ver e exportar sempre disponível</li>
+      <li data-i="pr4">Atualizações incluídas</li>
+    </ul>
+    <div class="pay-btns">
+      <input id="buyEmail" type="email" inputmode="email" autocomplete="email" data-i="pr-email-ph" placeholder="Seu e-mail (para receber o código)">
+      <button class="btn pri" id="buyBtn" data-i="pr-buy">Comprar agora — US$ 5 (R$ 25)</button>
+      <div id="buyErr" class="pay-err" data-i="pr-email-err" style="display:none">Digite um e-mail válido para receber o código.</div>
+      <a class="btn sec" href="comprar.html" data-i="pr-cta">Testar 14 dias grátis</a>
+    </div>
+    <div class="pay-note">
+      <b data-i="pay-h">Como funciona a ativação</b>
+      <ol class="pay-steps">
+        <li data-i="pay-s1">Pague com Pix ou cartão pelo botão acima (Mercado Pago).</li>
+        <li data-i="pay-s2">Você recebe o código de ativação por e-mail, automaticamente.</li>
+        <li data-i="pay-s3">No app: menu ☰ → <b>Ativar / Comprar</b> → cole o código.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section id="instalar" class="wrap">
+  <div class="sec-h">
+    <div class="eyebrow" data-i="s4e">Instalar</div>
+    <h2 data-i="s4h">No celular, tablet ou computador</h2>
+  </div>
+  <p style="text-align:center;margin:-8px 0 18px"><a href="comprar.html" data-i="s4link">Ver o tutorial completo — download do app, ícone na tela e onde ficam os seus dados →</a></p>
+  <div class="install">
+    <div class="icard">
+      <h3 data-i="i1h">📱 Android / Tablet (recomendado)</h3>
+      <ol>
+        <li data-i="i1s1">Abra o app no Chrome pelo botão acima.</li>
+        <li data-i="i1s2">Toque no menu ⋮ do Chrome.</li>
+        <li data-i="i1s3">Escolha “Instalar aplicativo”.</li>
+        <li data-i="i1s4">Pronto — abre em tela cheia, como um app.</li>
+      </ol>
+      <div class="stores">
+        <div class="store"><span class="soon" data-i="soon">EM BREVE</span><b>Google Play</b></div>
+        <div class="store"><span class="soon" data-i="soon2">EM BREVE</span><b>AppGallery</b></div>
+      </div>
+    </div>
+    <div class="icard">
+      <h3 data-i="i2h">💻 Computador</h3>
+      <ol>
+        <li data-i="i2s1">Abra o link no Chrome ou Edge.</li>
+        <li data-i="i2s2">Clique no ícone de instalar na barra de endereço.</li>
+        <li data-i="i2s3">Use como um programa normal, offline.</li>
+      </ol>
+      <p style="color:var(--txt2);font-size:14px;margin-top:12px" data-i="i2note">Também funciona direto no navegador, sem instalar nada.</p>
+    </div>
+  </div>
+</section>
+
+<section class="wrap faq">
+  <div class="sec-h">
+    <div class="eyebrow" data-i="s5e">Dúvidas</div>
+    <h2 data-i="s5h">Perguntas frequentes</h2>
+  </div>
+  <details><summary data-i="q1">Precisa de internet?</summary><p data-i="a1">Não. O app funciona 100% offline. A internet só é usada, opcionalmente, para buscar o título de um vídeo do YouTube quando você cola o link.</p></details>
+  <details><summary data-i="q2">Onde ficam meus dados?</summary><p data-i="a2">Somente no seu aparelho, no armazenamento do navegador. Nada é enviado para servidores. Você pode exportar um backup em arquivo quando quiser.</p></details>
+  <details><summary data-i="q3">Preciso criar conta?</summary><p data-i="a3">Não. Não há cadastro, login nem senha. É só abrir e usar.</p></details>
+  <details><summary data-i="q4">Funciona no tablet?</summary><p data-i="a4">Sim, e muito bem — com tela dividida e janela flutuante (One UI da Samsung), ideal para assistir ao vídeo e organizar ao mesmo tempo.</p></details>
+  <details><summary data-i="q5">O que acontece depois dos 14 dias?</summary><p data-i="a5">Você continua vendo e exportando tudo o que criou — nada fica bloqueado. Após ativar, volta a criar novos conteúdos livremente.</p></details>
+</section>
+
+<footer>
+  <div class="wrap foot">
+    <div>
+      <a href="galeria.html" data-i="fgal">Galeria</a>
+      <a href="manual.html" data-i="fman">Manual</a>
+      <a href="app/privacidade.html" target="_blank" rel="noopener" data-i="fp">Privacidade</a>
+      <a href="app/termos.html" target="_blank" rel="noopener" data-i="ft">Termos de uso</a>
+      <a href="mailto:organizadordeaulas.prometeu@gmail.com" class="mailtag" id="mailLink">organizadordeaulas.prometeu@gmail.com</a>
+    </div>
+    <div class="cr">© 2026 Organizador de Aulas (Prometeu) · <span data-i="fcr">Todos os direitos reservados</span></div>
+  </div>
+</footer>
+
+<script>
+/* Idiomas: [pt, en, es, zh]. innerHTML para permitir <span>/<b> nos textos. */
+const LANGS=['pt','en','es','zh'];
+const LANG_HTML={pt:'pt-BR',en:'en',es:'es',zh:'zh-CN'};
+const I={
+  nav1:['Recursos','Features','Recursos','功能'],
+  nav2:['Como funciona','How it works','Cómo funciona','使用方式'],
+  nav3:['Preço','Pricing','Precio','价格'],
+  nav4:['Instalar','Install','Instalar','安装'],
+  nav5:['Manual','Manual','Manual','手册'],
+  nav6:['Galeria','Gallery','Galería','图库'],
+  nav7:['Desenvolvedor','Developer','Desarrollador','开发者'],
+  nav8:['Tablet','Tablet','Tablet','平板'],
+  nav9:['Comprar','Buy','Comprar','购买'],
+  s4link:['Ver o tutorial completo — download do app, ícone na tela e onde ficam os seus dados →','See the full tutorial — app download, home-screen icon and where your data lives →','Ver el tutorial completo — descarga de la app, ícono en pantalla y dónde quedan tus datos →','查看完整教程——应用下载、屏幕图标以及数据保存位置 →'],
+  pr5:['Sem anúncios — nunca','No ads — ever','Sin anuncios — nunca','无广告——永远'],
+  eyebrow:['PWA · 100% Offline','PWA · 100% Offline','PWA · 100% Offline','PWA · 100% 离线'],
+  h1:['Organize suas aulas em vídeo, <span class="cy">do jeito de um professor.</span>','Organize your video lessons <span class="cy">the way a teacher would.</span>','Organiza tus clases en vídeo <span class="cy">como lo haría un profesor.</span>','<span class="cy">像老师一样</span>管理你的视频课程。'],
+  lead:['Um caderno digital para quem ensina com vídeos: cinco níveis do geral ao específico, resumos, anexos e relatórios — tudo salvo no seu aparelho, funcionando sem internet.','A digital notebook for teaching with videos: five levels from broad to specific, summaries, attachments and reports — all saved on your device, working without internet.','Un cuaderno digital para enseñar con vídeos: cinco niveles de lo general a lo específico, resúmenes, adjuntos e informes — todo guardado en tu dispositivo, sin internet.','为视频教学打造的数字笔记本：从概括到具体的五级结构、摘要、附件和报告 —— 全部保存在你的设备上，无需联网。'],
+  f1:['MATÉRIA','SUBJECT','MATERIA','科目'], f2:['SÉRIE','GRADE','CURSO','年级'], f3:['AULA','LESSON','CLASE','课程'], f4:['CAPÍTULO','CHAPTER','CAPÍTULO','章节'], f5:['VÍDEO','VIDEO','VÍDEO','视频'],
+  cta1:['▶ Testar grátis (14 dias)','▶ Try free (14 days)','▶ Probar gratis (14 días)','▶ 免费试用（14 天）'],
+  cta2:['Comprar · US$ 5','Buy · US$ 5','Comprar · US$ 5','购买 · US$ 5'],
+  mfab:['+ NOVA MATÉRIA','+ NEW SUBJECT','+ NUEVA MATERIA','+ 新建科目'],
+  mt:['AULAS','LESSONS','CLASES','课程'],
+  mc1t:['HISTÓRIA','HISTORY','HISTORIA','历史'],
+  mc1s:['3 séries · 54 aulas · <span class="m-pend">● 12 a ministrar</span>','3 grades · 54 lessons · <span class="m-pend">● 12 to teach</span>','3 cursos · 54 clases · <span class="m-pend">● 12 por dar</span>','3 个年级 · 54 节课 · <span class="m-pend">● 12 待授课</span>'],
+  mc2t:['GEOGRAFIA','GEOGRAPHY','GEOGRAFÍA','地理'],
+  mc2s:['2 séries · 31 aulas','2 grades · 31 lessons','2 cursos · 31 clases','2 个年级 · 31 节课'],
+  mc3t:['BIOLOGIA','BIOLOGY','BIOLOGÍA','生物'],
+  mc3s:['1 série · 18 aulas','1 grade · 18 lessons','1 curso · 18 clases','1 个年级 · 18 节课'],
+  t1:['🚫 <b>Sem anúncios</b>, sem contas','🚫 <b>No ads</b>, no accounts','🚫 <b>Sin anuncios</b>, sin cuentas','🚫 <b>无广告</b>，无需账号'],
+  t2:['📴 Funciona <b>offline</b>','📴 Works <b>offline</b>','📴 Funciona <b>sin conexión</b>','📴 <b>离线</b>可用'],
+  t3:['💾 Dados <b>no seu aparelho</b>','💾 Data <b>on your device</b>','💾 Datos <b>en tu dispositivo</b>','💾 数据<b>存于本机</b>'],
+  t4:['🌐 <b>4 idiomas</b> (中文)','🌐 <b>4 languages</b> (中文)','🌐 <b>4 idiomas</b> (中文)','🌐 <b>4 种语言</b>（含中文）'],
+  s1e:['Recursos','Features','Recursos','功能'],
+  s1h:['Feito para o dia a dia de quem dá aula','Built for a teacher’s daily routine','Hecho para el día a día de quien enseña','为教师的日常而生'],
+  s1p:['Tudo que um professor precisa para preparar e acompanhar suas aulas em vídeo — sem planilha, sem confusão.','Everything a teacher needs to prepare and track video lessons — no spreadsheets, no mess.','Todo lo que un profesor necesita para preparar y seguir sus clases en vídeo — sin hojas de cálculo, sin líos.','老师备课和跟踪视频课程所需的一切 —— 无需表格，井井有条。'],
+  feat1t:['Hierarquia de 5 níveis','5-level hierarchy','Jerarquía de 5 niveles','五级结构'],
+  feat1p:['Matéria → Série/Ano → Aula → Capítulo → Vídeo. Cada aula no seu lugar, fácil de achar.','Subject → Grade → Lesson → Chapter → Video. Every lesson in its place, easy to find.','Materia → Curso/Año → Clase → Capítulo → Vídeo. Cada clase en su lugar, fácil de encontrar.','科目 → 年级 → 课程 → 章节 → 视频。每节课各归其位，一找就到。'],
+  feat2t:['100% offline e privado','100% offline & private','100% sin conexión y privado','100% 离线且私密'],
+  feat2p:['Os dados ficam só no seu aparelho. Nada é enviado para a internet — nem precisa dela.','Data stays only on your device. Nothing is sent online — and it doesn’t need to be.','Los datos quedan solo en tu dispositivo. Nada se envía a internet — ni hace falta.','数据仅存于本机，不会上传网络 —— 也无需联网。'],
+  feat3t:['Resumos e anexos','Summaries & attachments','Resúmenes y adjuntos','摘要与附件'],
+  feat3p:['Cada vídeo tem um campo para você escrever ou colar o seu resumo (até 3 páginas) — o app não gera resumos sozinho. Anexe também materiais citados e documentos (PDF, imagem, Word).','Each video has a field where you write or paste your own summary (up to 3 pages) — the app does not generate summaries by itself. You can also attach cited materials and documents (PDF, image, Word).','Cada vídeo tiene un campo para que escribas o pegues tu propio resumen (hasta 3 páginas) — la app no genera resúmenes por sí sola. Adjunta también materiales citados y documentos (PDF, imagen, Word).','每个视频都有一个摘要栏，由你自己撰写或粘贴摘要（最多 3 页）——应用不会自动生成摘要。还可附上引用的教材和文档（PDF、图片、Word）。'],
+  feat4t:['Relatórios Word e PDF','Word & PDF reports','Informes Word y PDF','Word 与 PDF 报告'],
+  feat4p:['Exporte a estrutura completa da série ou o resumo de um vídeo em um clique.','Export the full grade structure or a video summary in one click.','Exporta la estructura completa del curso o el resumen de un vídeo con un clic.','一键导出整个年级的结构或某个视频的摘要。'],
+  feat5t:['5 temas visuais','5 visual themes','5 temas visuales','5 种视觉主题'],
+  feat5p:['Do claro suave ao HUD sci-fi ciano do Prometeu. Escolha o que combina com você.','From soft light to the cyan Prometheus sci-fi HUD. Pick what suits you.','Desde el claro suave hasta el HUD sci-fi cian de Prometeo. Elige el que te guste.','从柔和的浅色到 Prometeu 的青色科幻界面，随你选择。'],
+  feat6t:['4 idiomas','4 languages','4 idiomas','4 种语言'],
+  feat6p:['Português (Brasil e Portugal), inglês, espanhol e chinês (中文) — troca com um toque.','Portuguese (Brazil & Portugal), English, Spanish and Chinese (中文) — switch with one tap.','Portugués (Brasil y Portugal), inglés, español y chino (中文) — cambia con un toque.','葡萄牙语（巴西和葡萄牙）、英语、西班牙语和中文 —— 一键切换。'],
+  s6e:['Telas','Screens','Pantallas','界面'],
+  s6h:['Veja o app por dentro','See the app inside','Mira la app por dentro','应用界面一览'],
+  s6p:['Capturas reais do aplicativo, passando sozinhas.','Real screenshots of the app, moving on their own.','Capturas reales de la app, pasando solas.','应用真实截图，自动轮播。'],
+  sh1:['Matérias','Subjects','Materias','科目'],
+  sh2:['Séries e horas','Grades & hours','Cursos y horas','年级与课时'],
+  sh3:['Aulas','Lessons','Clases','课程'],
+  sh4:['Capítulos','Chapters','Capítulos','章节'],
+  sh5:['Vídeo','Video','Vídeo','视频'],
+  sh6:['Menu','Menu','Menú','菜单'],
+  'sh-note':['As telas acima seguem o idioma e o modo de cor escolhidos no topo do site — experimente trocar! Veja todas na <a href="galeria.html" style="color:var(--acc)">Galeria</a>.','The screens above follow the language and color mode chosen at the top — try switching! See them all in the <a href="galeria.html" style="color:var(--acc)">Gallery</a>.','Las pantallas de arriba siguen el idioma y el modo de color elegidos arriba — ¡prueba a cambiarlos! Míralas todas en la <a href="galeria.html" style="color:var(--acc)">Galería</a>.','上方截图会随网站顶部所选的语言和配色模式而变化 —— 试着切换看看！全部截图见<a href="galeria.html" style="color:var(--acc)">图库</a>。'],
+  s2e:['Como funciona','How it works','Cómo funciona','使用方式'],
+  s2h:['Do geral ao específico, em cinco passos','From broad to specific, in five steps','De lo general a lo específico, en cinco pasos','从概括到具体，五个步骤'],
+  st1l:['MATÉRIA','SUBJECT','MATERIA','科目'], st1d:['Ex.: História, Biologia','E.g.: History, Biology','Ej.: Historia, Biología','例如：历史、生物'],
+  st2l:['SÉRIE/ANO','GRADE/YEAR','CURSO/AÑO','年级'], st2d:['Ex.: 2º ano do E.M.','E.g.: 11th grade','Ej.: 2º de Bachillerato','例如：初中二年级'],
+  st3l:['AULA','LESSON','CLASE','课程'], st3d:['Ex.: Revolução Francesa','E.g.: French Revolution','Ej.: Revolución Francesa','例如：法国大革命'],
+  st4l:['CAPÍTULO','CHAPTER','CAPÍTULO','章节'], st4d:['Marca o que já foi dado','Marks what was taught','Marca lo ya impartido','标记已授课内容'],
+  st5l:['VÍDEO','VIDEO','VÍDEO','视频'], st5d:['Link, resumo e anexos','Link, summary & attachments','Enlace, resumen y adjuntos','链接、摘要与附件'],
+  s3e:['Preço justo','Fair price','Precio justo','公道的价格'],
+  s3h:['Teste por 14 dias. Depois, um valor único.','Try for 14 days. Then, a one-time price.','Prueba 14 días. Luego, un pago único.','试用 14 天，之后一次性付费。'],
+  s3p:['Sem assinatura, sem cobrança mensal. Pague uma vez e use para sempre.','No subscription, no monthly fee. Pay once, use forever.','Sin suscripción, sin cuota mensual. Paga una vez y úsalo para siempre.','无订阅、无月费。一次付费，永久使用。'],
+  'pr-tag':['LICENÇA VITALÍCIA','LIFETIME LICENSE','LICENCIA VITALICIA','终身授权'],
+  'pr-sub':['pagamento único · sem assinatura','one-time payment · no subscription','pago único · sin suscripción','一次性付费 · 无订阅'],
+  pr1:['14 dias grátis com tudo liberado','14 days free, fully unlocked','14 días gratis, todo desbloqueado','14 天免费，全功能开放'],
+  pr2:['Seus dados nunca ficam bloqueados','Your data is never locked','Tus datos nunca se bloquean','你的数据永不锁定'],
+  pr3:['Ver e exportar sempre disponível','Viewing & export always available','Ver y exportar siempre disponible','查看与导出始终可用'],
+  pr4:['Atualizações incluídas','Updates included','Actualizaciones incluidas','包含更新'],
+  'pr-buy':['Comprar agora — US$ 5 (R$ 25)','Buy now — US$ 5','Comprar ahora — US$ 5','立即购买 — US$ 5'],
+  'pr-email-ph':['Seu e-mail (para receber o código)','Your email (to receive the code)','Tu correo (para recibir el código)','你的邮箱（用于接收激活码）'],
+  'pr-email-err':['Digite um e-mail válido para receber o código.','Enter a valid email to receive the code.','Escribe un correo válido para recibir el código.','请输入有效的邮箱以接收激活码。'],
+  'pr-cta':['Testar 14 dias grátis','Try 14 days free','Probar 14 días gratis','免费试用 14 天'],
+  'pay-h':['Como funciona a ativação','How activation works','Cómo funciona la activación','如何激活'],
+  'pay-s1':['Pague com Pix ou cartão pelo botão acima (Mercado Pago).','Pay by card via the button above (Mercado Pago).','Paga con tarjeta mediante el botón de arriba (Mercado Pago).','点击上方按钮，用银行卡付款（Mercado Pago）。'],
+  'pay-s2':['Você recebe o código de ativação por e-mail, automaticamente.','You receive the activation code by email, automatically.','Recibes el código de activación por correo, automáticamente.','系统会自动将激活码发送到你的邮箱。'],
+  'pay-s3':['No app: menu ☰ → <b>Ativar / Comprar</b> → cole o código.','In the app: ☰ menu → <b>Activate / Buy</b> → paste the code.','En la app: menú ☰ → <b>Activar / Comprar</b> → pega el código.','在应用中：☰ 菜单 → <b>激活 / 购买</b> → 粘贴激活码。'],
+  s4e:['Instalar','Install','Instalar','安装'],
+  s4h:['No celular, tablet ou computador','On phone, tablet or computer','En móvil, tablet u ordenador','在手机、平板或电脑上'],
+  i1h:['📱 Android / Tablet (recomendado)','📱 Android / Tablet (recommended)','📱 Android / Tablet (recomendado)','📱 安卓 / 平板（推荐）'],
+  i1s1:['Abra o app no Chrome pelo botão acima.','Open the app in Chrome via the button above.','Abre la app en Chrome con el botón de arriba.','用上方按钮在 Chrome 中打开应用。'],
+  i1s2:['Toque no menu ⋮ do Chrome.','Tap Chrome’s ⋮ menu.','Toca el menú ⋮ de Chrome.','点击 Chrome 的 ⋮ 菜单。'],
+  i1s3:['Escolha “Instalar aplicativo”.','Choose “Install app”.','Elige “Instalar aplicación”.','选择"安装应用"。'],
+  i1s4:['Pronto — abre em tela cheia, como um app.','Done — it opens full screen, like an app.','Listo — se abre a pantalla completa, como una app.','完成 —— 像原生应用一样全屏打开。'],
+  soon:['EM BREVE','SOON','PRONTO','即将上线'], soon2:['EM BREVE','SOON','PRONTO','即将上线'],
+  i2h:['💻 Computador','💻 Computer','💻 Ordenador','💻 电脑'],
+  i2s1:['Abra o link no Chrome ou Edge.','Open the link in Chrome or Edge.','Abre el enlace en Chrome o Edge.','在 Chrome 或 Edge 中打开链接。'],
+  i2s2:['Clique no ícone de instalar na barra de endereço.','Click the install icon in the address bar.','Haz clic en el icono de instalar de la barra de direcciones.','点击地址栏中的安装图标。'],
+  i2s3:['Use como um programa normal, offline.','Use it like a normal program, offline.','Úsalo como un programa normal, sin conexión.','像普通程序一样离线使用。'],
+  i2note:['Também funciona direto no navegador, sem instalar nada.','It also works right in the browser, with no install.','También funciona directamente en el navegador, sin instalar nada.','也可直接在浏览器中使用，无需安装。'],
+  s5e:['Dúvidas','FAQ','Dudas','常见问题'],
+  s5h:['Perguntas frequentes','Frequently asked questions','Preguntas frecuentes','常见问题'],
+  q1:['Precisa de internet?','Does it need internet?','¿Necesita internet?','需要联网吗？'],
+  a1:['Não. O app funciona 100% offline. A internet só é usada, opcionalmente, para buscar o título de um vídeo do YouTube quando você cola o link.','No. The app works 100% offline. Internet is only used, optionally, to fetch a YouTube video title when you paste the link.','No. La app funciona 100% sin conexión. Internet solo se usa, opcionalmente, para obtener el título de un vídeo de YouTube al pegar el enlace.','不需要。应用 100% 离线运行。仅在粘贴 YouTube 链接、自动获取视频标题时才会（可选地）用到网络。'],
+  q2:['Onde ficam meus dados?','Where is my data?','¿Dónde están mis datos?','我的数据存在哪里？'],
+  a2:['Somente no seu aparelho, no armazenamento do navegador. Nada é enviado para servidores. Você pode exportar um backup em arquivo quando quiser.','Only on your device, in the browser storage. Nothing goes to servers. You can export a file backup anytime.','Solo en tu dispositivo, en el almacenamiento del navegador. Nada va a servidores. Puedes exportar una copia en archivo cuando quieras.','只存在你的设备上（浏览器存储中）。不会上传任何服务器。你可以随时导出备份文件。'],
+  q3:['Preciso criar conta?','Do I need an account?','¿Necesito crear cuenta?','需要注册账号吗？'],
+  a3:['Não. Não há cadastro, login nem senha. É só abrir e usar.','No. No sign-up, login or password. Just open and use.','No. No hay registro, inicio de sesión ni contraseña. Solo ábrela y úsala.','不需要。没有注册、登录或密码，打开即用。'],
+  q4:['Funciona no tablet?','Does it work on tablets?','¿Funciona en tablet?','平板能用吗？'],
+  a4:['Sim, e muito bem — com tela dividida e janela flutuante (One UI da Samsung), ideal para assistir ao vídeo e organizar ao mesmo tempo.','Yes, very well — with split screen and pop-up window (Samsung One UI), great for watching and organizing at once.','Sí, y muy bien — con pantalla dividida y ventana flotante (One UI de Samsung), ideal para ver el vídeo y organizar a la vez.','完全可以，而且很好用 —— 支持分屏和悬浮窗（三星 One UI），边看视频边整理非常方便。'],
+  q5:['O que acontece depois dos 14 dias?','What happens after 14 days?','¿Qué pasa después de los 14 días?','14 天后会怎样？'],
+  a5:['Você continua vendo e exportando tudo o que criou — nada fica bloqueado. Após ativar, volta a criar novos conteúdos livremente.','You keep viewing and exporting everything you made — nothing is locked. After activating, you create new content freely again.','Sigues viendo y exportando todo lo que creaste — nada se bloquea. Tras activar, vuelves a crear contenido libremente.','你仍可查看和导出所有已创建的内容 —— 不会被锁定。激活后即可继续自由创建新内容。'],
+  fgal:['Galeria','Gallery','Galería','图库'],
+  fman:['Manual','Manual','Manual','手册'],
+  fdev:['Desenvolvedor','Developer','Desarrollador','开发者'],
+  fp:['Privacidade','Privacy','Privacidad','隐私'],
+  ft:['Termos de uso','Terms of use','Términos de uso','使用条款'],
+  fcr:['Todos os direitos reservados','All rights reserved','Todos los derechos reservados','保留所有权利']
+};
+const LKEY='prometeu.site.lang', TKEY='prometeu.site.theme', SEENKEY='prometeu.site.introseen';
+/* Abertura sempre no topo (herói animado): impede o navegador de restaurar a
+   rolagem antiga em recarga/reabertura. Âncora (#preco etc.) vinda de OUTRA
+   página funciona uma vez e sai da barra de endereço — assim reabrir a aba
+   depois volta ao topo, e não à seção antiga (bug do tablet, 07/08). */
+if('scrollRestoration' in history)history.scrollRestoration='manual';
+const limpaHash=()=>{try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}};
+const NAVTYPE=(performance.getEntriesByType('navigation')[0]||{}).type||'navigate';
+if(!location.hash || NAVTYPE!=='navigate'){
+  /* sem âncora, OU aba restaurada/recarregada com âncora velha: topo */
+  if(location.hash)limpaHash();
+  addEventListener('pageshow',e=>{if(!e.persisted)scrollTo(0,0);});
+}else{
+  /* clique legítimo com âncora (ex.: comprar.html → #preco): garante o pulo
+     (as imagens que carregam empurram a seção) e depois limpa */
+  addEventListener('load',()=>setTimeout(()=>{
+    try{const el=location.hash&&document.querySelector(location.hash);el&&el.scrollIntoView();}catch(e){}
+    limpaHash();
+  },300));
+}
+/* clique nas âncoras do menu desta própria página: pula e limpa a URL */
+addEventListener('hashchange',()=>{if(location.hash)setTimeout(limpaHash,300)});
+let curLang='pt', curTheme='P';
+/* rótulos dos modos (para o balão da animação) */
+const THEME_LABEL={
+  P:['Prometeu (ciano)','Prometheus (cyan)','Prometeo (cian)','Prometeu（青色）'],
+  PB:['Prometeu Azul','Prometheus Blue','Prometeo Azul','蓝色模式'],
+  PR:['Prometeu Vermelho','Prometheus Red','Prometeo Rojo','红色模式'],
+  D:['Escuro','Dark','Oscuro','深色模式'],
+  L:['Claro (letra comum)','Light (plain font)','Claro (letra común)','浅色（常规字体）']
+};
+const TIP_INVITE=['5 modos de cor — toque e escolha!','5 color modes — tap to pick!','5 modos de color — ¡toca y elige!','5 种配色模式 —— 点按选择！'];
+/* ===== Marquee de capturas: 6 telas (inclui o Menu), duplicadas p/ loop sem emenda ===== */
+const SHOT_LIST=['01-materias','02-series-horas','03-aulas','04-capitulos','05-formulario-video','06-menu'];
+const SHOT_CAP={'01-materias':'sh1','02-series-horas':'sh2','03-aulas':'sh3','04-capitulos':'sh4','05-formulario-video':'sh5','06-menu':'sh6'};
+function buildMarquee(){
+  const track=document.getElementById('shotsTrack'); if(!track)return;
+  let h='';
+  for(let pass=0;pass<2;pass++) for(const s of SHOT_LIST)
+    h+='<div class="shot"><img loading="lazy" data-shot="'+s+'" alt=""><div class="cap" data-i="'+SHOT_CAP[s]+'"></div></div>';
+  track.innerHTML=h;
+}
+function shotLang(){return (curLang==='zh')?'zh':(curLang==='en')?'en':'pt';} // es usa telas em pt
+function updateShots(){
+  const sl=shotLang();
+  document.querySelectorAll('#shotsTrack img[data-shot]').forEach(img=>{img.src='screenshots/'+sl+'-'+curTheme+'-'+img.dataset.shot+'.jpg';});
+  heroReset();
+}
+/* Demonstração em movimento no hero: celular E tablet passam pelas telas reais
+   do app NA COR DO TEMA atual e trocam na hora quando muda tema/idioma.
+   Cada aparelho tem seu par de camadas em fusão; o tablet começa uma tela à
+   frente para os dois não mostrarem a mesma coisa ao mesmo tempo. */
+const HERO_SHOTS=['01-materias','02-series-horas','03-aulas','04-capitulos','05-formulario-video','06-menu'];
+const TAB_SHOTS=['01-materias','02-series-horas','03-capitulos','04-video'];
+const _hs=[
+  {id:'heroShow',pre:'',    shots:HERO_SHOTS,off:0,idx:0,layer:0},
+  {id:'heroTab', pre:'tab-',shots:TAB_SHOTS, off:1,idx:0,layer:0},
+];
+let _hTimer=null;
+function _heroSrc(s,i){return 'screenshots/'+s.pre+shotLang()+'-'+curTheme+'-'+s.shots[i]+'.jpg';}
+function heroReset(){ // muda de tema/idioma: recarrega o quadro atual na cor nova
+  for(const s of _hs){const box=document.getElementById(s.id); if(!box)continue;
+    const imgs=box.querySelectorAll('.ps-img');
+    // cancela troca pendente: sem isso, um quadro já em carregamento no tema
+    // antigo entraria por cima do novo logo depois da troca de tema/idioma
+    imgs[s.layer^1].onload=null;
+    imgs[s.layer].src=_heroSrc(s,s.idx);}
+}
+function _heroGo(s){ // transição suave para o próximo quadro
+  const box=document.getElementById(s.id); if(!box)return;
+  const imgs=box.querySelectorAll('.ps-img'), cur=imgs[s.layer], nxt=imgs[s.layer^1];
+  // swap de uso único: com a imagem em cache, `complete` chama na hora E o
+  // onload chama de novo — duas viradas de s.layer desalinham a camada visível
+  const swap=()=>{nxt.onload=null;nxt.classList.add('on');cur.classList.remove('on');s.layer^=1;};
+  s.idx=(s.idx+1)%s.shots.length;
+  nxt.onload=swap; nxt.src=_heroSrc(s,s.idx); if(nxt.complete)swap();
+}
+function heroPlay(){
+  for(const s of _hs){const box=document.getElementById(s.id); if(!box)continue;
+    const imgs=box.querySelectorAll('.ps-img');
+    s.idx=s.off;s.layer=0;
+    imgs[0].src=_heroSrc(s,s.idx); imgs[0].classList.add('on'); imgs[1].classList.remove('on');}
+  if(_hTimer)clearInterval(_hTimer);
+  // roda sempre (o usuário quer a demonstração em movimento); sob "movimento
+  // reduzido" o CSS já tira o fade e a troca vira um corte seco, mais suave.
+  _hTimer=setInterval(()=>{for(const s of _hs)_heroGo(s);},2600);
+}
+function setL(l){
+  if(!LANGS.includes(l))l='pt';
+  curLang=l;
+  const i=LANGS.indexOf(l);
+  document.documentElement.lang=LANG_HTML[l];
+  document.querySelectorAll('#lang button').forEach(b=>b.classList.toggle('on',b.dataset.l===l));
+  document.querySelectorAll('[data-i]').forEach(el=>{const v=I[el.getAttribute('data-i')];if(!v||v[i]==null)return;
+    if(el.tagName==='INPUT'||el.tagName==='TEXTAREA')el.placeholder=v[i];else el.innerHTML=v[i];});
+  updateShots();
+  try{localStorage.setItem(LKEY,l);}catch(e){}
+}
+function applyTheme(t){ // aplica sem salvar (usado pela animação de abertura)
+  document.documentElement.className=(t==='P')?'':'t-'+t;
+  document.querySelectorAll('#themes .sw').forEach(b=>b.classList.toggle('on',b.dataset.t===t));
+  curTheme=t; updateShots();
+}
+function setTheme(t){
+  applyTheme(t);
+  try{localStorage.setItem(TKEY,t);}catch(e){}
+}
+document.querySelectorAll('#lang button').forEach(b=>b.onclick=()=>setL(b.dataset.l));
+document.querySelectorAll('#themes .sw').forEach(b=>b.onclick=()=>setTheme(b.dataset.t));
+/* Comprar: pede o e-mail (para receber o código) e leva ao checkout da nossa aplicação */
+(function(){
+  const btn=document.getElementById('buyBtn'); if(!btn)return;
+  const WORKER='https://prometeu-ativacao.organizadordeaulas-prometeu.workers.dev/comprar';
+  const ok=e=>/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(e);
+  btn.onclick=()=>{
+    const be=document.getElementById('buyEmail'), err=document.getElementById('buyErr');
+    const em=(be.value||'').trim();
+    if(!ok(em)){err.style.display='block';be.focus();return;}
+    err.style.display='none';
+    window.open(WORKER+'?email='+encodeURIComponent(em),'_blank','noopener');
+  };
+  document.getElementById('buyEmail').addEventListener('keydown',ev=>{if(ev.key==='Enter')btn.click();});
+})();
+buildMarquee();
+(function(){
+  let l='pt',t='P',seen=null;
+  try{l=localStorage.getItem(LKEY);}catch(e){}
+  if(!l){const n=(navigator.language||'pt');l=/^zh/i.test(n)?'zh':/^es/i.test(n)?'es':/^en/i.test(n)?'en':'pt';}
+  try{t=localStorage.getItem(TKEY)||'P';}catch(e){}
+  try{seen=sessionStorage.getItem(SEENKEY);}catch(e){}  // 1x por sessão do navegador
+  applyTheme(t); setL(l); heroPlay();
+  if(seen)return;
+  /* ===== Animação de abertura: passeia pelos 5 modos e convida a escolher ===== */
+  const th=document.getElementById('themes'), tip=document.getElementById('themeTip'), txt=document.getElementById('tipTxt');
+  const li=LANGS.indexOf(curLang);
+  const reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches;
+  let cancelled=false, timers=[];
+  const done=()=>{
+    if(cancelled)return; cancelled=true;
+    timers.forEach(clearTimeout);
+    th.classList.remove('intro'); tip.classList.remove('show');
+    try{sessionStorage.setItem(SEENKEY,'1');}catch(e){}
+  };
+  th.addEventListener('click',done,{once:true});
+  if(reduce){ /* sem movimento: só o convite parado por alguns segundos */
+    txt.textContent=TIP_INVITE[li]; tip.classList.add('show');
+    timers.push(setTimeout(done,9000));
+    return;
+  }
+  /* Passeia devagar por TODOS os 5 modos — o site inteiro muda de cara a cada
+     parada, espelhando os temas do app — e termina convidando a escolher. */
+  const DWELL=2200; // tempo parado em cada modo
+  const order=['PB','PR','D','L',t]; // termina no tema salvo/padrão
+  timers.push(setTimeout(()=>{
+    tip.classList.add('show');
+    txt.textContent=THEME_LABEL[t]?THEME_LABEL[t][li]:t; // nomeia o modo inicial
+    order.forEach((tt,k)=>{
+      timers.push(setTimeout(()=>{
+        if(cancelled)return;
+        applyTheme(tt);
+        txt.textContent=(k<order.length-1)?(THEME_LABEL[tt]?THEME_LABEL[tt][li]:tt):TIP_INVITE[li];
+        if(k===order.length-1){th.classList.add('intro');timers.push(setTimeout(done,7000));}
+      },(k+1)*DWELL));
+    });
+  },900));
+})();
+</script>
+</body>
+</html>

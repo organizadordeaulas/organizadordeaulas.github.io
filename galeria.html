@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="media/icone.png">
+<title>Galeria — Organizador de Aulas</title>
+<meta name="description" content="Todas as telas do Organizador de Aulas: 5 modos de cor × 3 idiomas (Português, English, 中文).">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
+<style>
+:root{ /* Prometeu (P) — padrão */
+  --bg:#050b13;--bg2:#081420;--card:#0a1a28;--card2:#0e2436;
+  --txt:#e3f6ff;--txt2:#8fb6cc;--txt3:#4f7183;
+  --acc:#22d3ee;--acc2:#0ea5b7;--gl:rgba(34,211,238,.35);
+  --brd:rgba(34,211,238,.18);--brd2:rgba(255,255,255,.06);
+  --glow1:rgba(34,211,238,.10);--glow2:rgba(14,165,183,.08);
+  --nav:rgba(5,11,19,.72);--btxt:#04121a;--htmlbg:#050b13;
+  --font-h:'Orbitron',sans-serif;--font-b:'Rajdhani',system-ui,sans-serif;
+}
+html.t-D{ --bg:#000;--bg2:#070707;--card:#0d0d0d;--card2:#141414;
+  --txt:#fff;--txt2:#b8b8b8;--txt3:#6f6f6f;--acc:#f2f2f2;--acc2:#cfcfcf;
+  --gl:rgba(255,255,255,.22);--brd:rgba(255,255,255,.16);--brd2:rgba(255,255,255,.06);
+  --glow1:rgba(255,255,255,.05);--glow2:rgba(255,255,255,.03);
+  --nav:rgba(0,0,0,.8);--btxt:#000;--htmlbg:#000;
+  --font-h:'Segoe UI',system-ui,Arial,sans-serif;--font-b:'Segoe UI',system-ui,Arial,sans-serif; }
+html.t-PR{ --bg:#120407;--bg2:#1a060a;--card:#1f0a10;--card2:#2a0e15;
+  --txt:#ffe6ea;--txt2:#e0a3ad;--txt3:#8a5560;--acc:#ff3b5c;--acc2:#c62740;
+  --gl:rgba(255,59,92,.33);--brd:rgba(255,59,92,.20);--brd2:rgba(255,255,255,.06);
+  --glow1:rgba(255,59,92,.10);--glow2:rgba(198,39,64,.07);
+  --nav:rgba(18,4,7,.75);--btxt:#fff;--htmlbg:#120407; }
+html.t-PB{ --bg:#04060f;--bg2:#070c1a;--card:#0a1226;--card2:#0e1832;
+  --txt:#e6edff;--txt2:#9db0d8;--txt3:#556685;--acc:#3b82f6;--acc2:#2563eb;
+  --gl:rgba(59,130,246,.33);--brd:rgba(59,130,246,.20);--brd2:rgba(255,255,255,.06);
+  --glow1:rgba(59,130,246,.10);--glow2:rgba(37,99,235,.07);
+  --nav:rgba(4,6,15,.75);--btxt:#fff;--htmlbg:#04060f; }
+html.t-L{ --bg:#F0EDE8;--bg2:#e7e2da;--card:#ffffff;--card2:#faf7f2;
+  --txt:#2a2320;--txt2:#6b5f57;--txt3:#9a8d83;--acc:#c0563c;--acc2:#a5432b;
+  --gl:rgba(192,86,60,.22);--brd:rgba(192,86,60,.22);--brd2:rgba(0,0,0,.08);
+  --glow1:rgba(192,86,60,.08);--glow2:rgba(165,67,43,.05);
+  --nav:rgba(255,255,255,.82);--btxt:#fff;--htmlbg:#F0EDE8;
+  --font-h:'Segoe UI',system-ui,Arial,sans-serif;--font-b:'Segoe UI',system-ui,Arial,sans-serif; }
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;background:var(--htmlbg);-webkit-text-size-adjust:100%;text-size-adjust:100%;overflow-x:clip}
+body{font-family:var(--font-b);background:var(--bg);color:var(--txt);line-height:1.55;font-size:17px}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(1100px 560px at 82% -10%,var(--glow1),transparent 60%),
+             radial-gradient(820px 460px at -8% 18%,var(--glow2),transparent 55%);}
+/* Arte em mármore do Prometeu como marca d'água do fundo */
+:root{--arte:url("media/artes/arte-02-fundo.webp");--arteop:.22}
+html.t-L{--arte:url("media/artes/arte-01-fundo.webp");--arteop:.28}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:var(--arte) center 30%/min(92vmin,940px) no-repeat;opacity:var(--arteop)}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px;position:relative;z-index:1}
+h1,h2,h3,.brand{font-family:var(--font-h)}
+a{color:var(--acc);text-decoration:none}
+nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(10px);background:var(--nav);border-bottom:1px solid var(--brd2)}
+.nav-in{display:flex;align-items:center;gap:10px 14px;min-height:60px;flex-wrap:wrap;padding:8px 0}
+.brand{font-weight:900;font-size:15px;letter-spacing:.5px;color:var(--txt);display:flex;align-items:center;gap:8px}
+.brand .dot{width:26px;height:26px;border-radius:50%;box-shadow:0 0 10px var(--gl);display:block}
+.nav-links{margin-left:auto;display:flex;gap:8px 16px;align-items:center;flex-wrap:wrap}
+.nav-links a{color:var(--txt2);font-size:14px;font-weight:600;transition:color .2s}
+.nav-links a:hover,.nav-links a.here{color:var(--acc)}
+@media(max-width:720px){ .nav-links{gap:6px 12px;width:100%} .nav-links a{font-size:13px} .brand{font-size:13px} }
+.themes{display:flex;gap:6px;align-items:center}
+.sw{width:20px;height:20px;border-radius:50%;border:1px solid var(--brd2);cursor:pointer;padding:0}
+.sw.on{box-shadow:0 0 0 2px var(--acc)}
+.lang{display:flex;gap:2px;border:1px solid var(--brd);border-radius:20px;overflow:hidden}
+.lang button{background:none;border:none;color:var(--txt2);padding:5px 10px;font-family:var(--font-h);font-size:11px;font-weight:700;cursor:pointer}
+.lang button.on{background:var(--acc);color:var(--btxt)}
+header.top{padding:44px 0 6px}
+header.top h1{font-size:clamp(26px,5vw,40px);font-weight:800;margin-bottom:10px}
+header.top p{color:var(--txt2);font-size:17px;max-width:720px}
+.tsec{padding:30px 0 8px}
+.tsec>h2{font-size:20px;display:flex;align-items:center;gap:12px;margin-bottom:4px}
+.tsec>h2 .swatch{width:18px;height:18px;border-radius:50%;border:1px solid var(--brd2);display:inline-block}
+.tsec>.tsub{color:var(--txt3);font-size:14px;margin-bottom:12px}
+.lrow{margin:14px 0 4px}
+.lrow .ltag{font-family:var(--font-h);font-size:12px;letter-spacing:1px;color:var(--txt2);margin-bottom:8px}
+.shots{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;padding:4px 0 14px}
+.shot{flex:0 0 auto;width:190px}
+.shot img{width:100%;border-radius:16px;border:1px solid var(--brd);box-shadow:0 14px 40px rgba(0,0,0,.4),0 0 26px var(--gl);display:block;background:#050b13}
+/* Evolução animada: tablet + celular lado a lado, as 4 eras empilhadas e
+   pré-carregadas; a era visível leva .on (fade por opacity — sem trocar src,
+   sem onload). */
+.evostage{display:flex;gap:22px;align-items:flex-end;justify-content:center;flex-wrap:wrap;padding:10px 0 4px}
+.evodev{position:relative}
+.evodev img{position:absolute;inset:0;width:100%;height:100%;border-radius:16px;border:1px solid var(--brd);box-shadow:0 14px 40px rgba(0,0,0,.4),0 0 26px var(--gl);background:#050b13;opacity:0;transition:opacity .7s ease}
+.evodev img.on{opacity:1}
+.evotab{width:min(430px,90vw);aspect-ratio:880/631}
+.evophone{width:200px;aspect-ratio:390/780}
+@media(max-width:560px){ .evotab{width:min(340px,88vw)} .evophone{width:150px} }
+.evocap{text-align:center;margin-top:14px;font-size:14px;color:var(--txt2);line-height:1.5;min-height:46px}
+.evocap b{display:block;font-family:var(--font-h);font-size:13px;letter-spacing:.5px;color:var(--acc)}
+.evodots{display:flex;gap:9px;justify-content:center;margin-top:8px;padding-bottom:14px}
+.evodots button{width:11px;height:11px;border-radius:50%;border:1px solid var(--brd2);background:none;cursor:pointer;padding:0}
+.evodots button.on{background:var(--acc);border-color:var(--acc)}
+@media(prefers-reduced-motion:reduce){ .evodev img{transition:none} }
+footer{border-top:1px solid var(--brd2);padding:26px 0 50px;color:var(--txt3);font-size:14px;text-align:center;margin-top:30px}
+</style>
+</head>
+<body>
+<nav><div class="wrap nav-in">
+  <a class="brand" href="index.html"><img class="dot" src="media/icone.png" alt=""> ORGANIZADOR DE AULAS</a>
+  <div class="nav-links">
+    <a href="index.html#recursos" data-i="nav1">Recursos</a>
+    <a href="index.html#preco" data-i="nav3">Preço</a>
+    <a href="comprar.html" data-i="nav9">Comprar</a>
+    <a href="galeria.html" class="here" data-i="nav6">Galeria</a>
+    <a href="tablet.html" data-i="nav8">Tablet</a>
+    <a href="manual.html" data-i="nav5">Manual</a>
+    <a href="index.html#instalar" data-i="nav4">Instalar</a>
+    <div class="themes" id="themes" title="Tema">
+      <button class="sw" data-t="P"  style="background:#0a1a28" aria-label="Prometeu"></button>
+      <button class="sw" data-t="PB" style="background:#0a1226" aria-label="Azul"></button>
+      <button class="sw" data-t="PR" style="background:#1f0a10" aria-label="Vermelho"></button>
+      <button class="sw" data-t="D"  style="background:#0d0d0d" aria-label="Escuro"></button>
+      <button class="sw" data-t="L"  style="background:#efe9e1" aria-label="Claro"></button>
+    </div>
+    <div class="lang" id="lang">
+      <button data-l="pt" class="on">PT</button><button data-l="en">EN</button><button data-l="es">ES</button><button data-l="zh">中文</button>
+    </div>
+  </div>
+</div></nav>
+
+<header class="top wrap">
+  <h1 data-i="gTitle">Galeria</h1>
+  <p data-i="gLead">Todas as telas do aplicativo, nos 5 modos de cor e em 3 idiomas (Português, English, 中文). Esta página mostra sempre tudo — independentemente do modo e do idioma escolhidos acima.</p>
+</header>
+
+<main class="wrap" id="gal"></main>
+
+<footer class="wrap">© 2026 Organizador de Aulas (Prometeu) · Organizador de Aulas (Prometeu)</footer>
+
+<script>
+/* ===== Conteúdo FIXO da galeria (não muda com o modo/idioma do site) ===== */
+const THEMES_G=[
+  ['P', '#0a1a28', 'Prometeu · Prometheus · 青色'],
+  ['PB','#0a1226', 'Prometeu Azul · Blue · 蓝色'],
+  ['PR','#1f0a10', 'Prometeu Vermelho · Red · 红色'],
+  ['D', '#0d0d0d', 'Escuro · Dark · 深色'],
+  ['L', '#efe9e1', 'Claro · Light · 浅色']
+];
+const LANGS_G=[['pt','PORTUGUÊS (BRASIL)'],['en','ENGLISH'],['zh','中文（简体）']];
+const SCREENS_G=['01-materias','02-series-horas','03-aulas','04-capitulos','05-formulario-video','06-menu'];
+/* Evolução do design: a mesma tela inicial em 4 marcos, animada nos dois
+   aparelhos (capturas reais dos commits antigos — celular evo-*.jpg e tablet
+   evo-*-tab.jpg — regeradas por tools/capturar-evolucao.py) */
+const EVO_G=[
+  ['evo-1-inicio',  'jul/2026 — O começo',
+   'Blocos simples · Flat blocks · 扁平卡片'],
+  ['evo-2-vidro3d', 'v3.2 — Vidro 3D',
+   'Caixas de vidro · Glass boxes · 玻璃卡片'],
+  ['evo-3-marmore', 'v3.5 — Mármore',
+   'Logo e tampa 3D · Marble & 3D lid · 大理石与 3D 底座'],
+  ['evo-5-atual',   'v3.13 — Hoje',
+   'Vidro fosco · Frosted glass · 磨砂玻璃'],
+];
+document.getElementById('gal').innerHTML=`
+  <section class="tsec" id="evolucao">
+    <h2 data-i="gEvoT">A evolução do programa</h2>
+    <p class="tsub" data-i="gEvoS">A mesma tela inicial, do primeiro esboço até hoje.</p>
+    <div class="evostage">
+      <div class="evodev evotab">${EVO_G.map(([f,mark],i)=>`<img src="media/evolucao/${f}-tab.jpg" alt="${mark} (tablet)" class="${i?'':'on'}">`).join('')}</div>
+      <div class="evodev evophone">${EVO_G.map(([f,mark,cap],i)=>`<img src="media/evolucao/${f}.jpg" alt="${mark} — ${cap}" class="${i?'':'on'}">`).join('')}</div>
+    </div>
+    <div class="evocap" id="evocap"></div>
+    <div class="evodots" id="evodots">${EVO_G.map(([,mark],i)=>`<button data-e="${i}" class="${i?'':'on'}" aria-label="${mark}"></button>`).join('')}</div>
+  </section>`+THEMES_G.map(([t,sw,label])=>`
+  <section class="tsec">
+    <h2><span class="swatch" style="background:${sw}"></span>${label}</h2>
+    ${LANGS_G.map(([l,ltag])=>`
+      <div class="lrow">
+        <div class="ltag">${ltag}</div>
+        <div class="shots">
+          ${SCREENS_G.map(s=>`<div class="shot"><img loading="lazy" src="screenshots/${l}-${t}-${s}.jpg" alt="${label} — ${ltag}"></div>`).join('')}
+        </div>
+      </div>`).join('')}
+  </section>`).join('');
+
+/* Troca de era: alterna a classe .on nas imagens já carregadas (o CSS faz o
+   fade; no modo "reduzir movimento" vira corte seco). Dot clicado zera o
+   relógio para a era escolhida não sumir na hora. */
+let _evoI=0;
+function _evoGo(i){
+  _evoI=i;
+  document.querySelectorAll('.evodev').forEach(d=>
+    d.querySelectorAll('img').forEach((im,k)=>im.classList.toggle('on',k===i)));
+  document.querySelectorAll('#evodots button').forEach((b,k)=>b.classList.toggle('on',k===i));
+  const [,mark,cap]=EVO_G[i];
+  document.getElementById('evocap').innerHTML=`<b>${mark}</b>${cap}`;
+}
+function _evoNext(){_evoGo((_evoI+1)%EVO_G.length)}
+let _evoTimer=setInterval(_evoNext,3200);
+document.getElementById('evodots').addEventListener('click',e=>{
+  const b=e.target.closest('button'); if(!b)return;
+  clearInterval(_evoTimer); _evoTimer=setInterval(_evoNext,3200);
+  _evoGo(+b.dataset.e);
+});
+_evoGo(0);
+
+/* ===== UI da página (cores/fontes e textos do topo seguem o site) ===== */
+const LANGS=['pt','en','es','zh'];
+const LANG_HTML={pt:'pt-BR',en:'en',es:'es',zh:'zh-CN'};
+const I={
+  nav1:['Recursos','Features','Recursos','功能'],
+  nav3:['Preço','Pricing','Precio','价格'], nav9:['Comprar','Buy','Comprar','购买'],
+  nav4:['Instalar','Install','Instalar','安装'],
+  nav5:['Manual','Manual','Manual','手册'],
+  nav6:['Galeria','Gallery','Galería','图库'],
+  nav7:['Desenvolvedor','Developer','Desarrollador','开发者'],
+  nav8:['Tablet','Tablet','Tablet','平板'],
+  gTitle:['Galeria','Gallery','Galería','图库'],
+  gEvoT:['A evolução do programa','How the app evolved','La evolución del programa','应用的演进'],
+  gEvoS:['A mesma tela inicial, do primeiro esboço até hoje.',
+         'The same home screen, from the first draft to today.',
+         'La misma pantalla inicial, del primer boceto hasta hoy.',
+         '同一主屏，从最初的草稿到现在。'],
+  gLead:['Todas as telas do aplicativo, nos 5 modos de cor e em 3 idiomas (Português, English, 中文). Esta página mostra sempre tudo — independentemente do modo e do idioma escolhidos acima.',
+         'Every screen of the app, in all 5 color modes and 3 languages (Português, English, 中文). This page always shows everything — regardless of the mode and language chosen above.',
+         'Todas las pantallas de la app, en los 5 modos de color y 3 idiomas (Português, English, 中文). Esta página siempre lo muestra todo — sin importar el modo y el idioma elegidos arriba.',
+         '应用的全部界面，涵盖 5 种配色模式和 3 种语言（Português、English、中文）。无论上方选择哪种模式和语言，本页始终展示全部内容。']
+};
+const LKEY='prometeu.site.lang', TKEY='prometeu.site.theme';
+function setL(l){
+  if(!LANGS.includes(l))l='pt';
+  const i=LANGS.indexOf(l);
+  document.documentElement.lang=LANG_HTML[l];
+  document.querySelectorAll('#lang button').forEach(b=>b.classList.toggle('on',b.dataset.l===l));
+  document.querySelectorAll('[data-i]').forEach(el=>{const v=I[el.getAttribute('data-i')];if(v&&v[i]!=null)el.innerHTML=v[i];});
+  try{localStorage.setItem(LKEY,l);}catch(e){}
+}
+function setTheme(t){
+  document.documentElement.className=(t==='P')?'':'t-'+t;
+  document.querySelectorAll('#themes .sw').forEach(b=>b.classList.toggle('on',b.dataset.t===t));
+  try{localStorage.setItem(TKEY,t);}catch(e){}
+}
+document.querySelectorAll('#lang button').forEach(b=>b.onclick=()=>setL(b.dataset.l));
+document.querySelectorAll('#themes .sw').forEach(b=>b.onclick=()=>setTheme(b.dataset.t));
+(function(){
+  let l='pt',t='P';
+  try{l=localStorage.getItem(LKEY);}catch(e){}
+  if(!l){const n=(navigator.language||'pt');l=/^zh/i.test(n)?'zh':/^es/i.test(n)?'es':/^en/i.test(n)?'en':'pt';}
+  try{t=localStorage.getItem(TKEY)||'P';}catch(e){}
+  setTheme(t); setL(l);
+})();
+</script>
+</body>
+</html>

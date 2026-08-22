@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.youtube.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob: https://i.ytimg.com; media-src 'self' blob:; connect-src 'self' https://www.youtube.com; frame-src https://www.youtube.com https://www.youtube-nocookie.com; object-src 'none'; base-uri 'self'">
+<title>Organizador de Aulas</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#050b13">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Aulas">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="icon" type="image/png" href="icons/favicon-64.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;900&family=Rajdhani:wght@500;600;700&family=Chakra+Petch:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=cc3a77dfde">
+</head>
+<body class="L">
+<div id="root" class="L">
+<div class="hud-frame" aria-hidden="true"><span class="tl"></span><span class="tr"></span><span class="bl"></span><span class="br"></span></div>
+
+<!-- Filtro de ONDULAÇÃO do vidro (só no tema Prometeu). É o que faz o fundo
+     ENTORTAR atrás do bloco, como acontece atrás de vidro de verdade: sem
+     isso o bloco fica só embaçado, e embaçado sozinho parece plástico.
+     O <svg> tem 0x0 — não ocupa espaço nenhum na tela, só empresta o filtro
+     para o CSS (backdrop-filter:url(#lgWave)). É interno, não é recurso de
+     rede: continua funcionando offline e não mexe na CSP. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute">
+  <filter id="lgWave" x="-10%" y="-10%" width="120%" height="120%" color-interpolation-filters="sRGB">
+    <feTurbulence type="fractalNoise" baseFrequency="0.006 0.011" numOctaves="1" seed="7" result="n"/>
+    <feGaussianBlur in="n" stdDeviation="1.4" result="ns"/>
+    <feDisplacementMap in="SourceGraphic" in2="ns" scale="14" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+</svg>
+
+<!-- Chapa de vidro do fundo: uma luz larga que atravessa a tela devagar, por
+     BAIXO de tudo. Como os blocos são de vidro de verdade, quando ela passa
+     por baixo eles acendem junto. Vem antes da poeira para a poeira ficar
+     por cima dela. -->
+<div id="glass-base" aria-hidden="true"></div>
+
+<!-- Poeira luminosa subindo no fundo (só no tema Prometeu) — dá profundidade
+     às telas sem custar nada: são 36 pontinhos animados só por CSS. -->
+<div id="bg-particles" aria-hidden="true">
+  <i style="left:3%;--pd:13s;--pl:-3s;--ps:2px"></i>
+  <i style="left:7%;--pd:19s;--pl:-14s;--ps:3px"></i>
+  <i style="left:11%;--pd:10s;--pl:-6s;--ps:2px"></i>
+  <i style="left:15%;--pd:22s;--pl:-19s;--ps:4px"></i>
+  <i style="left:19%;--pd:14s;--pl:-2s;--ps:2px"></i>
+  <i style="left:23%;--pd:11s;--pl:-9s;--ps:3px"></i>
+  <i style="left:27%;--pd:17s;--pl:-12s;--ps:2px"></i>
+  <i style="left:31%;--pd:8s;--pl:-5s;--ps:3px"></i>
+  <i style="left:35%;--pd:20s;--pl:-17s;--ps:2px"></i>
+  <i style="left:39%;--pd:13s;--pl:-1s;--ps:4px"></i>
+  <i style="left:43%;--pd:16s;--pl:-11s;--ps:2px"></i>
+  <i style="left:47%;--pd:10s;--pl:-7s;--ps:3px"></i>
+  <i style="left:51%;--pd:19s;--pl:-15s;--ps:2px"></i>
+  <i style="left:55%;--pd:12s;--pl:-4s;--ps:3px"></i>
+  <i style="left:59%;--pd:15s;--pl:-13s;--ps:2px"></i>
+  <i style="left:63%;--pd:9s;--pl:-8s;--ps:2px"></i>
+  <i style="left:67%;--pd:21s;--pl:-20s;--ps:3px"></i>
+  <i style="left:71%;--pd:16s;--pl:-10s;--ps:2px"></i>
+  <i style="left:75%;--pd:12s;--pl:-3s;--ps:3px"></i>
+  <i style="left:79%;--pd:18s;--pl:-14s;--ps:2px"></i>
+  <i style="left:83%;--pd:9s;--pl:-6s;--ps:4px"></i>
+  <i style="left:87%;--pd:21s;--pl:-19s;--ps:2px"></i>
+  <i style="left:91%;--pd:14s;--pl:-2s;--ps:3px"></i>
+  <i style="left:95%;--pd:11s;--pl:-9s;--ps:2px"></i>
+  <i style="left:5%;--pd:17s;--pl:-12s;--ps:2px"></i>
+  <i style="left:13%;--pd:8s;--pl:-5s;--ps:3px"></i>
+  <i style="left:21%;--pd:20s;--pl:-17s;--ps:2px"></i>
+  <i style="left:29%;--pd:13s;--pl:-1s;--ps:3px"></i>
+  <i style="left:37%;--pd:16s;--pl:-11s;--ps:2px"></i>
+  <i style="left:45%;--pd:10s;--pl:-7s;--ps:2px"></i>
+  <i style="left:53%;--pd:19s;--pl:-15s;--ps:3px"></i>
+  <i style="left:61%;--pd:12s;--pl:-4s;--ps:2px"></i>
+  <i style="left:69%;--pd:15s;--pl:-13s;--ps:3px"></i>
+  <i style="left:77%;--pd:9s;--pl:-8s;--ps:2px"></i>
+  <i style="left:85%;--pd:22s;--pl:-20s;--ps:3px"></i>
+  <i style="left:93%;--pd:16s;--pl:-10s;--ps:2px"></i>
+</div>
+
+<!-- Faixa de "Desfazer exclusão": o JS a encaixa dentro do .hdr-fix da tela
+     ativa. Some sozinha em 10 s — o que foi apagado continua guardado na
+     lixeira do topo, então sumir o aviso não perde nada. -->
+<div id="undo-bar" class="undo-bar" role="status" hidden></div>
+
+<!-- faixa fixa "escolha o destino" da transferência de aulas; conteúdo vem de refreshTransfBar() -->
+<div class="sel-bar transf-bar" id="transf-bar" hidden></div>
+
+<!-- Janela da lixeira (últimas 10 exclusões da sessão) -->
+<div class="modal-wrap" id="lixmodal" style="z-index:205" onclick="if(event.target===this)fecharLixeira()">
+  <div class="modal-box">
+    <div class="modal-title" id="lix-title">Lixeira — recuperar o que foi apagado</div>
+    <div class="lix-sub" id="lix-sub"></div>
+    <div class="lix-list" id="lix-list"></div>
+    <button class="btn-sec" onclick="fecharLixeira()">Fechar</button>
+  </div>
+</div>
+
+<div class="screen active" id="s-main">
+  <!-- .hdr-fix = o cabeçalho inteiro grudado no topo (título + barras).
+       A lista rola por baixo dele. A faixa "Desfazer" entra aqui por JS. -->
+  <div class="hdr-fix">
+    <div class="topbar">
+      <button class="tbk" id="menuBtn" onclick="openMenu()" aria-label="Abrir menu"><i class="ti ti-menu-2" aria-hidden="true"></i></button>
+      <!-- logo-medalhão (decorativa): troca sozinha por CSS conforme o tema -->
+      <span class="app-logo" aria-hidden="true"></span>
+      <span class="ttl">Organizador de Aulas</span>
+      <button class="tbk undo-btn" onclick="desfazerAcao()" aria-label="Desfazer a última alteração" hidden><i class="ti ti-undo" aria-hidden="true"></i></button><button class="tbk lix-btn" onclick="abrirLixeira()" aria-label="Lixeira" hidden><i class="ti ti-trash" aria-hidden="true"></i><span class="lix-n"></span></button>
+      <div class="theme-group" role="group" aria-label="Tema"></div>
+    </div>
+    <div class="proj-bar" onclick="openProjetos()" role="button" aria-label="Gerenciar projetos">
+      <i class="ti ti-archive" style="font-size:14px" aria-hidden="true"></i>
+      <div class="dbe-txt" id="proj-bar-lbl"></div>
+      <i class="ti ti-chevron-down" style="font-size:12px;transform:rotate(-90deg)" aria-hidden="true"></i>
+    </div>
+  </div>
+  <div class="content" id="list-discs"></div>
+  <div class="fab-wrap"><div class="fab-row" id="fab-colar-mat-row" hidden><button class="fab fab-sec" id="fab-colar-mat" onclick="colarMateria()"><i class="ti ti-clipboard" aria-hidden="true"></i> <span id="fab-colar-mat-lbl">Colar matéria</span></button><button class="fab fab-sec fab-x" onclick="descartarCopia('materia')" aria-label="Apagar cópia em espera" title="Apagar cópia em espera"><i class="ti ti-x" aria-hidden="true"></i></button></div><button class="fab" onclick="openAddDisc()"><i class="ti ti-plus" aria-hidden="true"></i> Nova matéria</button></div>
+</div>
+
+<div class="screen" id="s-series">
+  <div class="hdr-fix">
+    <div class="topbar">
+      <button class="tbk" onclick="goBack('s-main')" aria-label="Voltar"><i class="ti ti-arrow-left" aria-hidden="true"></i></button>
+      <span class="ttl" id="mat-ttl"></span>
+      <button class="tbk undo-btn" onclick="desfazerAcao()" aria-label="Desfazer a última alteração" hidden><i class="ti ti-undo" aria-hidden="true"></i></button><button class="tbk lix-btn" onclick="abrirLixeira()" aria-label="Lixeira" hidden><i class="ti ti-trash" aria-hidden="true"></i><span class="lix-n"></span></button>
+      <div class="theme-group" role="group" aria-label="Tema"></div>
+    </div>
+    <nav class="crumbs" id="bc-series" aria-label="Trilha de navegação"></nav>
+  </div>
+  <div class="content" id="list-series"></div>
+  <div class="fab-wrap"><div class="fab-row" id="fab-colar-row" hidden><button class="fab fab-sec" id="fab-colar" onclick="colarSerie()"><i class="ti ti-clipboard" aria-hidden="true"></i> <span id="fab-colar-lbl">Colar série</span></button><button class="fab fab-sec fab-x" onclick="descartarCopia('serie')" aria-label="Apagar cópia em espera" title="Apagar cópia em espera"><i class="ti ti-x" aria-hidden="true"></i></button></div><button class="fab" onclick="openAddSerie()"><i class="ti ti-plus" aria-hidden="true"></i> Nova série/ano</button></div>
+</div>
+
+<div class="screen" id="s-disc">
+  <div class="hdr-fix">
+    <div class="topbar">
+      <button class="tbk" onclick="goBack('s-series')" aria-label="Voltar"><i class="ti ti-arrow-left" aria-hidden="true"></i></button>
+      <span class="ttl" id="disc-ttl"></span>
+      <button class="tbk undo-btn" onclick="desfazerAcao()" aria-label="Desfazer a última alteração" hidden><i class="ti ti-undo" aria-hidden="true"></i></button><button class="tbk lix-btn" onclick="abrirLixeira()" aria-label="Lixeira" hidden><i class="ti ti-trash" aria-hidden="true"></i><span class="lix-n"></span></button>
+      <div class="theme-group" role="group" aria-label="Tema"></div>
+      <button class="tbtn" onclick="editCurDisc()"><i class="ti ti-edit" aria-hidden="true"></i></button>
+    </div>
+    <nav class="crumbs" id="bc-disc" aria-label="Trilha de navegação"></nav>
+    <div class="disc-bar-edit" onclick="editCurDisc()">
+      <div class="dbe-txt" id="disc-cap-lbl"></div>
+      <i class="ti ti-pencil" style="font-size:14px" aria-hidden="true"></i>
+    </div>
+  </div>
+  <div class="content" id="list-aulas"></div>
+  <!-- barra da transferência seletiva (pressão de 2 s numa aula); o conteúdo vem de refreshSelBar() -->
+  <div class="sel-bar" id="sel-bar" hidden></div>
+  <div class="fab-wrap"><div class="fab-row" id="fab-colar-aula-row" hidden><button class="fab fab-sec" id="fab-colar-aula" onclick="colarAula()"><i class="ti ti-clipboard" aria-hidden="true"></i> <span id="fab-colar-aula-lbl">Colar aula</span></button><button class="fab fab-sec fab-x" onclick="descartarCopia('aula')" aria-label="Apagar cópia em espera" title="Apagar cópia em espera"><i class="ti ti-x" aria-hidden="true"></i></button></div><button class="fab" onclick="openAddAula()"><i class="ti ti-plus" aria-hidden="true"></i> Nova aula</button></div>
+</div>
+
+<div class="screen" id="s-aula">
+  <div class="hdr-fix">
+    <div class="topbar">
+      <button class="tbk" onclick="goBack('s-disc')" aria-label="Voltar"><i class="ti ti-arrow-left" aria-hidden="true"></i></button>
+      <span class="ttl" id="aula-num-ttl"></span>
+      <button class="tbk undo-btn" onclick="desfazerAcao()" aria-label="Desfazer a última alteração" hidden><i class="ti ti-undo" aria-hidden="true"></i></button><button class="tbk lix-btn" onclick="abrirLixeira()" aria-label="Lixeira" hidden><i class="ti ti-trash" aria-hidden="true"></i><span class="lix-n"></span></button>
+      <div class="theme-group" role="group" aria-label="Tema"></div>
+      <button class="tbtn" onclick="editCurAula()"><i class="ti ti-edit" aria-hidden="true"></i></button>
+    </div>
+    <nav class="crumbs" id="bc-aula" aria-label="Trilha de navegação"></nav>
+    <div class="subbar">
+      <div class="sb-title" id="aula-titulo-lbl" onclick="editCurAula()"></div>
+      <div class="sb-sub" id="aula-info-lbl"></div>
+    </div>
+  </div>
+  <!-- a grade de CP fica FORA do cabeçalho grudado: é alta e comeria a tela -->
+  <div class="chips-sec">
+    <div class="chips-lbl">Capítulos (CP) — acesos têm conteúdo</div>
+    <div class="chips-grid" id="chips-cp"></div>
+  </div>
+  <div class="content" id="list-caps"></div>
+  <div class="fab-wrap"><button class="fab" onclick="openAddCap()"><i class="ti ti-plus" aria-hidden="true"></i> Novo capítulo</button></div>
+</div>
+
+<div class="screen" id="s-vid">
+  <div class="hdr-fix">
+    <div class="topbar">
+      <button class="tbk" onclick="goBack('s-aula')" aria-label="Voltar"><i class="ti ti-arrow-left" aria-hidden="true"></i></button>
+      <span class="ttl" id="vid-form-ttl">Novo vídeo</span>
+      <button class="tbk undo-btn" onclick="desfazerAcao()" aria-label="Desfazer a última alteração" hidden><i class="ti ti-undo" aria-hidden="true"></i></button><button class="tbk lix-btn" onclick="abrirLixeira()" aria-label="Lixeira" hidden><i class="ti ti-trash" aria-hidden="true"></i><span class="lix-n"></span></button>
+      <div class="theme-group" role="group" aria-label="Tema"></div>
+    </div>
+    <nav class="crumbs" id="bc-vid" aria-label="Trilha de navegação"></nav>
+  </div>
+  <div class="form-wrap">
+    <div class="fcard"><label class="flbl">Nome do vídeo</label><input class="finput" id="vf-nome" placeholder="Ex: A Primeira Revolução Industrial"/></div>
+    <div class="fcard esc-1">
+      <div class="link-dur-row">
+        <div class="ld-link"><label class="flbl">Link do vídeo (YouTube)</label><input class="finput" id="vf-link" placeholder="https://youtube.com/watch?v=..." oninput="onVidLink()"/></div>
+        <div class="ld-dur"><label class="flbl">Duração</label><input class="finput" id="vf-dur" placeholder="MM:SS" title="MM:SS ou H:MM:SS"/></div>
+      </div>
+      <div class="fhint" id="vf-hint"></div>
+      <button class="add-mat" style="margin-top:8px" onclick="ytSearchForm()"><i class="ti ti-search" aria-hidden="true"></i> Buscar este vídeo no YouTube (pelo nome)</button>
+    </div>
+    <div class="spin-row" id="vf-spin" style="display:none"><div class="spinner"></div><span>Buscando título e duração no YouTube…</span></div>
+    <div class="fdur" id="vf-dur-info"></div>
+    <div class="mat-sec esc-2">
+      <button class="tree-toggle" id="tt-resumo" onclick="toggleResumo()" aria-expanded="false" type="button">
+        <i class="ti ti-chevron-down chev" aria-hidden="true"></i>
+        <span id="resumo-count">Resumo do vídeo</span>
+      </button>
+      <div class="tree-wrap" id="tw-resumo"><div class="tree-inner"><div class="mat-inner">
+        <label class="flbl pg-lbl"><span class="pg-count" id="vf-pg">0/9000 caracteres</span></label>
+        <textarea class="finput" id="vf-resumo" maxlength="9000" placeholder="Escreva ou cole aqui o resumo da aula (limite ≈ 3 páginas)" oninput="updPg()"></textarea>
+        <div class="fhint">Limite de ~3 páginas (9.000 caracteres). Exporte abaixo em Word ou PDF.</div>
+        <div class="btn-row" style="margin-top:8px">
+          <button class="btn-sec" onclick="expWord()"><i class="ti ti-file-text" aria-hidden="true"></i> Word (.doc)</button>
+          <button class="btn-sec" onclick="expPDF()"><i class="ti ti-download" aria-hidden="true"></i> PDF</button>
+        </div>
+      </div></div></div>
+    </div>
+    <div class="mat-sec esc-3">
+      <button class="tree-toggle" id="tt-mats" onclick="toggleMats()" aria-expanded="false" type="button">
+        <i class="ti ti-chevron-down chev" aria-hidden="true"></i>
+        <span id="mats-count">Material didático e documentos</span>
+      </button>
+      <div class="tree-wrap" id="tw-mats"><div class="tree-inner"><div class="mat-inner">
+        <label class="flbl">Livros e links citados no vídeo</label>
+        <div id="vf-mats"></div>
+        <button class="add-mat" onclick="addMat()"><i class="ti ti-book" aria-hidden="true"></i> Adicionar material</button>
+        <label class="flbl" style="margin-top:14px">Documentos anexados (PDF, imagem, Word ou áudio) · <span class="pg-count" id="arq-count">0/10</span></label>
+        <div id="vf-arqs"></div>
+        <button class="add-mat" onclick="pickArq()"><i class="ti ti-paperclip" aria-hidden="true"></i> Importar PDF, imagem, Word ou áudio</button>
+        <button class="add-mat" style="margin-top:6px" onclick="pickFoto()"><i class="ti ti-camera" aria-hidden="true"></i> Tirar foto</button>
+        <input type="file" id="vf-file" multiple accept="application/pdf,image/*,audio/*,.doc,.docx" style="display:none" onchange="onArqPick(this)"/>
+        <input type="file" id="vf-foto" accept="image/*" capture="environment" style="display:none" onchange="onArqPick(this)"/>
+      </div></div></div>
+    </div>
+    <div class="btn-row">
+      <button class="btn-sec" onclick="goBack('s-aula')">Cancelar</button>
+      <button class="btn-pri" onclick="salvarVid()">Salvar vídeo</button>
+    </div>
+  </div>
+</div>
+
+<div class="screen" id="s-proj">
+  <div class="hdr-fix">
+    <div class="topbar">
+      <button class="tbk" onclick="goBack('s-main')" aria-label="Voltar"><i class="ti ti-arrow-left" aria-hidden="true"></i></button>
+      <span class="ttl">Projetos — anos letivos</span>
+      <button class="tbk undo-btn" onclick="desfazerAcao()" aria-label="Desfazer a última alteração" hidden><i class="ti ti-undo" aria-hidden="true"></i></button><button class="tbk lix-btn" onclick="abrirLixeira()" aria-label="Lixeira" hidden><i class="ti ti-trash" aria-hidden="true"></i><span class="lix-n"></span></button>
+      <div class="theme-group" role="group" aria-label="Tema"></div>
+    </div>
+  </div>
+  <div class="content" id="list-proj"></div>
+  <div class="fab-wrap"><button class="fab" onclick="novoProjeto()"><i class="ti ti-plus" aria-hidden="true"></i> Criar novo projeto</button></div>
+</div>
+
+<div class="screen" id="s-tut">
+  <div class="hdr-fix">
+    <div class="topbar">
+      <button class="tbk" onclick="goBack('s-main')" aria-label="Voltar"><i class="ti ti-arrow-left" aria-hidden="true"></i></button>
+      <span class="ttl">Tutorial</span>
+      <button class="tbk undo-btn" onclick="desfazerAcao()" aria-label="Desfazer a última alteração" hidden><i class="ti ti-undo" aria-hidden="true"></i></button><button class="tbk lix-btn" onclick="abrirLixeira()" aria-label="Lixeira" hidden><i class="ti ti-trash" aria-hidden="true"></i><span class="lix-n"></span></button>
+      <div class="theme-group" role="group" aria-label="Tema"></div>
+    </div>
+  </div>
+  <div class="content tut-body" id="tut-body"></div>
+</div>
+
+<div class="screen" id="s-ativar">
+  <div class="hdr-fix">
+    <div class="topbar">
+      <button class="tbk" onclick="goBack('s-main')" aria-label="Voltar"><i class="ti ti-arrow-left" aria-hidden="true"></i></button>
+      <span class="ttl">Ativação</span>
+      <button class="tbk undo-btn" onclick="desfazerAcao()" aria-label="Desfazer a última alteração" hidden><i class="ti ti-undo" aria-hidden="true"></i></button><button class="tbk lix-btn" onclick="abrirLixeira()" aria-label="Lixeira" hidden><i class="ti ti-trash" aria-hidden="true"></i><span class="lix-n"></span></button>
+      <div class="theme-group" role="group" aria-label="Tema"></div>
+    </div>
+  </div>
+  <div class="content" id="at-body"></div>
+</div>
+
+<div class="drawer-ov" id="drawer-ov" onclick="closeMenu()"></div>
+<nav class="drawer" id="drawer" aria-label="Menu principal">
+  <div class="dw-head">
+    <span class="app-logo" aria-hidden="true"></span>
+    <div><b>Organizador de Aulas</b><span id="dw-ver">Prometeu</span></div>
+    <button class="tbk dw-x" onclick="closeMenu()" aria-label="Fechar menu"><i class="ti ti-x" aria-hidden="true"></i></button>
+  </div>
+  <button class="dw-proj" onclick="openProjetos()">
+    <i class="ti ti-archive" aria-hidden="true"></i>
+    <div><span class="dw-plbl">Projeto em uso</span><b id="dw-proj"></b></div>
+    <i class="ti ti-chevron-down" style="transform:rotate(-90deg);font-size:13px" aria-hidden="true"></i>
+  </button>
+  <button class="dw-item" onclick="openProjetos()"><i class="ti ti-folder" aria-hidden="true"></i> Gerenciar projetos</button>
+  <div id="dw-projlist"></div>
+  <button class="dw-item dw-buy" onclick="openAtivar()"><i class="ti ti-key" aria-hidden="true"></i> Ativar / Comprar</button>
+  <div class="dw-sec">Arquivo</div>
+  <button class="dw-item" onclick="novoProjeto()"><i class="ti ti-plus" aria-hidden="true"></i> Criar novo projeto</button>
+  <button class="dw-item" onclick="exportBackup()"><i class="ti ti-download" aria-hidden="true"></i> Exportar backup (.json)</button>
+  <button class="dw-item" onclick="importBackupPick()"><i class="ti ti-upload" aria-hidden="true"></i> Importar backup (.json)</button>
+  <div class="dw-sec">Tamanho do texto</div>
+  <div class="dw-zoom">
+    <button class="dz-btn" onclick="mudarFonte(-1)" aria-label="Diminuir letras">A−</button>
+    <span class="dz-val" id="dz-val">100%</span>
+    <button class="dz-btn" onclick="mudarFonte(1)" aria-label="Aumentar letras">A+</button>
+  </div>
+  <div class="dw-sec">Ajuda</div>
+  <button class="dw-item" onclick="openTutorial()"><i class="ti ti-help" aria-hidden="true"></i> Tutorial</button>
+  <button class="dw-item" onclick="demoStart()"><i class="ti ti-player-play" aria-hidden="true"></i> Modo demonstração</button>
+  <button class="dw-item" onclick="enviarFeedback()"><i class="ti ti-mail" aria-hidden="true"></i> Enviar críticas ou sugestões</button>
+  <button class="dw-item" onclick="openIdioma()"><i class="ti ti-language" aria-hidden="true"></i> Idioma</button>
+  <button class="dw-item" onclick="openLegal('priv')"><i class="ti ti-shield" aria-hidden="true"></i> Privacidade</button>
+  <button class="dw-item" onclick="openLegal('termos')"><i class="ti ti-file-text" aria-hidden="true"></i> Termos de uso</button>
+  <button class="dw-item" id="dw-install" onclick="instalarApp()"><i class="ti ti-download" aria-hidden="true"></i> Instalar aplicativo</button>
+  <button class="dw-item" onclick="showAtualizacao()"><i class="ti ti-refresh" aria-hidden="true"></i> Atualização</button>
+  <button class="dw-item" onclick="showVersao()"><i class="ti ti-info-circle" aria-hidden="true"></i> Versão</button>
+  <input type="file" id="bk-file" accept="application/json,.json" style="display:none" onchange="importBackup(this)"/>
+</nav>
+
+<div class="modal-wrap" id="imodal" style="z-index:210" onclick="if(event.target===this)closeInfo()">
+  <div class="modal-box">
+    <div class="modal-title" id="im-title"></div>
+    <div class="im-body" id="im-body"></div>
+    <button class="btn-sec" onclick="closeInfo()">Fechar</button>
+  </div>
+</div>
+
+<div class="modal-wrap" id="modal" onclick="modalOverlayClick(event)">
+  <div class="modal-box">
+    <div class="modal-title" id="modal-title"></div>
+    <div id="modal-fields"></div>
+    <div class="btn-row"><button class="btn-sec" onclick="closeModal()">Cancelar</button><button class="btn-pri" id="modal-ok">Salvar</button></div>
+  </div>
+</div>
+
+<div class="modal-wrap" id="rmodal" onclick="if(event.target===this)closeRModal()">
+  <div class="modal-box">
+    <div class="modal-title" id="rmodal-title"></div>
+    <div class="fhint" id="rmodal-sub"></div>
+    <button class="btn-pri" onclick="relWord()"><i class="ti ti-file-text" aria-hidden="true"></i> Baixar Word (.doc)</button>
+    <button class="btn-pri" onclick="relPDF()"><i class="ti ti-download" aria-hidden="true"></i> Gerar PDF (imprimir / salvar)</button>
+    <button class="btn-sec" onclick="closeRModal()">Cancelar</button>
+  </div>
+</div>
+
+<div class="modal-wrap" id="cmodal">
+  <div class="modal-box">
+    <div class="modal-title">Bem-vindo!</div>
+    <div class="im-body">
+      <div>Seus dados ficam somente neste aparelho — nada é enviado para a internet. Ao continuar, você concorda com os Termos de Uso e a Política de Privacidade (disponíveis no menu ☰ → Ajuda).</div>
+      <div class="btn-row" style="margin-top:4px">
+        <button class="btn-sec" onclick="openLegal('termos')">Termos de Uso</button>
+        <button class="btn-sec" onclick="openLegal('priv')">Política de Privacidade</button>
+      </div>
+    </div>
+    <button class="btn-pri" onclick="aceitarConsent()">Aceitar e começar</button>
+  </div>
+</div>
+
+<div class="modal-wrap" id="tmodal">
+  <div class="modal-box">
+    <div class="modal-title">Tutorial rápido?</div>
+    <div class="im-body">
+      <div>Quer ver uma demonstração rápida de como o app funciona? O app navega sozinho mostrando cada função.</div>
+      <div class="fhint">Você pode revê-la quando quiser em ☰ → Modo demonstração.</div>
+    </div>
+    <div class="btn-row">
+      <button class="btn-sec" onclick="recusarTutorial()">Agora não</button>
+      <button class="btn-pri" onclick="aceitarTutorial()">Ver tutorial</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast-zone" aria-live="polite"></div>
+
+</div>
+<script src="i18n.js?v=cc3a77dfde"></script>
+<script src="app.js?v=cc3a77dfde"></script>
+</body>
+</html>

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="media/icone.png">
+<title>No tablet — Organizador de Aulas</title>
+<meta name="description" content="O Organizador de Aulas no tablet: tela cheia, tela dividida com o YouTube, janela flutuante e layout que aproveita a tela grande.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
+<style>
+:root{ --bg:#050b13;--bg2:#081420;--card:#0a1a28;--card2:#0e2436;
+  --txt:#e3f6ff;--txt2:#8fb6cc;--txt3:#4f7183;--acc:#22d3ee;--acc2:#0ea5b7;--gl:rgba(34,211,238,.35);
+  --brd:rgba(34,211,238,.18);--brd2:rgba(255,255,255,.06);--glow1:rgba(34,211,238,.10);--glow2:rgba(14,165,183,.08);
+  --nav:rgba(5,11,19,.72);--btxt:#04121a;--htmlbg:#050b13;--font-h:'Orbitron',sans-serif;--font-b:'Rajdhani',system-ui,sans-serif; }
+html.t-D{ --bg:#000;--bg2:#070707;--card:#0d0d0d;--card2:#141414;--txt:#fff;--txt2:#b8b8b8;--txt3:#6f6f6f;--acc:#f2f2f2;--acc2:#cfcfcf;
+  --gl:rgba(255,255,255,.22);--brd:rgba(255,255,255,.16);--brd2:rgba(255,255,255,.06);--glow1:rgba(255,255,255,.05);--glow2:rgba(255,255,255,.03);
+  --nav:rgba(0,0,0,.8);--btxt:#000;--htmlbg:#000;--font-h:'Segoe UI',system-ui,Arial,sans-serif;--font-b:'Segoe UI',system-ui,Arial,sans-serif; }
+html.t-PR{ --bg:#120407;--bg2:#1a060a;--card:#1f0a10;--card2:#2a0e15;--txt:#ffe6ea;--txt2:#e0a3ad;--txt3:#8a5560;--acc:#ff3b5c;--acc2:#c62740;
+  --gl:rgba(255,59,92,.33);--brd:rgba(255,59,92,.20);--brd2:rgba(255,255,255,.06);--glow1:rgba(255,59,92,.10);--glow2:rgba(198,39,64,.07);
+  --nav:rgba(18,4,7,.75);--btxt:#fff;--htmlbg:#120407; }
+html.t-PB{ --bg:#04060f;--bg2:#070c1a;--card:#0a1226;--card2:#0e1832;--txt:#e6edff;--txt2:#9db0d8;--txt3:#556685;--acc:#3b82f6;--acc2:#2563eb;
+  --gl:rgba(59,130,246,.33);--brd:rgba(59,130,246,.20);--brd2:rgba(255,255,255,.06);--glow1:rgba(59,130,246,.10);--glow2:rgba(37,99,235,.07);
+  --nav:rgba(4,6,15,.75);--btxt:#fff;--htmlbg:#04060f; }
+html.t-L{ --bg:#F0EDE8;--bg2:#e7e2da;--card:#ffffff;--card2:#faf7f2;--txt:#2a2320;--txt2:#6b5f57;--txt3:#9a8d83;--acc:#c0563c;--acc2:#a5432b;
+  --gl:rgba(192,86,60,.22);--brd:rgba(192,86,60,.22);--brd2:rgba(0,0,0,.08);--glow1:rgba(192,86,60,.08);--glow2:rgba(165,67,43,.05);
+  --nav:rgba(255,255,255,.82);--btxt:#fff;--htmlbg:#F0EDE8;--font-h:'Segoe UI',system-ui,Arial,sans-serif;--font-b:'Segoe UI',system-ui,Arial,sans-serif; }
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;background:var(--htmlbg);-webkit-text-size-adjust:100%;text-size-adjust:100%;overflow-x:clip}
+body{font-family:var(--font-b);background:var(--bg);color:var(--txt);line-height:1.55;font-size:17px}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(1100px 560px at 82% -10%,var(--glow1),transparent 60%),radial-gradient(820px 460px at -8% 18%,var(--glow2),transparent 55%);}
+/* Arte em mármore do Prometeu como marca d'água do fundo */
+:root{--arte:url("media/artes/arte-02-fundo.webp");--arteop:.22}
+html.t-L{--arte:url("media/artes/arte-01-fundo.webp");--arteop:.28}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:var(--arte) center 30%/min(92vmin,940px) no-repeat;opacity:var(--arteop)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px;position:relative;z-index:1}
+h1,h2,h3,.brand,.eyebrow{font-family:var(--font-h)}
+a{color:var(--acc);text-decoration:none}
+.eyebrow{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--acc);font-weight:700}
+nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(10px);background:var(--nav);border-bottom:1px solid var(--brd2)}
+.nav-in{display:flex;align-items:center;gap:10px 14px;min-height:60px;flex-wrap:wrap;padding:8px 0}
+.brand{font-weight:900;font-size:15px;letter-spacing:.5px;color:var(--txt);display:flex;align-items:center;gap:8px}
+.brand .dot{width:26px;height:26px;border-radius:50%;box-shadow:0 0 10px var(--gl);display:block}
+.nav-links{margin-left:auto;display:flex;gap:8px 16px;align-items:center;flex-wrap:wrap}
+.nav-links a{color:var(--txt2);font-size:14px;font-weight:600;transition:color .2s}
+.nav-links a:hover,.nav-links a.here{color:var(--acc)}
+@media(max-width:720px){ .nav-links{gap:6px 12px;width:100%} .nav-links a{font-size:13px} .brand{font-size:13px} }
+.themes{display:flex;gap:6px;align-items:center}
+.sw{width:20px;height:20px;border-radius:50%;border:1px solid var(--brd2);cursor:pointer;padding:0}
+.sw.on{box-shadow:0 0 0 2px var(--acc)}
+.lang{display:flex;gap:2px;border:1px solid var(--brd);border-radius:20px;overflow:hidden}
+.lang button{background:none;border:none;color:var(--txt2);padding:5px 10px;font-family:var(--font-h);font-size:11px;font-weight:700;cursor:pointer}
+.lang button.on{background:var(--acc);color:var(--btxt)}
+header.top{padding:52px 0 10px;text-align:center;max-width:760px;margin:0 auto}
+header.top h1{font-size:clamp(28px,5vw,44px);font-weight:800;margin:12px 0}
+header.top p{color:var(--txt2);font-size:18px}
+section{padding:34px 0}
+.tshots{display:flex;flex-wrap:wrap;gap:22px;justify-content:center}
+.tshot{flex:0 0 auto;width:min(500px,100%)}
+.tshot img{width:100%;border-radius:16px;border:1px solid var(--brd);box-shadow:0 20px 55px rgba(0,0,0,.45),0 0 0 5px rgba(127,127,127,.05),0 0 40px var(--gl);display:block;background:#050b13}
+.tshot .cap{text-align:center;color:var(--txt2);font-size:14px;margin-top:10px;font-family:var(--font-h);letter-spacing:.5px}
+.sec-h{text-align:center;max-width:640px;margin:0 auto 30px}
+.sec-h h2{font-size:clamp(22px,3.4vw,30px);font-weight:800;margin:8px 0}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.tfeat{background:linear-gradient(180deg,var(--card),var(--bg2));border:1px solid var(--brd);border-radius:14px;padding:22px}
+.tfeat .ic{font-size:26px;margin-bottom:8px}
+.tfeat h3{font-family:var(--font-b);font-size:18px;margin-bottom:6px}
+.tfeat p{color:var(--txt2);font-size:15px}
+.cta{text-align:center;margin-top:14px}
+.btn{display:inline-flex;align-items:center;gap:9px;padding:14px 24px;border-radius:10px;font-family:var(--font-h);font-weight:700;font-size:14px;cursor:pointer;border:1px solid var(--acc);background:var(--acc);color:var(--btxt);box-shadow:0 6px 26px var(--gl)}
+footer{border-top:1px solid var(--brd2);padding:26px 0 50px;color:var(--txt3);font-size:14px;text-align:center;margin-top:26px}
+@media(max-width:640px){ .grid{grid-template-columns:1fr} }
+</style>
+</head>
+<body>
+<nav><div class="wrap nav-in">
+  <a class="brand" href="index.html"><img class="dot" src="media/icone.png" alt=""> ORGANIZADOR DE AULAS</a>
+  <div class="nav-links">
+    <a href="index.html#recursos" data-i="nav1">Recursos</a>
+    <a href="index.html#preco" data-i="nav3">Preço</a>
+    <a href="comprar.html" data-i="nav9">Comprar</a>
+    <a href="galeria.html" data-i="nav6">Galeria</a>
+    <a href="tablet.html" class="here" data-i="nav8">Tablet</a>
+    <a href="manual.html" data-i="nav5">Manual</a>
+    <a href="index.html#instalar" data-i="nav4">Instalar</a>
+    <div class="themes" id="themes" title="Tema">
+      <button class="sw" data-t="P"  style="background:#0a1a28" aria-label="Prometeu"></button>
+      <button class="sw" data-t="PB" style="background:#0a1226" aria-label="Azul"></button>
+      <button class="sw" data-t="PR" style="background:#1f0a10" aria-label="Vermelho"></button>
+      <button class="sw" data-t="D"  style="background:#0d0d0d" aria-label="Escuro"></button>
+      <button class="sw" data-t="L"  style="background:#efe9e1" aria-label="Claro"></button>
+    </div>
+    <div class="lang" id="lang">
+      <button data-l="pt" class="on">PT</button><button data-l="en">EN</button><button data-l="es">ES</button><button data-l="zh">中文</button>
+    </div>
+  </div>
+</div></nav>
+
+<header class="top wrap">
+  <div class="eyebrow" data-i="eyebrow">Tablet</div>
+  <h1 data-i="tTitle">No tablet, ainda melhor</h1>
+  <p data-i="tLead">O Organizador de Aulas foi ajustado para tablets — em especial a linha Galaxy Tab (One UI da Samsung). Tela cheia, tela dividida com o YouTube e janela flutuante.</p>
+</header>
+
+<section class="wrap">
+  <div class="tshots" id="tshots">
+    <div class="tshot"><img loading="lazy" data-tab="01-materias" src="screenshots/tab-pt-01-materias.jpg" alt=""><div class="cap" data-i="c1">Tela inicial no tablet</div></div>
+    <div class="tshot"><img loading="lazy" data-tab="03-capitulos" src="screenshots/tab-pt-03-capitulos.jpg" alt=""><div class="cap" data-i="c2">Aulas e capítulos</div></div>
+    <div class="tshot"><img loading="lazy" data-tab="02-series-horas" src="screenshots/tab-pt-02-series-horas.jpg" alt=""><div class="cap" data-i="c3">Séries e horas</div></div>
+    <div class="tshot"><img loading="lazy" data-tab="04-video" src="screenshots/tab-pt-04-video.jpg" alt=""><div class="cap" data-i="c4">Formulário do vídeo</div></div>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="sec-h">
+    <div class="eyebrow" data-i="s-e">Recursos de tablet</div>
+    <h2 data-i="s-h">Aproveite a tela grande</h2>
+  </div>
+  <div class="grid">
+    <div class="tfeat"><div class="ic">🖥️</div><h3 data-i="f1t">Tela cheia</h3><p data-i="f1p">Instalado, o app abre em tela cheia, sem a barra do navegador — como um aplicativo de verdade.</p></div>
+    <div class="tfeat"><div class="ic">⬍</div><h3 data-i="f2t">Tela dividida</h3><p data-i="f2p">Assista ao vídeo do YouTube de um lado e organize as aulas do outro, ao mesmo tempo (One UI da Samsung e outros tablets Android).</p></div>
+    <div class="tfeat"><div class="ic">🗔</div><h3 data-i="f3t">Janela flutuante</h3><p data-i="f3p">Deixe o app numa janelinha flutuante por cima de outro aplicativo — prático para anotar enquanto assiste.</p></div>
+    <div class="tfeat"><div class="ic">📐</div><h3 data-i="f4t">Layout que se adapta</h3><p data-i="f4p">Os cartões e as listas se reorganizam sozinhos para aproveitar a tela maior, em qualquer tamanho de janela.</p></div>
+  </div>
+  <div class="cta"><a class="btn" href="app/?src=play" target="_blank" rel="noopener" data-i="cta">▶ Abrir no tablet</a></div>
+</section>
+
+<footer class="wrap">© 2026 Organizador de Aulas (Prometeu) · Organizador de Aulas (Prometeu)</footer>
+
+<script>
+const LANGS=['pt','en','es','zh'];
+const LANG_HTML={pt:'pt-BR',en:'en',es:'es',zh:'zh-CN'};
+const I={
+  nav1:['Recursos','Features','Recursos','功能'], nav3:['Preço','Pricing','Precio','价格'],
+  nav4:['Instalar','Install','Instalar','安装'], nav5:['Manual','Manual','Manual','手册'],
+  nav6:['Galeria','Gallery','Galería','图库'], nav7:['Desenvolvedor','Developer','Desarrollador','开发者'],
+  nav8:['Tablet','Tablet','Tablet','平板'], nav9:['Comprar','Buy','Comprar','购买'],
+  eyebrow:['Tablet','Tablet','Tablet','平板'],
+  tTitle:['No tablet, ainda melhor','Even better on a tablet','Aún mejor en tablet','平板上，体验更佳'],
+  tLead:['O Organizador de Aulas foi ajustado para tablets — em especial a linha Galaxy Tab (One UI da Samsung). Tela cheia, tela dividida com o YouTube e janela flutuante.',
+         'The Lesson Organizer is tuned for tablets — especially the Galaxy Tab line (Samsung One UI). Full screen, split screen with YouTube and pop-up window.',
+         'El Organizador de Clases está ajustado para tablets — en especial la línea Galaxy Tab (One UI de Samsung). Pantalla completa, pantalla dividida con YouTube y ventana flotante.',
+         '课程管理器针对平板做了优化 —— 尤其是三星 Galaxy Tab（One UI）。支持全屏、与 YouTube 分屏，以及悬浮窗。'],
+  c1:['Tela inicial no tablet','Home screen on tablet','Pantalla de inicio en tablet','平板上的主界面'],
+  c2:['Aulas e capítulos','Lessons and chapters','Clases y capítulos','课程与章节'],
+  c3:['Séries e horas','Grades and hours','Cursos y horas','年级与课时'],
+  c4:['Formulário do vídeo','Video form','Formulario del vídeo','视频表单'],
+  's-e':['Recursos de tablet','Tablet features','Funciones de tablet','平板功能'],
+  's-h':['Aproveite a tela grande','Make the most of the big screen','Aprovecha la pantalla grande','充分利用大屏幕'],
+  f1t:['Tela cheia','Full screen','Pantalla completa','全屏'],
+  f1p:['Instalado, o app abre em tela cheia, sem a barra do navegador — como um aplicativo de verdade.',
+       'Once installed, the app opens full screen, with no browser bar — like a real app.',
+       'Instalado, la app se abre a pantalla completa, sin barra del navegador — como una app de verdad.',
+       '安装后，应用全屏打开，没有浏览器地址栏 —— 如同真正的原生应用。'],
+  f2t:['Tela dividida','Split screen','Pantalla dividida','分屏'],
+  f2p:['Assista ao vídeo do YouTube de um lado e organize as aulas do outro, ao mesmo tempo (One UI da Samsung e outros tablets Android).',
+       'Watch the YouTube video on one side and organize lessons on the other, at the same time (Samsung One UI and other Android tablets).',
+       'Mira el vídeo de YouTube de un lado y organiza las clases del otro, a la vez (One UI de Samsung y otros tablets Android).',
+       '一边看 YouTube 视频，一边整理课程，同时进行（三星 One UI 及其他安卓平板）。'],
+  f3t:['Janela flutuante','Pop-up window','Ventana flotante','悬浮窗'],
+  f3p:['Deixe o app numa janelinha flutuante por cima de outro aplicativo — prático para anotar enquanto assiste.',
+       'Keep the app in a small floating window over another app — handy for taking notes while watching.',
+       'Deja la app en una ventanita flotante sobre otra app — práctico para tomar notas mientras miras.',
+       '让应用以悬浮小窗置于其他应用之上 —— 边看边记笔记，十分方便。'],
+  f4t:['Layout que se adapta','Adaptive layout','Diseño adaptable','自适应布局'],
+  f4p:['Os cartões e as listas se reorganizam sozinhos para aproveitar a tela maior, em qualquer tamanho de janela.',
+       'Cards and lists rearrange themselves to use the larger screen, at any window size.',
+       'Las tarjetas y listas se reorganizan solas para aprovechar la pantalla mayor, en cualquier tamaño de ventana.',
+       '卡片和列表会自动重新排列，充分利用更大的屏幕，适配任意窗口尺寸。'],
+  cta:['▶ Abrir no tablet','▶ Open on tablet','▶ Abrir en tablet','▶ 在平板上打开']
+};
+const LKEY='prometeu.site.lang', TKEY='prometeu.site.theme';
+function setL(l){
+  if(!LANGS.includes(l))l='pt';
+  const i=LANGS.indexOf(l);
+  document.documentElement.lang=LANG_HTML[l];
+  document.querySelectorAll('#lang button').forEach(b=>b.classList.toggle('on',b.dataset.l===l));
+  document.querySelectorAll('[data-i]').forEach(el=>{const v=I[el.getAttribute('data-i')];if(v&&v[i]!=null)el.innerHTML=v[i];});
+  const sl=(l==='zh')?'zh':(l==='en')?'en':'pt';
+  document.querySelectorAll('#tshots img[data-tab]').forEach(img=>{img.src='screenshots/tab-'+sl+'-'+img.dataset.tab+'.jpg';});
+  try{localStorage.setItem(LKEY,l);}catch(e){}
+}
+function setTheme(t){
+  document.documentElement.className=(t==='P')?'':'t-'+t;
+  document.querySelectorAll('#themes .sw').forEach(b=>b.classList.toggle('on',b.dataset.t===t));
+  try{localStorage.setItem(TKEY,t);}catch(e){}
+}
+document.querySelectorAll('#lang button').forEach(b=>b.onclick=()=>setL(b.dataset.l));
+document.querySelectorAll('#themes .sw').forEach(b=>b.onclick=()=>setTheme(b.dataset.t));
+(function(){
+  let l='pt',t='P';
+  try{l=localStorage.getItem(LKEY);}catch(e){}
+  if(!l){const n=(navigator.language||'pt');l=/^zh/i.test(n)?'zh':/^es/i.test(n)?'es':/^en/i.test(n)?'en':'pt';}
+  try{t=localStorage.getItem(TKEY)||'P';}catch(e){}
+  setTheme(t); setL(l);
+})();
+</script>
+</body>
+</html>
