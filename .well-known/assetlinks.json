@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "io.github.organizadordeaulas.app",
+      "sha256_cert_fingerprints": [
+        "36:DA:0A:58:AE:3A:70:36:4F:44:0D:16:DD:C8:9D:F6:BC:34:D4:0F:EE:4F:5A:5C:84:22:95:EF:39:7D:E8:6B"
+      ]
+    }
+  }
+]
