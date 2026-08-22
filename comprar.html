@@ -92,6 +92,9 @@ section{padding:30px 0}
 .btn{display:inline-flex;align-items:center;gap:9px;padding:14px 22px;border-radius:10px;font-family:var(--font-h);font-weight:700;font-size:13px;cursor:pointer;border:1px solid var(--acc);background:var(--acc);color:var(--btxt);box-shadow:0 6px 26px var(--gl)}
 .btn.sec{background:transparent;color:var(--acc)}
 .note{font-size:13px;color:var(--txt3);margin-top:10px}
+.apk-alt{margin-top:14px;line-height:1.55}
+.apk-alt a{font-weight:600}
+.apk-alt>div{margin-top:5px}
 .hl{border:1px solid var(--brd);border-left:4px solid var(--acc);background:var(--card);border-radius:12px;padding:20px 22px;margin-top:14px}
 .hl h3{font-family:var(--font-b);font-size:18px;margin-bottom:8px}
 .hl p,.hl li{color:var(--txt2);font-size:15px}
@@ -256,6 +259,10 @@ footer{border-top:1px solid var(--brd2);padding:26px 0 50px;color:var(--txt3);fo
       </ol>
       <a class="btn" id="apkBtn" href="app/" target="_blank" rel="noopener" data-i="a-btn">▶ Instalar no Android</a>
       <div class="note" data-i="a-note">Grátis por 14 dias com tudo liberado; depois, ative com a licença vitalícia (abaixo).</div>
+      <div class="note apk-alt">
+        <a href="downloads/OrganizadorDeAulas.apk" download data-i="a-apk-l">⬇ Prefere baixar o arquivo do app (APK)?</a>
+        <div data-i="a-apk-av">Instalando por arquivo, o Android <b>analisa antes de instalar</b> (o "Play Protect"), e aparelhos <b>Xiaomi</b>, Motorola e outros ainda fazem uma verificação própria, que leva alguns segundos. <b>Isso não é defeito nem suspeita contra o app</b> — é o procedimento padrão do sistema para todo aplicativo instalado fora da loja. Espere terminar e toque em <b>Instalar assim mesmo</b>.</div>
+      </div>
     </div>
     <div class="card">
       <div class="ic">🌐</div>
@@ -413,6 +420,11 @@ const I={
   'a-4':['Pronto! O ícone <b>Aulas</b> aparece na tela inicial.','Done! The <b>Aulas</b> icon appears on your home screen.','¡Listo! El ícono <b>Aulas</b> aparece en la pantalla de inicio.','完成！<b>Aulas</b> 图标会出现在主屏幕上。'],
   'a-btn':['▶ Instalar no Android','▶ Install on Android','▶ Instalar en Android','▶ 在安卓上安装'],
   'a-note':['Grátis por 14 dias com tudo liberado; depois, ative com a licença vitalícia (abaixo).','Free for 14 days with everything unlocked; then activate with the lifetime license (below).','Gratis 14 días con todo desbloqueado; luego activa con la licencia vitalicia (abajo).','14 天内免费使用全部功能；之后用下方的终身许可证激活。'],
+  'a-apk-l':['⬇ Prefere baixar o arquivo do app (APK)?','⬇ Rather download the app file (APK)?','⬇ ¿Prefieres descargar el archivo de la app (APK)?','⬇ 想直接下载应用安装包（APK）？'],
+  'a-apk-av':['Instalando por arquivo, o Android <b>analisa antes de instalar</b> (o "Play Protect"), e aparelhos <b>Xiaomi</b>, Motorola e outros ainda fazem uma verificação própria, que leva alguns segundos. <b>Isso não é defeito nem suspeita contra o app</b> — é o procedimento padrão do sistema para todo aplicativo instalado fora da loja. Espere terminar e toque em <b>Instalar assim mesmo</b>.',
+          'When installing from a file, Android <b>scans it before installing</b> ("Play Protect"), and <b>Xiaomi</b>, Motorola and other brands add a check of their own, which takes a few seconds. <b>This is not a defect and not a suspicion against the app</b>: it is the standard procedure the system applies to every app installed outside the store. Wait for it to finish and tap <b>Install anyway</b>.',
+          'Al instalar desde un archivo, Android <b>lo analiza antes de instalar</b> (el "Play Protect"), y los equipos <b>Xiaomi</b>, Motorola y otros hacen además una verificación propia, que tarda unos segundos. <b>Esto no es un defecto ni una sospecha contra la app</b>: es el procedimiento estándar del sistema para toda app instalada fuera de la tienda. Espera a que termine y toca <b>Instalar de todos modos</b>.',
+          '从文件安装时，安卓会先扫描它（Play Protect），<b>小米</b>、摩托罗拉等品牌还会再做一次自己的检查，需要几秒钟。<b>这不是应用有缺陷，也不是在怀疑它</b>：凡是从应用商店之外安装的应用，系统都会这样做。请等它结束，然后点击<b>仍要安装</b>。'],
   'n-t':['iPhone, iPad, computador e outros — no navegador','iPhone, iPad, computer and others — in the browser','iPhone, iPad, computadora y otros — en el navegador','iPhone、iPad、电脑及其他设备——浏览器版'],
   'n-p':['Abra o app direto no navegador — não precisa instalar nada. Funciona igual em <b>iPhone/iPad, Windows, Mac e Chromebook</b>, e você ainda pode criar um ícone na tela do aparelho.',
          'Open the app right in the browser — nothing to install. It works the same on <b>iPhone/iPad, Windows, Mac and Chromebook</b>, and you can still add an icon to your device screen.',
