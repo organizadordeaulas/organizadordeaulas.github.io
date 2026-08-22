@@ -522,7 +522,7 @@ document.querySelectorAll('#themes .sw').forEach(b=>b.onclick=()=>setTheme(b.dat
     const em=(be.value||'').trim();
     if(!ok(em)){err.style.display='block';be.focus();return;}
     err.style.display='none';
-    window.open(WORKER+'?email='+encodeURIComponent(em),'_blank','noopener');
+    window.open(WORKER+'?email='+encodeURIComponent(em)+'&site='+encodeURIComponent(location.origin+'/'),'_blank','noopener');
   };
   document.getElementById('buyEmail').addEventListener('keydown',ev=>{if(ev.key==='Enter')btn.click();});
 })();
