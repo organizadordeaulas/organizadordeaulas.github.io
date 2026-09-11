@@ -849,10 +849,19 @@ function openAula(id){if(selAulas){toggleSelAula(id);return;}pushNav();curAulaId
 function openAddAula(){
   if(!exigirAtivacao())return;
   const disc=getDisc(curDiscId);
-  // sugere o próximo título só quando o último traz número (ex.: "Aula 03" → "Aula 04")
+  /* o título já entra ESCRITO no campo (editável), nunca mais como dica cinza
+     que só a seta → do teclado aceitava — e teclado de tablet não tem essa
+     seta. Dois casos:
+       - último título numerado ("Aula 03") → continua a conta ("Aula 04") com
+         o cursor no FIM, para o professor completar ("Aula 04 — Roma");
+       - qualquer outro caso → rótulo genérico "Aula NN" já SELECIONADO, então
+         digitar substitui de uma vez, e quem não quer nomear só toca Salvar. */
   const ultA=disc.aulas[disc.aulas.length-1];
-  const sugTit=(ultA&&/\d/.test(ultA.titulo||''))?sugerirProximo(ultA.titulo):'';
-  openModal(tr('Nova aula'),[{id:'ma-t',lbl:'Título da aula',ph:'Ex: A Sociedade Patriarcal',sug:sugTit}],()=>{
+  const contin=(ultA&&/\d/.test(ultA.titulo||''))?sugerirProximo(ultA.titulo):'';
+  const proxNum=trf('Aula {n}',{n:String(disc.aulas.reduce((m,a)=>Math.max(m,a.numero),0)+1).padStart(2,'0')});
+  const campoTit={id:'ma-t',lbl:'Título da aula',ph:'Ex: A Sociedade Patriarcal'};
+  if(contin)campoTit.pre=contin; else campoTit.val=proxNum;
+  openModal(tr('Nova aula'),[campoTit],()=>{
     const titulo=vi('ma-t');if(!titulo){alert(tr('Informe o título.'));return;}
     const num=(disc.aulas.reduce((m,a)=>Math.max(m,a.numero),0))+1;
     disc.aulas.push({id:nid(),numero:num,titulo,cps:[],caps:[]});closeModal();renderAulas();
@@ -1010,9 +1019,10 @@ function selectCP(n,capId){
 function openAddCap(){
   if(!exigirAtivacao())return;
   const disc=getDisc(curDiscId);const aula=getAula(disc,curAulaId);
-  // capítulo numerado como "fantasma": aceita com a seta →, ou entra sozinho se o professor não digitar nada
+  /* o número já entra escrito no campo (editável); o cursor vai para o NOME,
+     que é o que o professor tem a digitar */
   const sugNum=`Cap. ${String(aula.caps.length+1).padStart(2,'0')}`;
-  openModal(tr('Novo capítulo'),[{id:'cf-num',lbl:'Número / identificador',ph:'Ex: Cap. 01',sug:sugNum},{id:'cf-nome',lbl:'Nome do capítulo',ph:'Ex: Ciclo do Pau Brasil'}],()=>{
+  openModal(tr('Novo capítulo'),[{id:'cf-num',lbl:'Número / identificador',ph:'Ex: Cap. 01',pre:sugNum},{id:'cf-nome',lbl:'Nome do capítulo',ph:'Ex: Ciclo do Pau Brasil',foco:true}],()=>{
     const nome=vi('cf-nome');if(!nome){alert(tr('Informe o nome.'));return;}
     const capId=nid();
     aula.caps.push({id:capId,num:vi('cf-num')||sugNum,nome,videos:[]});
@@ -1597,16 +1607,17 @@ function confirmar(html,aoSim,opts){ // opts: {sim: rótulo do botão, ic: ícon
   zone.appendChild(t);confirmEl=t;paintIcons();
   confirmTimer=setTimeout(fecharConfirm,15000);
 }
-/* Aviso padrão de arquivo salvo (pedido 2.2): o navegador baixa direto na
-   pasta Downloads do aparelho, sem tela de escolha — quem não sabe disso
-   acha que o app não salvou nada. Todo download do app avisa onde caiu. */
+/* Aviso padrão de arquivo salvo (pedido 2.2): o navegador baixa sem tela de
+   escolha — quem não sabe disso acha que o app não salvou nada. ⚠️ Não citar
+   "pasta Downloads": é verdade no PC e no Android, e falso no iPhone/iPad,
+   onde o que abre é a tela de compartilhar ("Salvar em Arquivos"). */
 function avisoSalvo(nome){
-  showToast(trf('<b>Arquivo salvo!</b> “{a}” foi para a pasta <b>Downloads</b> deste aparelho.',{a:escH(nome)}),8000,'download');
+  showToast(trf('<b>Arquivo salvo!</b> “{a}” foi baixado neste aparelho — no iPhone/iPad, escolha <b>“Salvar em Arquivos”</b>.',{a:escH(nome)}),8000,'download');
 }
 /* O PDF é diferente: o app abre a caixa de impressão do sistema e é o
    usuário quem escolhe "Salvar como PDF" — o aviso ensina o caminho. */
 function avisoPDF(){
-  showToast(tr('Na janela que abrir, escolha <b>“Salvar como PDF”</b> — o arquivo vai para a pasta <b>Downloads</b>.'),9000,'download');
+  showToast(tr('Na janela que abrir, escolha <b>“Salvar como PDF”</b> e depois onde guardar o arquivo.'),9000,'download');
 }
 
 /* ===== Desfazer exclusão + LIXEIRA (todas as camadas + anos letivos) =====
@@ -2004,7 +2015,8 @@ function openModal(title,fields,cb,okLbl){
       // sugestão "fantasma": texto cinza que a seta → do teclado aceita por inteiro
       campo=`<div class="fwrap"><input class="finput" id="${f.id}" placeholder="" value="" autocomplete="off"/><span class="fghost" id="${f.id}-gh">${escH(f.sug)}</span></div>`;
     }else{
-      campo=`<input class="finput" id="${f.id}" placeholder="${escH(f.ph||'')}" value="${escH(f.val||'')}"/>`;
+      // f.val = valor a TROCAR (edição) | f.pre = valor a COMPLETAR (criação)
+      campo=`<input class="finput" id="${f.id}" placeholder="${escH(f.ph||'')}" value="${escH(f.val||f.pre||'')}"/>`;
     }
     return `<div style="margin-bottom:12px"><label class="flbl">${escH(f.lbl)}</label>${campo}</div>`;
   }).join('');
@@ -2026,7 +2038,16 @@ function openModal(title,fields,cb,okLbl){
   document.getElementById('modal-ok').textContent=okLbl||tr('Salvar');
   _mcb=cb;document.getElementById('modal-ok').onclick=()=>_mcb&&_mcb();
   document.getElementById('modal').classList.add('open');
-  setTimeout(()=>{const el=document.getElementById(fields[0].id);if(el){el.focus();if(fields[0].val&&typeof el.select==='function')el.select();}},60);
+  /* foco: o campo marcado com foco:true, senão o primeiro. No capítulo o
+     número já vem escrito, então quem recebe o cursor é o NOME. */
+  setTimeout(()=>{
+    const alvo=fields.find(f=>f.foco)||fields[0];
+    const el=document.getElementById(alvo.id);if(!el)return;
+    el.focus();
+    if(alvo.val&&typeof el.select==='function')el.select();            // trocar: seleciona tudo
+    else if(alvo.pre&&typeof el.setSelectionRange==='function')        // completar: cursor no fim
+      el.setSelectionRange(el.value.length,el.value.length);
+  },60);
 }
 function closeModal(){document.getElementById('modal').classList.remove('open');_mcb=null;}
 function modalOverlayClick(e){if(e.target===document.getElementById('modal'))closeModal();}
@@ -2206,7 +2227,7 @@ async function exportBackup(pid){
   a.download=('prometeu-'+(p.ano||'projeto')+(p.instituicao?'-'+p.instituicao:'')).toLowerCase().replace(/[^a-z0-9à-ú]+/gi,'-').slice(0,60)+'.json';
   document.body.appendChild(a);a.click();a.remove();
   setTimeout(()=>URL.revokeObjectURL(a.href),4000);
-  showToast(trf('<b>Backup exportado!</b> “{a}” foi para a pasta <b>Downloads</b>. Guarde uma cópia em local seguro (Drive, pen-drive…).',{a:escH(a.download)}),9000,'download');
+  showToast(trf('<b>Backup exportado!</b> “{a}” foi baixado neste aparelho — no iPhone/iPad, escolha <b>“Salvar em Arquivos”</b>. Guarde uma cópia em local seguro (Drive, pen-drive…).',{a:escH(a.download)}),9000,'download');
 }
 function importBackupPick(){closeMenu();document.getElementById('bk-file').click();}
 async function importBackup(input){
@@ -2523,6 +2544,27 @@ function aceitarConsent(){
   _menuHintPending=true; // 1º uso: destaca o botão ☰ quando a home aparecer
   offerTutorial(); // logo após aceitar, oferece o tutorial rápido (só no 1º uso)
 }
+/* Recusar é obrigatório nas lojas (AppGallery 7.5 / Play): o aviso de
+   privacidade não pode ter só o botão de aceitar. Ao recusar nada é gravado —
+   o consentimento continua ausente e o aviso volta na próxima abertura. */
+function recusarConsent(){
+  document.getElementById('cmodal').classList.remove('open');
+  document.getElementById('nmodal').classList.add('open');
+}
+function voltarConsent(){
+  document.getElementById('nmodal').classList.remove('open');
+  document.getElementById('cmodal').classList.add('open');
+}
+function sairConsent(){
+  try{window.close();}catch(e){}
+  /* No app instalado (TWA/PWA) o window.close() encerra mesmo. Em aba comum do
+     navegador ele é ignorado, porque a aba não foi aberta por script: se ainda
+     estamos aqui depois de um instante, explicamos como fechar na mão. */
+  setTimeout(()=>{
+    const d=document.getElementById('nmodal-dica');
+    if(d)d.textContent=tr('Se a janela não fechar sozinha, feche o app pelo botão do aparelho ou feche esta aba do navegador.');
+  },500);
+}
 /* ===== Oferta de tutorial rápido (apenas no primeiríssimo uso) ===== */
 const TUTOFFER_KEY='prometeu.tutoffer.v1';
 function offerTutorial(){
@@ -2794,17 +2836,41 @@ function exigirAtivacao(){if(podeCriar())return true;openAtivar();return false;}
 function _b64uBytes(s){s=String(s).replace(/-/g,'+').replace(/_/g,'/');while(s.length%4)s+='=';const b=atob(s),u=new Uint8Array(b.length);for(let i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return u;}
 let _licPK=null;
 async function _getLicPK(){if(_licPK)return _licPK;_licPK=await crypto.subtle.importKey('jwk',LIC_PUBKEY,{name:'ECDSA',namedCurve:'P-256'},false,['verify']);return _licPK;}
+/* Apara o que costuma vir grudado quando o código é copiado do e-mail:
+   espaços e quebras de linha, os invisíveis que o \s NÃO pega (zero-width,
+   BOM) e a pontuação que o cliente de e-mail cola nas pontas. O código é
+   base64url dos dois lados, então nada disso pertence a ele. */
+function _limparCodigo(s){
+  return String(s||'')
+    .replace(/[\u200B-\u200D\u2060\uFEFF]/g,'')
+    .replace(/\s+/g,'')
+    .replace(/^[<"'`(\[]+/,'').replace(/[>"'`)\].,;:]+$/,'');
+}
+/* Devolve {ok,email} como antes; em caso de falha acrescenta `motivo`, para
+   a tela dizer o que houve em vez de só "código inválido". */
 async function verificarCodigo(code){
+  const c=_limparCodigo(code);
+  if(!c)return{ok:false,motivo:'vazio'};
+  if(/[^A-Za-z0-9\-_.=]/.test(c))return{ok:false,motivo:'sujo'};
+  const i=c.indexOf('.');
+  if(i<1)return{ok:false,motivo:'sem-ponto'};
+  if(c.length-i-1<80)return{ok:false,motivo:'curto'}; // assinatura P-256 = 86
   try{
-    code=(code||'').trim().replace(/\s+/g,'');
-    const i=code.indexOf('.');if(i<1)return{ok:false};
-    const email=new TextDecoder().decode(_b64uBytes(code.slice(0,i)));
-    const sig=_b64uBytes(code.slice(i+1));
+    const email=new TextDecoder().decode(_b64uBytes(c.slice(0,i)));
+    const sig=_b64uBytes(c.slice(i+1));
     const msg=new TextEncoder().encode('prometeu.ativacao.v1|'+email.trim().toLowerCase());
     const ok=await crypto.subtle.verify({name:'ECDSA',hash:'SHA-256'},await _getLicPK(),sig,msg);
-    return{ok,email};
-  }catch(e){return{ok:false};}
+    return ok?{ok:true,email}:{ok:false,email,motivo:'nao-confere'};
+  }catch(e){return{ok:false,motivo:'sujo'};}
 }
+/* Cada falha tem sua frase: "inválido" sozinho não diz o que consertar. */
+const MSG_CODIGO={
+  'vazio':'Cole aqui o código que chegou por e-mail.',
+  'sujo':'Parece que veio texto junto com o código. Copie só a linha do código.',
+  'sem-ponto':'Esse código está incompleto: falta o ponto que separa as duas partes dele.',
+  'curto':'O código parece cortado. Copie do começo ao fim, sem deixar nada de fora.',
+  'nao-confere':'O código não confere. Ele vale só para o e-mail usado na compra.'
+};
 async function carregarLicenca(){
   let s=null;try{s=JSON.parse(localStorage.getItem(LIC_KEY)||'null');}catch(e){}
   if(!s||!s.code)return;
@@ -2821,11 +2887,11 @@ async function ativarComCodigo(){
   if(!(window.crypto&&crypto.subtle)){if(msg){msg.textContent=tr('Este navegador não suporta a verificação de licença.');msg.className='at-msg erro';}return;}
   const r=await verificarCodigo(code);
   if(r.ok){
-    try{localStorage.setItem(LIC_KEY,JSON.stringify({code:code.trim().replace(/\s+/g,''),email:r.email,quando:new Date().toISOString()}));}catch(e){}
+    try{localStorage.setItem(LIC_KEY,JSON.stringify({code:_limparCodigo(code),email:r.email,quando:new Date().toISOString()}));}catch(e){}
     licState={ativo:true,email:r.email};
     renderAtivar();
     showToast(trf('<b>Ativado!</b> Obrigado. Licença registrada para {e}.',{e:escH(r.email)}),6000);
-  }else if(msg){msg.textContent=tr('Código inválido. Confira se copiou o código completo do e-mail.');msg.className='at-msg erro';}
+  }else if(msg){msg.textContent=tr(MSG_CODIGO[r.motivo]||'Código inválido. Confira se copiou o código completo do e-mail.');msg.className='at-msg erro';}
 }
 function pagarAgora(){
   // Abre o checkout do worker já com o e-mail do comprador (external_reference):
@@ -2977,7 +3043,7 @@ function backSistema(){
   if(aberto('imodal')){closeInfo();return true;}
   if(aberto('rmodal')){closeRModal();return true;}
   if(aberto('tmodal')){recusarTutorial();return true;}
-  // cmodal (consentimento) fica de fora de propósito: precisa de resposta.
+  // cmodal e nmodal (consentimento) ficam de fora de propósito: pedem resposta.
   const cur=document.querySelector('.screen.active');
   if(!cur||cur.id==='s-main')return false; // na home: deixa sair
   goBack(BACK_PARENT[cur.id]||'s-main');

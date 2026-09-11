@@ -15,7 +15,7 @@
 <link rel="icon" type="image/png" href="icons/favicon-64.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;900&family=Rajdhani:wght@500;600;700&family=Chakra+Petch:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=cc3a77dfde">
+<link rel="stylesheet" href="styles.css?v=3dfb007ff9">
 </head>
 <body class="L">
 <div id="root" class="L">
@@ -353,7 +353,24 @@
         <button class="btn-sec" onclick="openLegal('priv')">Política de Privacidade</button>
       </div>
     </div>
-    <button class="btn-pri" onclick="aceitarConsent()">Aceitar e começar</button>
+    <div class="btn-row">
+      <button class="btn-sec" onclick="recusarConsent()">Recusar</button>
+      <button class="btn-pri" onclick="aceitarConsent()">Aceitar e começar</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-wrap" id="nmodal">
+  <div class="modal-box">
+    <div class="modal-title">Sem o aceite não dá para continuar</div>
+    <div class="im-body">
+      <div>Você recusou os Termos de Uso e a Política de Privacidade. Sem essa concordância o app não pode ser usado. Nada foi gravado neste aparelho.</div>
+      <div class="fhint" id="nmodal-dica">Se quiser reler antes de decidir, use “Voltar e ler de novo”.</div>
+    </div>
+    <div class="btn-row">
+      <button class="btn-sec" onclick="voltarConsent()">Voltar e ler de novo</button>
+      <button class="btn-pri" onclick="sairConsent()">Sair do app</button>
+    </div>
   </div>
 </div>
 
@@ -374,7 +391,7 @@
 <div id="toast-zone" aria-live="polite"></div>
 
 </div>
-<script src="i18n.js?v=cc3a77dfde"></script>
-<script src="app.js?v=cc3a77dfde"></script>
+<script src="i18n.js?v=3dfb007ff9"></script>
+<script src="app.js?v=3dfb007ff9"></script>
 </body>
 </html>

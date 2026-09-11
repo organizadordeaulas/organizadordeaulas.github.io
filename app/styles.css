@@ -1,6 +1,17 @@
+/* ⚠️ CONSERTO DO TIL — nao apagar.
+   A fonte Orbitron (titulos do tema Prometeu) TEM os glifos "ã" e "õ", mas os
+   desenha com acento GRAVE: sai "nào" no lugar de "não". Como o glifo existe,
+   o navegador nao recorre a fonte de reserva nenhuma e o erro passa CALADO.
+   Medido em 22/08/2026 e visto no print: so ã õ Ã Õ estao errados; a e i o u
+   com agudo, circunflexo, crase, ç e ü a Orbitron acerta.
+   Esta familia cobre SO esses 4 caracteres e vem antes da Orbitron na pilha —
+   e do sistema, entao nao depende de rede (o app e offline). */
+@font-face{font-family:'TilCerto';
+  src:local('Segoe UI Semibold'),local('Segoe UI'),local('Roboto'),local('Noto Sans'),local('Arial');
+  unicode-range:U+00C3,U+00D5,U+00E3,U+00F5}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 :root{--fscale:1}
-.L{--bg:#F0EDE8;--card:#fff;--card2:#f5f2ee;--bar:#C0392B;--bard:#922B21;--txt:#1a1a1a;--txt2:#3d3d3d;--txt3:#5f5f5f;--brd:rgba(0,0,0,0.1);--brd2:rgba(0,0,0,0.06);--chip:#e4e0db;--chipt:#444;--inp:#fff;--inpb:rgba(0,0,0,0.18);--iBtn:rgba(0,0,0,0.06);--fab-s:0 4px 16px rgba(192,57,43,0.38);--vbg:#fdf9f8;--vbrd:rgba(192,57,43,0.12);--acc:#C0392B;--grgb:192,57,43;--gl:255,255,255;--obs:#6C3483;--orgb:108,52,131}
+.L{--bg:#F0EDE8;--card:#fff;--card2:#f5f2ee;--bar:#C0392B;--bard:#922B21;--txt:#1a1a1a;--txt2:#3d3d3d;--txt3:#5f5f5f;--brd:rgba(0,0,0,0.1);--brd2:rgba(0,0,0,0.06);--chip:#e4e0db;--chipt:#444;--inp:#fff;--inpb:rgba(0,0,0,0.18);--iBtn:rgba(0,0,0,0.06);--fab-s:0 4px 16px rgba(192,57,43,0.38);--vbg:#fdf9f8;--vbrd:rgba(192,57,43,0.12);--acc:#C0392B;--grgb:192,57,43;--gl:255,255,255;--obs:#6C3483;--orgb:108,52,131;--erro:#B02A20}
 .D{--bg:#000;--card:#000;--card2:#0d0d0d;--bar:#000;--bard:#000;--txt:#fff;--txt2:#c9c9c9;--txt3:#8a8a8a;--brd:rgba(255,255,255,0.75);--brd2:rgba(255,255,255,0.30);--chip:#000;--chipt:#ddd;--inp:#000;--inpb:rgba(255,255,255,0.55);--iBtn:rgba(255,255,255,0.08);--fab-s:0 0 0 1px rgba(255,255,255,0.7),0 0 18px rgba(255,255,255,0.35);--vbg:#000;--vbrd:rgba(255,255,255,0.25);--acc:#fff;--wn:0 0 7px rgba(255,255,255,.75);--grgb:255,255,255;--gl:255,255,255;--obs:#ffcf70;--orgb:255,207,112}
 body{font-family:system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--txt);font-size:14px;min-height:100vh;transition:background .2s,color .2s}
 i.ti{display:inline-flex;align-items:center;justify-content:center;width:1em;height:1em;vertical-align:-0.125em;flex-shrink:0}
@@ -159,7 +170,10 @@ i.ti svg{width:1em;height:1em;stroke:currentColor;fill:none;stroke-width:2;strok
    e fonte iguais ao .finput para o texto fantasma cair exatamente sobre o do input. */
 .fwrap{position:relative}
 .fghost{position:absolute;left:0;right:0;top:0;box-sizing:border-box;padding:10px 12px;border:0.5px solid transparent;font-size:calc(13px*var(--fscale));font-family:inherit;line-height:normal;color:var(--txt3);opacity:.75;pointer-events:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.finput:focus{border-color:var(--acc);box-shadow:0 0 0 2px rgba(192,57,43,0.12)}
+.finput:focus{border-color:var(--acc);box-shadow:0 0 0 2px rgba(var(--grgb),0.12)}
+/* seleção de texto na cor do tema: campo pré-preenchido (Nova aula) nasce com
+   o texto selecionado, e o azul do sistema destoava dos 5 temas */
+.finput::selection{background:rgba(var(--grgb),.35);color:var(--txt)}
 .fhint{font-size:calc(11px*var(--fscale));color:var(--txt3);margin-top:4px}
 .fdur{font-size:13px;color:var(--acc);font-weight:500;display:flex;align-items:center;gap:6px;min-height:18px;margin-top:2px}
 .btn-row{display:flex;gap:10px;margin-top:4px}
@@ -252,6 +266,12 @@ i.ti svg{width:1em;height:1em;stroke:currentColor;fill:none;stroke-width:2;strok
 .D .cap-card.pend .cap-accent{background:#fff;box-shadow:0 0 9px rgba(255,255,255,.85)}
 .D .cap-check.checked .box{box-shadow:0 0 7px rgba(255,255,255,.5);text-shadow:var(--wn)}
 .D .pend-badge,.D .ta-pend{text-shadow:0 0 5px rgba(255,255,255,.55)}
+/* Faixa da aula no tema CLARO: o fundo é --bar (vermelho) e o distintivo usava
+   --acc, que no claro TAMBÉM é vermelho — contraste medido 1,49 em 22/08/2026,
+   contra os 4,5 mínimos (os outros 5 temas ficam entre 5,6 e 21). Dentro da
+   barra o texto é branco, então o distintivo acompanha. É a convenção 6 do
+   CLAUDE.md pelo avesso: --acc não serve de texto quando o fundo é --bar. */
+.L .subbar .pend-badge,.L .subbar .done-badge{color:#fff}
 @media (prefers-reduced-motion:reduce){.cap-card.pend .cap-accent,.pend-badge,.ta-pend{animation:none;opacity:1}}
 
 /* CELEBRAÇÃO ao marcar capítulo como ministrado (classe .celebra posta por JS
@@ -403,7 +423,7 @@ textarea.finput{resize:vertical;min-height:120px;line-height:1.45}
     linear-gradient(90deg,rgba(var(--grgb),.05) 1px,transparent 1px) 0 0/28px 100%,
     var(--bg);
 }
-.P .ttl,.P .modal-title,.P .sb-title{font-family:'Orbitron',sans-serif;letter-spacing:.5px}
+.P .ttl,.P .modal-title,.P .sb-title{font-family:'TilCerto','Orbitron',sans-serif;letter-spacing:.5px}
 .P .at,.P .dn,.P .cap-nome,.P .vid-nome{font-family:'Rajdhani',sans-serif;font-weight:600}
 
 /* topbar / subbar */
@@ -607,7 +627,7 @@ textarea.finput{resize:vertical;min-height:120px;line-height:1.45}
 .P .dz-btn{border-radius:3px}
 .dw-item i{font-size:17px;color:var(--acc);flex-shrink:0}
 .P .drawer{background:linear-gradient(180deg,#0b2130,var(--card));border-right:1px solid var(--cy);box-shadow:8px 0 30px rgba(0,0,0,.5),0 0 18px rgba(var(--grgb),.18)}
-.P .dw-head b{font-family:'Orbitron',sans-serif;letter-spacing:.5px;font-size:11.5px;text-transform:uppercase}
+.P .dw-head b{font-family:'TilCerto','Orbitron',sans-serif;letter-spacing:.5px;font-size:11.5px;text-transform:uppercase}
 .PR .drawer{background:linear-gradient(180deg,#2a0c14,var(--card))}
 .PB .drawer{background:linear-gradient(180deg,#0c1430,var(--card))}
 .SN .drawer{background:linear-gradient(180deg,#0e1c26,var(--card))}
@@ -736,7 +756,7 @@ body{min-height:100dvh}
 .at-copy code.small{font-size:10.5px;line-height:1.35}
 .at-copy .btn-sec{flex:0 0 auto;width:auto;padding:9px 14px}
 .at-msg{font-size:calc(14px*var(--fscale));font-weight:600;margin:8px 0;min-height:16px}
-.at-msg.erro{color:#d9534f}
+.at-msg.erro{color:var(--erro,#d9534f)}
 
 /* Letra MAIOR, MAIS GROSSA e de cor cheia SÓ na tela Ativar/Comprar (2ª volta
    do pedido dele: mesmo com o painel de vidro atrás, "ainda não está legível
