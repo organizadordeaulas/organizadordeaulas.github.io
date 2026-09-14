@@ -1,7 +1,7 @@
 {
   "id": "./",
-  "name": "Organizador de Aulas — Prometeu",
-  "short_name": "Aulas",
+  "name": "Organizador de Aulas Prometeu",
+  "short_name": "Prometeu",
   "description": "Organizador de aulas em vídeo para professores: Matéria → Série/Ano → Aula → Capítulo → Vídeo. 100% offline, com resumos, anexos, relatórios em Word/PDF e 5 temas visuais. Disponível em português, inglês, espanhol e chinês.",
   "start_url": "./index.html",
   "scope": "./",

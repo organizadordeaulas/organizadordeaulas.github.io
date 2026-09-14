@@ -2233,7 +2233,7 @@ function importBackupPick(){closeMenu();document.getElementById('bk-file').click
 async function importBackup(input){
   const f=input.files&&input.files[0];input.value='';if(!f)return;
   let j;try{j=JSON.parse(await f.text());}catch(e){alert(tr('Arquivo inválido.'));return;}
-  if(!j||j.formato!=='prometeu-backup'||!j.db||!Array.isArray(j.db.disciplinas)){alert(tr('Este arquivo não é um backup do Organizador de Aulas.'));return;}
+  if(!j||j.formato!=='prometeu-backup'||!j.db||!Array.isArray(j.db.disciplinas)){alert(tr('Este arquivo não é um backup do Organizador de Aulas Prometeu.'));return;}
   // regrava anexos com ids novos (evita conflito com arquivos já existentes)
   const mapa={};
   for(const arq of (j.arquivos||[])){
@@ -2259,7 +2259,7 @@ function openInfo(title,html){pushNav();closeMenu();document.getElementById('im-
 function closeInfo(){document.getElementById('imodal').classList.remove('open');}
 function showVersao(){
   openInfo(tr('Versão'),`
-    <div><b>${tr('Organizador de Aulas — Prometeu')}</b></div>
+    <div><b>${tr('Organizador de Aulas Prometeu')}</b></div>
     <div>${trf('Versão {v} · {d}',{v:APP_VERSION,d:tr(APP_DATE)})}</div>
     <div>${tr('App 100% offline: os dados ficam guardados neste navegador/aparelho — nada é enviado para a internet.')}</div>
     <div>${tr('Projetos guardados:')} <b>${projReg.projetos.length}</b> · ${tr('Matérias no projeto atual:')} <b>${db.disciplinas.length}</b></div>`);
@@ -2371,7 +2371,7 @@ function tutFigsHTML(i){
 }
 const TUT=[
 {ic:'ti-book-2',t:'Visão geral',c:`
-<p>O <b>Organizador de Aulas</b> organiza suas aulas em vídeo em 5 níveis, do geral para o específico:</p>
+<p>O <b>Organizador de Aulas Prometeu</b> organiza suas aulas em vídeo em 5 níveis, do geral para o específico:</p>
 %FIG0%
 <p>Exemplo: <b>HISTÓRIA</b> → <b>2° ano EM</b> → <b>Aula 12 (Revolução Francesa)</b> → <b>Cap. 01</b> → <b>vídeo do YouTube</b>.</p>
 <p>No alto de cada tela, a <b>trilha de navegação</b> (Início › Matéria › Série › Aula) mostra onde você está — toque em qualquer nível para voltar direto a ele.</p>
@@ -2616,7 +2616,7 @@ function openLegal(k){
 let _bipEvt=null;
 window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();_bipEvt=e;});
 function isStandalone(){try{return matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;}catch(e){return false;}}
-const INSTALL_PT='<p><b>No computador (Windows) — Edge ou Chrome:</b></p><ol><li>Abra este site no <b>Microsoft Edge</b> ou <b>Google Chrome</b>.</li><li>Confira que o endereço começa com <b>https://</b> e é o site oficial do app.</li><li>Clique no <b>ícone de instalar</b> (um monitor com uma seta ⤓) no fim da barra de endereço — ou menu <b>⋮</b> → <b>“Instalar Organizador de Aulas”</b>.</li><li>Confirme em <b>“Instalar”</b>. O app ganha um ícone no <b>menu Iniciar</b> e passa a abrir em janela própria.</li></ol><p><b>No Android (celular/tablet):</b> abra no <b>Chrome</b> → menu <b>⋮</b> → <b>“Instalar aplicativo”</b> (ou “Adicionar à tela inicial”). Se a opção não aparecer, o navegador pode não suportar a instalação (ex.: Mi Browser) — use o Chrome.</p><p class="fhint">Segurança: instale sempre a partir do site oficial e mantenha o navegador atualizado. O app funciona offline e guarda tudo só neste aparelho.</p>';
+const INSTALL_PT='<p><b>No computador (Windows) — Edge ou Chrome:</b></p><ol><li>Abra este site no <b>Microsoft Edge</b> ou <b>Google Chrome</b>.</li><li>Confira que o endereço começa com <b>https://</b> e é o site oficial do app.</li><li>Clique no <b>ícone de instalar</b> (um monitor com uma seta ⤓) no fim da barra de endereço — ou menu <b>⋮</b> → <b>“Instalar Organizador de Aulas Prometeu”</b>.</li><li>Confirme em <b>“Instalar”</b>. O app ganha um ícone no <b>menu Iniciar</b> e passa a abrir em janela própria.</li></ol><p><b>No Android (celular/tablet):</b> abra no <b>Chrome</b> → menu <b>⋮</b> → <b>“Instalar aplicativo”</b> (ou “Adicionar à tela inicial”). Se a opção não aparecer, o navegador pode não suportar a instalação (ex.: Mi Browser) — use o Chrome.</p><p class="fhint">Segurança: instale sempre a partir do site oficial e mantenha o navegador atualizado. O app funciona offline e guarda tudo só neste aparelho.</p>';
 const INSTALL_IOS_PT='<p><b>No iPhone ou iPad — pelo Safari:</b></p><ol><li>Abra este site no <b>Safari</b> (precisa ser o Safari — outros navegadores no iPhone não instalam apps).</li><li>Confira que o endereço começa com <b>https://</b> e é o site oficial do app.</li><li>Toque no botão <b>Compartilhar</b> (o quadrado com uma seta para cima, na barra de baixo).</li><li>Role a lista e toque em <b>“Adicionar à Tela de Início”</b> → <b>“Adicionar”</b>.</li></ol><p>O app ganha um ícone próprio e passa a abrir em tela cheia, como um aplicativo normal.</p><p class="fhint">Segurança: instale sempre pelo Safari a partir do site oficial. O app funciona offline e guarda tudo só neste aparelho.</p>';
 function isIOS(){return /iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);}
 function instalarApp(){
@@ -2640,7 +2640,7 @@ window.addEventListener('focusin',e=>{
 /* ===== Críticas e sugestões (e-mail do autor) ===== */
 function enviarFeedback(){
   closeMenu();
-  location.href='mailto:organizadordeaulas.prometeu@gmail.com?subject='+encodeURIComponent(tr('Críticas e sugestões — Organizador de Aulas'));
+  location.href='mailto:organizadordeaulas.prometeu@gmail.com?subject='+encodeURIComponent(tr('Críticas e sugestões — Organizador de Aulas Prometeu'));
 }
 
 /* ===== Seletor de idioma ===== */
@@ -2685,7 +2685,7 @@ const DEMO_CONTENT={
 function demoContent(){return DEMO_CONTENT[LANG]||DEMO_CONTENT['pt-BR'];}
 /* Narração da demonstração — texto-fonte pt-BR; en/es/zh vêm do i18n (chaves DEMO_1..10) */
 const DEMO_NARR_PT={
-DEMO_1:'Este é o Organizador de Aulas: as matérias ficam na tela inicial, agrupadas automaticamente.',
+DEMO_1:'Este é o Organizador de Aulas Prometeu: as matérias ficam na tela inicial, agrupadas automaticamente.',
 DEMO_MENU:'Tudo começa no menu ☰: projetos, backup, idioma, ajuda e ativação da versão completa.',
 DEMO_2:'Dentro de uma matéria ficam as séries/anos. O botão de seta mostra a árvore de aulas.',
 DEMO_3:'Cada série reúne aulas numeradas, com duração total e contadores de pendências.',
@@ -2695,7 +2695,7 @@ DEMO_6:'O formulário do vídeo busca o título no YouTube e exporta resumos em 
 DEMO_7:'Cinco temas visuais, incluindo o HUD sci-fi Prometeu.',
 DEMO_8:'Os projetos arquivam anos letivos inteiros — troque quando quiser, com backup em arquivo.',
 DEMO_9:'Os relatórios da série exportam toda a estrutura em Word ou PDF.',
-DEMO_10:'Tudo 100% offline: seus dados nunca saem do aparelho. Organizador de Aulas.'
+DEMO_10:'Tudo 100% offline: seus dados nunca saem do aparelho. Organizador de Aulas Prometeu.'
 };
 function demoTxt(code){
   const d=I18N[LANG];const v=d&&d[code];
@@ -2915,7 +2915,7 @@ function telasMP(){
   return `<div class="mpx-col bad">
       <div class="mpx-tag bad"><span class="ball">✗</span>${tr('Assim NÃO — cobra juros')}</div>
       <div class="mpx">
-        <div class="mpx-top">🛍️ Organizador de Aulas</div>
+        <div class="mpx-top">🛍️ Organizador de Aulas Prometeu</div>
         <div class="mpx-body">
           <div class="mpx-row"><span>${tr('Sua compra')}</span><span>R$ 25,00</span></div>
           <div class="mpx-row"><span class="iof">${tr('Juros e IOF')}</span><span class="iof">R$ 6,14</span></div>
@@ -2930,7 +2930,7 @@ function telasMP(){
     <div class="mpx-col good">
       <div class="mpx-tag good"><span class="ball">✓</span>${tr('Assim SIM — valor certo')}</div>
       <div class="mpx">
-        <div class="mpx-top">🛍️ Organizador de Aulas</div>
+        <div class="mpx-top">🛍️ Organizador de Aulas Prometeu</div>
         <div class="mpx-body">
           <div class="mpx-row"><span>${tr('Sua compra')}</span><span>R$ 25,00</span></div>
           <div class="mpx-row total"><span>${tr('Total')}</span><span>R$ 25,00</span></div>
@@ -3063,7 +3063,7 @@ renderDiscs();
 buildThemeGroups();
 applyThemeUI(THEMES[themeIdx]);
 refreshProjUI();
-const _dv=document.getElementById('dw-ver');if(_dv)_dv.textContent='Prometeu · v'+APP_VERSION;
+const _dv=document.getElementById('dw-ver');if(_dv)_dv.textContent='v'+APP_VERSION;
 if(isStandalone()){const _bi=document.getElementById('dw-install');if(_bi)_bi.style.display='none';} // já instalado
 atualizarLixBtn(); // se já houve descarte algum dia, a lixeira nasce visível
 paintIcons();

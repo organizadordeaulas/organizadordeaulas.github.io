@@ -1,5 +1,5 @@
 /* ===================================================================
-   i18n — Organizador de Aulas (Prometeu)
+   i18n — Organizador de Aulas Prometeu
    Idiomas: pt-BR (original), pt-PT, en, es, zh (chinês simplificado).
 
    Como funciona:
@@ -122,7 +122,7 @@ function scheduleTranslate(){
 }
 function i18nBoot(){ // chamado pelo app.js no fim da inicialização
   document.documentElement.lang=LANG_META[LANG].tag;
-  document.title=tr('Organizador de Aulas');
+  document.title=tr('Organizador de Aulas Prometeu');
   translateDOM();
 }
 
@@ -133,17 +133,17 @@ const I18N={
 'en':{
 '<b>Arquivo salvo!</b> “{a}” foi baixado neste aparelho — no iPhone/iPad, escolha <b>“Salvar em Arquivos”</b>.':'<b>File saved!</b> “{a}” was downloaded to this device — on iPhone/iPad, choose <b>“Save to Files”</b>.',
 'Na janela que abrir, escolha <b>“Salvar como PDF”</b> e depois onde guardar o arquivo.':'In the window that opens, choose <b>“Save as PDF”</b> and then where to keep the file.',
-'Organizador de Aulas':'Lesson Organizer',
+'Organizador de Aulas Prometeu':'Lesson Organizer Prometheus',
 'Abrir menu':'Open menu','Voltar':'Back','Início':'Home','Fechar menu':'Close menu','Fechar':'Close',
 'Mover para cima':'Move up','Mover para baixo':'Move down','Concluir':'Done',
 'Cancelar':'Cancel','Salvar':'Save','Salvar vídeo':'Save video','Editar':'Edit','Remover':'Delete',
 'Tutorial':'Tutorial','Atualização':'Updates','Versão':'Version','Arquivo':'File','Ajuda':'Help',
 'Idioma':'Language','Privacidade':'Privacy','Termos de uso':'Terms of use','Modo demonstração':'Demo mode',
 'Enviar críticas ou sugestões':'Send feedback or suggestions',
-'Críticas e sugestões — Organizador de Aulas':'Feedback and suggestions — Lesson Organizer',
+'Críticas e sugestões — Organizador de Aulas Prometeu':'Feedback and suggestions — Lesson Organizer Prometheus',
 'Instalar aplicativo':'Install app',
 'O app já está instalado neste aparelho.':'The app is already installed on this device.',
-'INSTALL_HELP':'<p><b>On a computer (Windows) — Edge or Chrome:</b></p><ol><li>Open this site in <b>Microsoft Edge</b> or <b>Google Chrome</b>.</li><li>Check that the address starts with <b>https://</b> and is the app\'s official site.</li><li>Click the <b>install icon</b> (a monitor with an arrow ⤓) at the end of the address bar — or the <b>⋮</b> menu → <b>“Install Organizador de Aulas”</b>.</li><li>Confirm <b>“Install”</b>. The app gets an icon in the <b>Start menu</b> and opens in its own window.</li></ol><p><b>On Android (phone/tablet):</b> open it in <b>Chrome</b> → <b>⋮</b> menu → <b>“Install app”</b> (or “Add to Home screen”). If the option does not appear, the browser may not support it (e.g. Mi Browser) — use Chrome.</p><p class="fhint">Safety: always install from the official site and keep your browser updated. The app works offline and keeps everything on this device only.</p>',
+'INSTALL_HELP':'<p><b>On a computer (Windows) — Edge or Chrome:</b></p><ol><li>Open this site in <b>Microsoft Edge</b> or <b>Google Chrome</b>.</li><li>Check that the address starts with <b>https://</b> and is the app\'s official site.</li><li>Click the <b>install icon</b> (a monitor with an arrow ⤓) at the end of the address bar — or the <b>⋮</b> menu → <b>“Install Organizador de Aulas Prometeu”</b>.</li><li>Confirm <b>“Install”</b>. The app gets an icon in the <b>Start menu</b> and opens in its own window.</li></ol><p><b>On Android (phone/tablet):</b> open it in <b>Chrome</b> → <b>⋮</b> menu → <b>“Install app”</b> (or “Add to Home screen”). If the option does not appear, the browser may not support it (e.g. Mi Browser) — use Chrome.</p><p class="fhint">Safety: always install from the official site and keep your browser updated. The app works offline and keeps everything on this device only.</p>',
 'INSTALL_HELP_IOS':'<p><b>On iPhone or iPad — using Safari:</b></p><ol><li>Open this site in <b>Safari</b> (it must be Safari — other browsers on iPhone can\'t install apps).</li><li>Check that the address starts with <b>https://</b> and is the app\'s official site.</li><li>Tap the <b>Share</b> button (the square with an up arrow, in the bottom bar).</li><li>Scroll and tap <b>“Add to Home Screen”</b> → <b>“Add”</b>.</li></ol><p>The app gets its own icon and opens full screen, like a regular app.</p><p class="fhint">Safety: always install through Safari from the official site. The app works offline and keeps everything on this device only.</p>',
 'Projeto em uso':'Current project','Gerenciar projetos':'Manage projects','Criar novo projeto':'Create new project',
 'Exportar backup (.json)':'Export backup (.json)','Importar backup (.json)':'Import backup (.json)',
@@ -306,7 +306,7 @@ const I18N={
 'Sem espaço no navegador para criar o projeto.':'No storage space in the browser to create the project.',
 'Sem espaço no navegador para importar este projeto.':'No storage space in the browser to import this project.',
 'Arquivo inválido.':'Invalid file.',
-'Este arquivo não é um backup do Organizador de Aulas.':'This file is not a Lesson Organizer backup.',
+'Este arquivo não é um backup do Organizador de Aulas Prometeu.':'This file is not a backup from Lesson Organizer Prometheus.',
 'Ano letivo {a}':'School year {a}',
 '<b>Projeto ativo:</b> {p}.':'<b>Active project:</b> {p}.',
 '<b>Projeto {a} criado e em uso.</b> O anterior ficou arquivado — troque quando quiser em ☰ → Gerenciar projetos.':'<b>Project {a} created and in use.</b> The previous one is archived — switch anytime via ☰ → Manage projects.',
@@ -318,7 +318,6 @@ const I18N={
 'O app ainda não está instalado como PWA neste navegador.':'The app is not yet installed as a PWA in this browser.',
 'Não foi possível verificar agora (sem internet?).':'Could not check right now (no internet?).',
 'Verificar atualização agora':'Check for updates now',
-'Organizador de Aulas — Prometeu':'Lesson Organizer — Prometheus',
 'Versão {v} · {d}':'Version {v} · {d}','julho de 2026':'July 2026','agosto de 2026':'August 2026',
 'App 100% offline: os dados ficam guardados neste navegador/aparelho — nada é enviado para a internet.':'100% offline app: data is stored in this browser/device — nothing is sent to the internet.',
 'Projetos guardados:':'Stored projects:','Matérias no projeto atual:':'Subjects in the current project:',
@@ -448,7 +447,7 @@ const I18N={
 'Os documentos anexados somam {n} — o backup vai ficar pesado e pode demorar para gerar e importar. Continuar?':'Os documentos anexados somam {n} — a cópia de segurança vai ficar pesada e pode demorar a gerar e importar. Continuar?',
 'Você tinha um vídeo não salvo ("{n}"). Restaurar o rascunho?':'Tinha um vídeo por guardar ("{n}"). Restaurar o rascunho?',
 'Exportar arquivo deste projeto':'Exportar ficheiro deste projeto',
-'Este arquivo não é um backup do Organizador de Aulas.':'Este ficheiro não é uma cópia de segurança do Organizador de Aulas.',
+'Este arquivo não é um backup do Organizador de Aulas Prometeu.':'Este ficheiro não é uma cópia de segurança do Organizador de Aulas Prometeu.',
 '<b>Backup exportado!</b> “{a}” foi baixado neste aparelho — no iPhone/iPad, escolha <b>“Salvar em Arquivos”</b>. Guarde uma cópia em local seguro (Drive, pen-drive…).':'<b>Cópia de segurança exportada!</b> “{a}” foi transferida para este aparelho — no iPhone/iPad, escolha <b>“Guardar em Ficheiros”</b>. Guarde uma cópia em local seguro (Drive, pen…).',
 'Leia a Política de Privacidade e os Termos de Uso antes de usar o app. Toque nos botões abaixo para abrir cada documento.':'Leia a Política de Privacidade e os Termos de Utilização antes de usar a aplicação. Toque nos botões abaixo para abrir cada documento.',
 'Em resumo: seus dados ficam somente neste aparelho — o app não coleta, não envia e não compartilha nada pela internet.':'Em resumo: os seus dados ficam apenas neste aparelho — a aplicação não recolhe, não envia nem partilha nada pela internet.',
@@ -465,17 +464,17 @@ const I18N={
 'es':{
 '<b>Arquivo salvo!</b> “{a}” foi baixado neste aparelho — no iPhone/iPad, escolha <b>“Salvar em Arquivos”</b>.':'<b>¡Archivo guardado!</b> “{a}” se descargó en este dispositivo — en iPhone/iPad, elige <b>“Guardar en Archivos”</b>.',
 'Na janela que abrir, escolha <b>“Salvar como PDF”</b> e depois onde guardar o arquivo.':'En la ventana que se abra, elige <b>“Guardar como PDF”</b> y luego dónde guardar el archivo.',
-'Organizador de Aulas':'Organizador de Clases',
+'Organizador de Aulas Prometeu':'Organizador de Clases Prometeo',
 'Abrir menu':'Abrir menú','Voltar':'Atrás','Início':'Inicio','Fechar menu':'Cerrar menú','Fechar':'Cerrar',
 'Mover para cima':'Subir','Mover para baixo':'Bajar','Concluir':'Listo',
 'Cancelar':'Cancelar','Salvar':'Guardar','Salvar vídeo':'Guardar vídeo','Editar':'Editar','Remover':'Eliminar',
 'Tutorial':'Tutorial','Atualização':'Actualización','Versão':'Versión','Arquivo':'Archivo','Ajuda':'Ayuda',
 'Idioma':'Idioma','Privacidade':'Privacidad','Termos de uso':'Términos de uso','Modo demonstração':'Modo demostración',
 'Enviar críticas ou sugestões':'Enviar críticas o sugerencias',
-'Críticas e sugestões — Organizador de Aulas':'Críticas y sugerencias — Organizador de Clases',
+'Críticas e sugestões — Organizador de Aulas Prometeu':'Críticas y sugerencias — Organizador de Clases Prometeo',
 'Instalar aplicativo':'Instalar aplicación',
 'O app já está instalado neste aparelho.':'La app ya está instalada en este dispositivo.',
-'INSTALL_HELP':'<p><b>En el ordenador (Windows) — Edge o Chrome:</b></p><ol><li>Abre este sitio en <b>Microsoft Edge</b> o <b>Google Chrome</b>.</li><li>Comprueba que la dirección empieza por <b>https://</b> y es el sitio oficial de la app.</li><li>Haz clic en el <b>icono de instalar</b> (un monitor con una flecha ⤓) al final de la barra de direcciones — o menú <b>⋮</b> → <b>«Instalar Organizador de Aulas»</b>.</li><li>Confirma <b>«Instalar»</b>. La app obtiene un icono en el <b>menú Inicio</b> y se abre en su propia ventana.</li></ol><p><b>En Android (móvil/tablet):</b> ábrelo en <b>Chrome</b> → menú <b>⋮</b> → <b>«Instalar aplicación»</b> (o «Añadir a pantalla de inicio»). Si la opción no aparece, el navegador puede no admitirlo (p. ej. Mi Browser) — usa Chrome.</p><p class="fhint">Seguridad: instala siempre desde el sitio oficial y mantén el navegador actualizado. La app funciona sin conexión y guarda todo solo en este dispositivo.</p>',
+'INSTALL_HELP':'<p><b>En el ordenador (Windows) — Edge o Chrome:</b></p><ol><li>Abre este sitio en <b>Microsoft Edge</b> o <b>Google Chrome</b>.</li><li>Comprueba que la dirección empieza por <b>https://</b> y es el sitio oficial de la app.</li><li>Haz clic en el <b>icono de instalar</b> (un monitor con una flecha ⤓) al final de la barra de direcciones — o menú <b>⋮</b> → <b>«Instalar Organizador de Aulas Prometeu»</b>.</li><li>Confirma <b>«Instalar»</b>. La app obtiene un icono en el <b>menú Inicio</b> y se abre en su propia ventana.</li></ol><p><b>En Android (móvil/tablet):</b> ábrelo en <b>Chrome</b> → menú <b>⋮</b> → <b>«Instalar aplicación»</b> (o «Añadir a pantalla de inicio»). Si la opción no aparece, el navegador puede no admitirlo (p. ej. Mi Browser) — usa Chrome.</p><p class="fhint">Seguridad: instala siempre desde el sitio oficial y mantén el navegador actualizado. La app funciona sin conexión y guarda todo solo en este dispositivo.</p>',
 'INSTALL_HELP_IOS':'<p><b>En iPhone o iPad — con Safari:</b></p><ol><li>Abre este sitio en <b>Safari</b> (debe ser Safari — otros navegadores en el iPhone no instalan apps).</li><li>Comprueba que la dirección empieza por <b>https://</b> y es el sitio oficial de la app.</li><li>Toca el botón <b>Compartir</b> (el cuadrado con una flecha hacia arriba, en la barra inferior).</li><li>Desplázate y toca <b>«Añadir a pantalla de inicio»</b> → <b>«Añadir»</b>.</li></ol><p>La app gana su propio icono y se abre a pantalla completa, como una aplicación normal.</p><p class="fhint">Seguridad: instala siempre a través de Safari desde el sitio oficial. La app funciona sin conexión y guarda todo solo en este dispositivo.</p>',
 'Projeto em uso':'Proyecto en uso','Gerenciar projetos':'Gestionar proyectos','Criar novo projeto':'Crear nuevo proyecto',
 'Exportar backup (.json)':'Exportar copia de seguridad (.json)','Importar backup (.json)':'Importar copia de seguridad (.json)',
@@ -637,7 +636,7 @@ const I18N={
 'Sem espaço no navegador para criar o projeto.':'Sin espacio en el navegador para crear el proyecto.',
 'Sem espaço no navegador para importar este projeto.':'Sin espacio en el navegador para importar este proyecto.',
 'Arquivo inválido.':'Archivo no válido.',
-'Este arquivo não é um backup do Organizador de Aulas.':'Este archivo no es una copia de seguridad del Organizador de Clases.',
+'Este arquivo não é um backup do Organizador de Aulas Prometeu.':'Este archivo no es una copia de seguridad del Organizador de Clases Prometeo.',
 'Ano letivo {a}':'Año lectivo {a}',
 '<b>Projeto ativo:</b> {p}.':'<b>Proyecto activo:</b> {p}.',
 '<b>Projeto {a} criado e em uso.</b> O anterior ficou arquivado — troque quando quiser em ☰ → Gerenciar projetos.':'<b>Proyecto {a} creado y en uso.</b> El anterior quedó archivado — cámbialo cuando quieras en ☰ → Gestionar proyectos.',
@@ -649,7 +648,6 @@ const I18N={
 'O app ainda não está instalado como PWA neste navegador.':'La app aún no está instalada como PWA en este navegador.',
 'Não foi possível verificar agora (sem internet?).':'No se pudo comprobar ahora (¿sin internet?).',
 'Verificar atualização agora':'Comprobar actualización ahora',
-'Organizador de Aulas — Prometeu':'Organizador de Clases — Prometeo',
 'Versão {v} · {d}':'Versión {v} · {d}','julho de 2026':'julio de 2026','agosto de 2026':'agosto de 2026',
 'App 100% offline: os dados ficam guardados neste navegador/aparelho — nada é enviado para a internet.':'App 100% sin conexión: los datos se guardan en este navegador/dispositivo — nada se envía a internet.',
 'Projetos guardados:':'Proyectos guardados:','Matérias no projeto atual:':'Asignaturas en el proyecto actual:',
@@ -732,17 +730,17 @@ const I18N={
 'zh':{
 '<b>Arquivo salvo!</b> “{a}” foi baixado neste aparelho — no iPhone/iPad, escolha <b>“Salvar em Arquivos”</b>.':'<b>文件已保存！</b>“{a}”已下载到本设备——在 iPhone/iPad 上，请选择<b>“存储到文件”</b>。',
 'Na janela que abrir, escolha <b>“Salvar como PDF”</b> e depois onde guardar o arquivo.':'在弹出的窗口中选择<b>“另存为 PDF”</b>，然后选择文件的保存位置。',
-'Organizador de Aulas':'课程管理器',
+'Organizador de Aulas Prometeu':'课程管理器 普罗米修斯',
 'Abrir menu':'打开菜单','Voltar':'返回','Início':'首页','Fechar menu':'关闭菜单','Fechar':'关闭',
 'Mover para cima':'上移','Mover para baixo':'下移','Concluir':'完成',
 'Cancelar':'取消','Salvar':'保存','Salvar vídeo':'保存视频','Editar':'编辑','Remover':'删除',
 'Tutorial':'使用教程','Atualização':'更新','Versão':'版本','Arquivo':'文件','Ajuda':'帮助',
 'Idioma':'语言','Privacidade':'隐私','Termos de uso':'使用条款','Modo demonstração':'演示模式',
 'Enviar críticas ou sugestões':'发送意见或建议',
-'Críticas e sugestões — Organizador de Aulas':'意见与建议 — 课程管理器',
+'Críticas e sugestões — Organizador de Aulas Prometeu':'意见与建议 — 课程管理器 普罗米修斯',
 'Instalar aplicativo':'安装应用',
 'O app já está instalado neste aparelho.':'应用已安装在此设备上。',
-'INSTALL_HELP':'<p><b>在电脑（Windows）上 — Edge 或 Chrome：</b></p><ol><li>用 <b>Microsoft Edge</b> 或 <b>Google Chrome</b> 打开本站。</li><li>确认网址以 <b>https://</b> 开头，且是应用的官方网站。</li><li>点击地址栏末尾的<b>安装图标</b>（带箭头的显示器 ⤓）——或 <b>⋮</b> 菜单 → <b>“安装 Organizador de Aulas”</b>。</li><li>确认<b>“安装”</b>。应用会在<b>开始菜单</b>中获得图标，并在独立窗口中打开。</li></ol><p><b>在 Android（手机/平板）上：</b>用 <b>Chrome</b> 打开 → <b>⋮</b> 菜单 → <b>“安装应用”</b>（或“添加到主屏幕”）。如果没有该选项，浏览器可能不支持（如 Mi Browser）——请用 Chrome。</p><p class="fhint">安全提示：请始终从官方网站安装，并保持浏览器为最新版本。应用可离线使用，所有数据仅保存在本设备。</p>',
+'INSTALL_HELP':'<p><b>在电脑（Windows）上 — Edge 或 Chrome：</b></p><ol><li>用 <b>Microsoft Edge</b> 或 <b>Google Chrome</b> 打开本站。</li><li>确认网址以 <b>https://</b> 开头，且是应用的官方网站。</li><li>点击地址栏末尾的<b>安装图标</b>（带箭头的显示器 ⤓）——或 <b>⋮</b> 菜单 → <b>“安装 Organizador de Aulas Prometeu”</b>。</li><li>确认<b>“安装”</b>。应用会在<b>开始菜单</b>中获得图标，并在独立窗口中打开。</li></ol><p><b>在 Android（手机/平板）上：</b>用 <b>Chrome</b> 打开 → <b>⋮</b> 菜单 → <b>“安装应用”</b>（或“添加到主屏幕”）。如果没有该选项，浏览器可能不支持（如 Mi Browser）——请用 Chrome。</p><p class="fhint">安全提示：请始终从官方网站安装，并保持浏览器为最新版本。应用可离线使用，所有数据仅保存在本设备。</p>',
 'INSTALL_HELP_IOS':'<p><b>在 iPhone 或 iPad 上 — 使用 Safari：</b></p><ol><li>用 <b>Safari</b> 打开本站（必须是 Safari——iPhone 上其他浏览器无法安装应用）。</li><li>确认网址以 <b>https://</b> 开头，且是应用的官方网站。</li><li>点按<b>分享</b>按钮（底部栏中带向上箭头的方块）。</li><li>向下滚动并点按<b>“添加到主屏幕”</b> → <b>“添加”</b>。</li></ol><p>应用会获得自己的图标，并像普通应用一样全屏打开。</p><p class="fhint">安全提示：请始终通过 Safari 从官方网站安装。应用可离线使用，所有数据仅保存在本设备。</p>',
 'Projeto em uso':'当前项目','Gerenciar projetos':'管理项目','Criar novo projeto':'新建项目',
 'Exportar backup (.json)':'导出备份 (.json)','Importar backup (.json)':'导入备份 (.json)',
@@ -903,7 +901,7 @@ const I18N={
 'Sem espaço no navegador para criar o projeto.':'浏览器存储空间不足，无法创建项目。',
 'Sem espaço no navegador para importar este projeto.':'浏览器存储空间不足，无法导入此项目。',
 'Arquivo inválido.':'文件无效。',
-'Este arquivo não é um backup do Organizador de Aulas.':'该文件不是课程管理器的备份。',
+'Este arquivo não é um backup do Organizador de Aulas Prometeu.':'该文件不是“课程管理器 普罗米修斯”的备份。',
 'Ano letivo {a}':'{a} 学年',
 '<b>Projeto ativo:</b> {p}.':'<b>当前项目：</b>{p}。',
 '<b>Projeto {a} criado e em uso.</b> O anterior ficou arquivado — troque quando quiser em ☰ → Gerenciar projetos.':'<b>项目 {a} 已创建并启用。</b>之前的项目已归档 — 可随时在 ☰ → 管理项目中切换。',
@@ -915,7 +913,6 @@ const I18N={
 'O app ainda não está instalado como PWA neste navegador.':'应用尚未在此浏览器中安装为 PWA。',
 'Não foi possível verificar agora (sem internet?).':'目前无法检查（没有网络？）。',
 'Verificar atualização agora':'立即检查更新',
-'Organizador de Aulas — Prometeu':'课程管理器 — 普罗米修斯',
 'Versão {v} · {d}':'版本 {v} · {d}','julho de 2026':'2026 年 7 月','agosto de 2026':'2026 年 8 月',
 'App 100% offline: os dados ficam guardados neste navegador/aparelho — nada é enviado para a internet.':'应用 100% 离线运行：数据仅保存在此浏览器/设备中 — 不会发送到互联网。',
 'Projetos guardados:':'已保存的项目：','Matérias no projeto atual:':'当前项目中的科目：',

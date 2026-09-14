@@ -1,16 +1,16 @@
-/* Service Worker — Organizador de Aulas (Prometeu)
+/* Service Worker — Organizador de Aulas Prometeu
    Cache do "app shell" para funcionamento offline.
    CACHE e as URLs versionadas (?v=) são preenchidos pelo build.py a partir de
    um hash do conteúdo — isso garante que toda publicação com mudança real
    gera um service-worker.js diferente (o navegador detecta sozinho) e URLs
    novas para os arquivos versionados (o cache HTTP nunca serve versão velha). */
-const CACHE = 'prometeu-4343edbe62';
+const CACHE = 'prometeu-5ca78663c5';
 const ASSETS = [
   './',
   './index.html',
-  './styles.css?v=4343edbe62',
-  './app.js?v=4343edbe62',
-  './i18n.js?v=4343edbe62',
+  './styles.css?v=5ca78663c5',
+  './app.js?v=5ca78663c5',
+  './i18n.js?v=5ca78663c5',
   './privacidade.html',
   './termos.html',
   './manifest.json',

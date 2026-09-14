@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.youtube.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob: https://i.ytimg.com; media-src 'self' blob:; connect-src 'self' https://www.youtube.com; frame-src https://www.youtube.com https://www.youtube-nocookie.com; object-src 'none'; base-uri 'self'">
-<title>Organizador de Aulas</title>
+<title>Organizador de Aulas Prometeu</title>
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#050b13">
 <meta name="mobile-web-app-capable" content="yes">
@@ -15,7 +15,7 @@
 <link rel="icon" type="image/png" href="icons/favicon-64.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;900&family=Rajdhani:wght@500;600;700&family=Chakra+Petch:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=4343edbe62">
+<link rel="stylesheet" href="styles.css?v=5ca78663c5">
 </head>
 <body class="L">
 <div id="root" class="L">
@@ -108,7 +108,13 @@
       <button class="tbk" id="menuBtn" onclick="openMenu()" aria-label="Abrir menu"><i class="ti ti-menu-2" aria-hidden="true"></i></button>
       <!-- logo-medalhão (decorativa): troca sozinha por CSS conforme o tema -->
       <span class="app-logo" aria-hidden="true"></span>
-      <span class="ttl">Organizador de Aulas</span>
+      <!-- O nome inteiro so cabe na barra a partir de ~760px de largura. Em
+           telefone entra so a marca "Prometeu" (14/09/2026): antes o titulo
+           era cortado em "ORGANIZA...", justamente a parte que se confunde
+           com os outros organizadores de aula. As duas formas ja sao chave no
+           i18n.js ("Organizador de Aulas Prometeu" e "Prometeu", que e o nome
+           do tema), entao nao ha texto novo para traduzir. -->
+      <span class="ttl"><span class="ttl-longo">Organizador de Aulas Prometeu</span><span class="ttl-curto">Prometeu</span></span>
       <button class="tbk undo-btn" onclick="desfazerAcao()" aria-label="Desfazer a última alteração" hidden><i class="ti ti-undo" aria-hidden="true"></i></button><button class="tbk lix-btn" onclick="abrirLixeira()" aria-label="Lixeira" hidden><i class="ti ti-trash" aria-hidden="true"></i><span class="lix-n"></span></button>
       <div class="theme-group" role="group" aria-label="Tema"></div>
     </div>
@@ -283,7 +289,7 @@
 <nav class="drawer" id="drawer" aria-label="Menu principal">
   <div class="dw-head">
     <span class="app-logo" aria-hidden="true"></span>
-    <div><b>Organizador de Aulas</b><span id="dw-ver">Prometeu</span></div>
+    <div><b>Organizador de Aulas Prometeu</b><span id="dw-ver">Versão</span></div>
     <button class="tbk dw-x" onclick="closeMenu()" aria-label="Fechar menu"><i class="ti ti-x" aria-hidden="true"></i></button>
   </div>
   <button class="dw-proj" onclick="openProjetos()">
@@ -392,7 +398,7 @@
 <div id="toast-zone" aria-live="polite"></div>
 
 </div>
-<script src="i18n.js?v=4343edbe62"></script>
-<script src="app.js?v=4343edbe62"></script>
+<script src="i18n.js?v=5ca78663c5"></script>
+<script src="app.js?v=5ca78663c5"></script>
 </body>
 </html>
