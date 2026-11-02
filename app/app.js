@@ -1347,7 +1347,7 @@ ul{padding-left:18pt}
 <div class="hrow"><b>${tr('Professor')}:</b> ${esc(prof)}</div>
 <div class="hrow"><b>${tr('Aula')}:</b> ${esc(aulaVal)}</div>
 <div class="hrow"><b>${tr('Cap.')}:</b> ${esc(capVal)}</div>
-<div class="hrow"><b>${tr('Título Do Vídeo')}:</b> ${esc(nome)}</div>
+<div class="hrow"><b>${tr('Título do vídeo')}:</b> ${esc(nome)}</div>
 ${linkRow}
 </div>
 ${paras}
@@ -2310,14 +2310,14 @@ const TUT_FIGS={
     zh: ['管理项目（学年）', '导出备份（.json）', '放大文字'] } }],
   2: [{ img: '03-projetos', leg: {
     pt: ['Baixar o backup só daquele ano', 'Editar Ano e Instituição', 'Duplicar o ano inteiro', 'Excluir o ano letivo'],
-    en: ['Download that year’s backup only', 'Edit Year and Institution', 'Duplicate the whole year', 'Delete the school year'],
+    en: ['Download that year\'s backup only', 'Edit Year and Institution', 'Duplicate the whole year', 'Delete the school year'],
     es: ['Descargar la copia solo de ese año', 'Editar Año e Institución', 'Duplicar el año entero', 'Eliminar el año lectivo'],
     zh: ['仅下载该学年的备份', '编辑学年与学校', '复制整个学年', '删除该学年'] } }],
   3: [{ img: '04-series', leg: {
     pt: ['Copiar a série', 'Relatório da série', 'Abrir a árvore de aulas'],
     en: ['Copy the grade', 'Grade report', 'Open the lesson tree'],
-    es: ['Copiar la serie', 'Informe de la serie', 'Abrir el árbol de clases'],
-    zh: ['复制年级', '年级报告', '展开课程列表'] } }],
+    es: ['Copiar el curso', 'Informe del curso', 'Abrir el árbol de clases'],
+    zh: ['复制年级', '年级报告', '展开课程树状图'] } }],
   4: [{ img: '05-aulas', leg: {
     pt: ['Copiar a aula'],
     en: ['Copy the lesson'],
@@ -2327,7 +2327,7 @@ const TUT_FIGS={
     pt: ['Caixinha de seleção (segure a aula por 2 segundos)', 'Barra para transferir as aulas marcadas'],
     en: ['Selection checkbox (hold the lesson for 2 seconds)', 'Bar to transfer the checked lessons'],
     es: ['Casilla de selección (mantén pulsada la clase 2 segundos)', 'Barra para transferir las clases marcadas'],
-    zh: ['选择框（长按课程 2 秒）', '转移所选课程的底栏'] } },
+    zh: ['勾选框（长按课程 2 秒）', '转移所选课程的底栏'] } },
   { img: '07-capitulos', leg: {
     pt: ['Marcar o capítulo como ministrado', 'Fichas dos capítulos (CP)', 'Observações do capítulo', 'Abrir o vídeo'],
     en: ['Mark the chapter as taught', 'Chapter chips (CP)', 'Chapter notes', 'Open the video'],
@@ -2340,12 +2340,12 @@ const TUT_FIGS={
     zh: ['视频名称', 'YouTube 链接', '时长', '视频摘要'] } }],
   6: [{ img: '09-materiais', leg: {
     pt: ['Seção Material didático e documentos', 'Importar PDF, imagem, Word ou áudio', 'Tirar foto'],
-    en: ['Teaching material and documents section', 'Import PDF, image, Word or audio', 'Take a photo'],
+    en: ['Teaching materials and documents section', 'Import a PDF, image, Word file or audio', 'Take a photo'],
     es: ['Sección Material didáctico y documentos', 'Importar PDF, imagen, Word o audio', 'Tomar una foto'],
     zh: ['教学材料与文档栏目', '导入 PDF、图片、Word 或音频', '拍照'] } }],
   7: [{ img: '10-desfazer', leg: {
     pt: ['Cartão Desfazer (10 segundos)', 'Lixeira com contador', 'Desfazer geral (↩)'],
-    en: ['Undo card (10 seconds)', 'Trash with counter', 'General undo (↩)'],
+    en: ['Undo card (10 seconds)', 'Recycle bin with counter', 'General undo (↩)'],
     es: ['Tarjeta Deshacer (10 segundos)', 'Papelera con contador', 'Deshacer general (↩)'],
     zh: ['撤销卡片（10 秒）', '带计数的回收站', '通用撤销（↩）'] } },
   { img: '11-lixeira', leg: {
@@ -2692,7 +2692,7 @@ DEMO_3:'Cada série reúne aulas numeradas, com duração total e contadores de 
 DEMO_4:'Dentro de uma aula: os capítulos. A caixinha marca o que ainda falta ministrar.',
 DEMO_5:'Cada capítulo guarda vídeos, com links, resumos, materiais e documentos anexados.',
 DEMO_6:'O formulário do vídeo busca o título no YouTube e exporta resumos em Word/PDF.',
-DEMO_7:'Cinco temas visuais, incluindo o HUD sci-fi Prometeu.',
+DEMO_7:'Seis temas visuais, incluindo o HUD sci-fi Prometeu.',
 DEMO_8:'Os projetos arquivam anos letivos inteiros — troque quando quiser, com backup em arquivo.',
 DEMO_9:'Os relatórios da série exportam toda a estrutura em Word ou PDF.',
 DEMO_10:'Tudo 100% offline: seus dados nunca saem do aparelho. Organizador de Aulas Prometeu.'
