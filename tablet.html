@@ -10,10 +10,18 @@
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
 <style>
+/* ⚠️ CONSERTO DO TIL — nao apagar. A Orbitron TEM os glifos "ã" e "õ", mas os
+   desenha com acento GRAVE ("nào" por "não"); como o glifo existe, nenhuma
+   fonte de reserva entra e o erro passa CALADO. Medido em 22/08/2026: so
+   ã õ Ã Õ estao errados. Esta familia cobre SO esses 4 e vem antes da
+   Orbitron na pilha. Vem do sistema: nao adiciona pedido de rede nem CSP. */
+@font-face{font-family:'TilCerto';
+  src:local('Segoe UI Semibold'),local('Segoe UI'),local('Roboto'),local('Noto Sans'),local('Arial');
+  unicode-range:U+00C3,U+00D5,U+00E3,U+00F5}
 :root{ --bg:#050b13;--bg2:#081420;--card:#0a1a28;--card2:#0e2436;
   --txt:#e3f6ff;--txt2:#8fb6cc;--txt3:#4f7183;--acc:#22d3ee;--acc2:#0ea5b7;--gl:rgba(34,211,238,.35);
   --brd:rgba(34,211,238,.18);--brd2:rgba(255,255,255,.06);--glow1:rgba(34,211,238,.10);--glow2:rgba(14,165,183,.08);
-  --nav:rgba(5,11,19,.72);--btxt:#04121a;--htmlbg:#050b13;--font-h:'Orbitron',sans-serif;--font-b:'Rajdhani',system-ui,sans-serif; }
+  --nav:rgba(5,11,19,.72);--btxt:#04121a;--htmlbg:#050b13;--font-h:'TilCerto','Orbitron',sans-serif;--font-b:'Rajdhani',system-ui,sans-serif; }
 html.t-D{ --bg:#000;--bg2:#070707;--card:#0d0d0d;--card2:#141414;--txt:#fff;--txt2:#b8b8b8;--txt3:#6f6f6f;--acc:#f2f2f2;--acc2:#cfcfcf;
   --gl:rgba(255,255,255,.22);--brd:rgba(255,255,255,.16);--brd2:rgba(255,255,255,.06);--glow1:rgba(255,255,255,.05);--glow2:rgba(255,255,255,.03);
   --nav:rgba(0,0,0,.8);--btxt:#000;--htmlbg:#000;--font-h:'Segoe UI',system-ui,Arial,sans-serif;--font-b:'Segoe UI',system-ui,Arial,sans-serif; }
@@ -128,7 +136,7 @@ footer{border-top:1px solid var(--brd2);padding:26px 0 50px;color:var(--txt3);fo
   <div class="cta"><a class="btn" href="app/?src=play" target="_blank" rel="noopener" data-i="cta">▶ Abrir no tablet</a></div>
 </section>
 
-<footer class="wrap">© 2026 Organizador de Aulas Prometeu · Organizador de Aulas Prometeu</footer>
+<footer class="wrap">© 2026 Organizador de Aulas Prometeu</footer>
 
 <script>
 const LANGS=['pt','en','es','zh'];
@@ -141,9 +149,9 @@ const I={
   eyebrow:['Tablet','Tablet','Tablet','平板'],
   tTitle:['No tablet, ainda melhor','Even better on a tablet','Aún mejor en tablet','平板上，体验更佳'],
   tLead:['O Organizador de Aulas Prometeu foi ajustado para tablets — em especial a linha Galaxy Tab (One UI da Samsung). Tela cheia, tela dividida com o YouTube e janela flutuante.',
-         'The Lesson Organizer is tuned for tablets — especially the Galaxy Tab line (Samsung One UI). Full screen, split screen with YouTube and pop-up window.',
-         'El Organizador de Clases está ajustado para tablets — en especial la línea Galaxy Tab (One UI de Samsung). Pantalla completa, pantalla dividida con YouTube y ventana flotante.',
-         '课程管理器针对平板做了优化 —— 尤其是三星 Galaxy Tab（One UI）。支持全屏、与 YouTube 分屏，以及悬浮窗。'],
+         'The Lesson Organizer Prometheus is tuned for tablets — especially the Galaxy Tab line (Samsung One UI). Full screen, split screen with YouTube and pop-up window.',
+         'El Organizador de Clases Prometeo está ajustado para tablets — en especial la línea Galaxy Tab (One UI de Samsung). Pantalla completa, pantalla dividida con YouTube y ventana flotante.',
+         '课程管理器 普罗米修斯针对平板做了优化 —— 尤其是三星 Galaxy Tab（One UI）。支持全屏、与 YouTube 分屏，以及悬浮窗。'],
   c1:['Tela inicial no tablet','Home screen on tablet','Pantalla de inicio en tablet','平板上的主界面'],
   c2:['Aulas e capítulos','Lessons and chapters','Clases y capítulos','课程与章节'],
   c3:['Séries e horas','Grades and hours','Cursos y horas','年级与课时'],

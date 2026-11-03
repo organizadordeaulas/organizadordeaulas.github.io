@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/png" href="media/icone.png">
 <title>Organizador de Aulas Prometeu | App para professores organizarem aulas em vídeo</title>
-<meta name="description" content="App 100% offline para professores organizarem aulas em vídeo: Matéria → Série → Aula → Capítulo → Vídeo. Resumos, anexos, relatórios em Word/PDF, 5 temas e 4 idiomas (incl. 中文).">
+<meta name="description" content="App 100% offline para professores organizarem aulas em vídeo: Matéria → Série → Aula → Capítulo → Vídeo. Resumos, anexos, relatórios em Word/PDF, 6 temas e 4 idiomas (incl. 中文).">
 <meta property="og:title" content="Organizador de Aulas Prometeu">
 <meta property="og:description" content="Organize suas aulas em vídeo, do jeito de um professor. 100% offline.">
 <meta property="og:type" content="website">
@@ -24,6 +24,14 @@
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
 <style>
+/* ⚠️ CONSERTO DO TIL — nao apagar. A Orbitron TEM os glifos "ã" e "õ", mas os
+   desenha com acento GRAVE ("nào" por "não"); como o glifo existe, nenhuma
+   fonte de reserva entra e o erro passa CALADO. Medido em 22/08/2026: so
+   ã õ Ã Õ estao errados. Esta familia cobre SO esses 4 e vem antes da
+   Orbitron na pilha. Vem do sistema: nao adiciona pedido de rede nem CSP. */
+@font-face{font-family:'TilCerto';
+  src:local('Segoe UI Semibold'),local('Segoe UI'),local('Roboto'),local('Noto Sans'),local('Arial');
+  unicode-range:U+00C3,U+00D5,U+00E3,U+00F5}
 :root{ /* Prometeu (P) — tema padrão */
   --bg:#050b13; --bg2:#081420; --card:#0a1a28; --card2:#0e2436;
   --txt:#e3f6ff; --txt2:#8fb6cc; --txt3:#4f7183;
@@ -31,7 +39,7 @@
   --brd:rgba(34,211,238,.18); --brd2:rgba(255,255,255,.06);
   --glow1:rgba(34,211,238,.10); --glow2:rgba(14,165,183,.08);
   --nav:rgba(5,11,19,.72); --btxt:#04121a; --htmlbg:#050b13;
-  --font-h:'Orbitron',sans-serif;           /* títulos (sci-fi) */
+  --font-h:'TilCerto','Orbitron',sans-serif;           /* títulos (sci-fi) */
   --font-b:'Rajdhani',system-ui,sans-serif; /* texto corrido */
   --maxw:1080px;
 }
@@ -148,8 +156,8 @@ nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(10px);background:var(-
 .mock::before{content:"";position:absolute;top:12px;left:50%;transform:translateX(-50%);width:96px;height:6px;border-radius:6px;background:rgba(255,255,255,.12)}
 .m-top{margin-top:18px;display:flex;align-items:center;gap:8px;padding:6px 4px 12px;border-bottom:1px solid rgba(255,255,255,.08)}
 .m-top .mb{width:22px;height:3px;background:#8fb6cc;border-radius:3px;box-shadow:0 6px 0 #8fb6cc,0 12px 0 #8fb6cc}
-.m-title{font-family:'Orbitron',sans-serif;font-size:12px;font-weight:700;letter-spacing:.5px;color:#e3f6ff}
-.m-chip{margin-left:auto;font-family:'Orbitron',sans-serif;font-size:8px;padding:3px 8px;border:1px solid var(--acc);border-radius:12px;color:var(--acc)}
+.m-title{font-family:'TilCerto','Orbitron',sans-serif;font-size:12px;font-weight:700;letter-spacing:.5px;color:#e3f6ff}
+.m-chip{margin-left:auto;font-family:'TilCerto','Orbitron',sans-serif;font-size:8px;padding:3px 8px;border:1px solid var(--acc);border-radius:12px;color:var(--acc)}
 .m-card{margin-top:10px;background:#0a1a28;border:1px solid rgba(34,211,238,.14);border-left:3px solid var(--acc);border-radius:10px;padding:10px 11px}
 .m-card .t{font-weight:700;font-size:13px;color:#e3f6ff}
 .m-card .s{font-size:11px;color:#8fb6cc}
@@ -157,7 +165,7 @@ nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(10px);background:var(-
 .m-card .bar i{height:5px;flex:1;border-radius:2px;background:rgba(255,255,255,.08)}
 .m-card .bar i.on{background:var(--acc);box-shadow:0 0 6px var(--gl)}
 .m-pend{color:var(--acc);font-weight:700}
-.m-fab{position:absolute;left:12px;right:12px;bottom:16px;background:var(--acc);color:var(--btxt);text-align:center;font-family:'Orbitron',sans-serif;font-weight:700;font-size:12px;padding:12px;border-radius:12px;box-shadow:0 8px 24px var(--gl)}
+.m-fab{position:absolute;left:12px;right:12px;bottom:16px;background:var(--acc);color:var(--btxt);text-align:center;font-family:'TilCerto','Orbitron',sans-serif;font-weight:700;font-size:12px;padding:12px;border-radius:12px;box-shadow:0 8px 24px var(--gl)}
 
 /* TRUST */
 .trust{display:flex;flex-wrap:wrap;gap:10px 26px;justify-content:center;padding:22px;border-top:1px solid var(--brd2);border-bottom:1px solid var(--brd2);margin-top:20px}
@@ -352,7 +360,7 @@ footer{border-top:1px solid var(--brd2);padding:40px 0 60px;margin-top:30px}
     <div class="feat"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3a12 12 0 0 0 8.5 3 12 12 0 0 1-8.5 15 12 12 0 0 1-8.5-15A12 12 0 0 0 12 3"/></svg></div><h3 data-i="feat2t">100% offline e privado</h3><p data-i="feat2p">Os dados ficam só no seu aparelho. Nada é enviado para a internet — nem precisa dela.</p></div>
     <div class="feat"><div class="ic"><svg viewBox="0 0 24 24"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2"/><path d="M9 9h1M9 13h6M9 17h6"/></svg></div><h3 data-i="feat3t">Resumos e anexos</h3><p data-i="feat3p">Cada vídeo tem um campo para você escrever ou colar o seu resumo (até 3 páginas) — o app não gera resumos sozinho. Anexe também materiais citados e documentos (PDF, imagem, Word).</p></div>
     <div class="feat"><div class="ic"><svg viewBox="0 0 24 24"><path d="M8 5H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h6"/><path d="M18 12V7a2 2 0 0 0-2-2h-2"/><path d="M8 3h4v3H8z"/><path d="M8 11h4M8 15h3"/><circle cx="16.5" cy="17.5" r="2.5"/></svg></div><h3 data-i="feat4t">Relatórios Word e PDF</h3><p data-i="feat4p">Exporte a estrutura completa da série ou o resumo de um vídeo em um clique.</p></div>
-    <div class="feat"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 21a9 9 0 1 1 0-18c4.97 0 9 3.58 9 8 0 2.2-1.8 4-4 4h-2.5a2 2 0 0 0-1 3.75A1.3 1.3 0 0 1 12 21"/><circle cx="8.5" cy="10.5" r="1"/><circle cx="12.5" cy="7.5" r="1"/><circle cx="16.5" cy="10.5" r="1"/></svg></div><h3 data-i="feat5t">5 temas visuais</h3><p data-i="feat5p">Do claro suave ao HUD sci-fi ciano do Prometeu. Escolha o que combina com você.</p></div>
+    <div class="feat"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 21a9 9 0 1 1 0-18c4.97 0 9 3.58 9 8 0 2.2-1.8 4-4 4h-2.5a2 2 0 0 0-1 3.75A1.3 1.3 0 0 1 12 21"/><circle cx="8.5" cy="10.5" r="1"/><circle cx="12.5" cy="7.5" r="1"/><circle cx="16.5" cy="10.5" r="1"/></svg></div><h3 data-i="feat5t">6 temas visuais</h3><p data-i="feat5p">Do claro suave ao HUD sci-fi ciano do Prometeu. Escolha o que combina com você.</p></div>
     <div class="feat"><div class="ic"><svg viewBox="0 0 24 24"><path d="M4 5h7M9 3v2c0 4.4-2.2 8-5 8"/><path d="M5 9c0 2.1 3 3.9 6.7 4"/><path d="M12 20l4-9 4 9M19.1 18h-6.2"/></svg></div><h3 data-i="feat6t">4 idiomas</h3><p data-i="feat6p">Português (Brasil e Portugal), inglês, espanhol e chinês (中文) — troca com um toque.</p></div>
   </div>
 </section>
@@ -517,7 +525,7 @@ const I={
   feat3p:['Cada vídeo tem um campo para você escrever ou colar o seu resumo (até 3 páginas) — o app não gera resumos sozinho. Anexe também materiais citados e documentos (PDF, imagem, Word).','Each video has a field where you write or paste your own summary (up to 3 pages) — the app does not generate summaries by itself. You can also attach cited materials and documents (PDF, image, Word).','Cada vídeo tiene un campo para que escribas o pegues tu propio resumen (hasta 3 páginas) — la app no genera resúmenes por sí sola. Adjunta también materiales citados y documentos (PDF, imagen, Word).','每个视频都有一个摘要栏，由你自己撰写或粘贴摘要（最多 3 页）——应用不会自动生成摘要。还可附上引用的教材和文档（PDF、图片、Word）。'],
   feat4t:['Relatórios Word e PDF','Word & PDF reports','Informes Word y PDF','Word 与 PDF 报告'],
   feat4p:['Exporte a estrutura completa da série ou o resumo de um vídeo em um clique.','Export the full grade structure or a video summary in one click.','Exporta la estructura completa del curso o el resumen de un vídeo con un clic.','一键导出整个年级的结构或某个视频的摘要。'],
-  feat5t:['5 temas visuais','5 visual themes','5 temas visuales','5 种视觉主题'],
+  feat5t:['6 temas visuais','6 visual themes','6 temas visuales','6 种视觉主题'],
   feat5p:['Do claro suave ao HUD sci-fi ciano do Prometeu. Escolha o que combina com você.','From soft light to the cyan Prometheus sci-fi HUD. Pick what suits you.','Desde el claro suave hasta el HUD sci-fi cian de Prometeo. Elige el que te guste.','从柔和的浅色到 Prometeu 的青色科幻界面，随你选择。'],
   feat6t:['4 idiomas','4 languages','4 idiomas','4 种语言'],
   feat6p:['Português (Brasil e Portugal), inglês, espanhol e chinês (中文) — troca com um toque.','Portuguese (Brazil & Portugal), English, Spanish and Chinese (中文) — switch with one tap.','Portugués (Brasil y Portugal), inglés, español y chino (中文) — cambia con un toque.','葡萄牙语（巴西和葡萄牙）、英语、西班牙语和中文 —— 一键切换。'],

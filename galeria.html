@@ -10,6 +10,14 @@
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
 <style>
+/* ⚠️ CONSERTO DO TIL — nao apagar. A Orbitron TEM os glifos "ã" e "õ", mas os
+   desenha com acento GRAVE ("nào" por "não"); como o glifo existe, nenhuma
+   fonte de reserva entra e o erro passa CALADO. Medido em 22/08/2026: so
+   ã õ Ã Õ estao errados. Esta familia cobre SO esses 4 e vem antes da
+   Orbitron na pilha. Vem do sistema: nao adiciona pedido de rede nem CSP. */
+@font-face{font-family:'TilCerto';
+  src:local('Segoe UI Semibold'),local('Segoe UI'),local('Roboto'),local('Noto Sans'),local('Arial');
+  unicode-range:U+00C3,U+00D5,U+00E3,U+00F5}
 :root{ /* Prometeu (P) — padrão */
   --bg:#050b13;--bg2:#081420;--card:#0a1a28;--card2:#0e2436;
   --txt:#e3f6ff;--txt2:#8fb6cc;--txt3:#4f7183;
@@ -17,7 +25,7 @@
   --brd:rgba(34,211,238,.18);--brd2:rgba(255,255,255,.06);
   --glow1:rgba(34,211,238,.10);--glow2:rgba(14,165,183,.08);
   --nav:rgba(5,11,19,.72);--btxt:#04121a;--htmlbg:#050b13;
-  --font-h:'Orbitron',sans-serif;--font-b:'Rajdhani',system-ui,sans-serif;
+  --font-h:'TilCerto','Orbitron',sans-serif;--font-b:'Rajdhani',system-ui,sans-serif;
 }
 html.t-D{ --bg:#000;--bg2:#070707;--card:#0d0d0d;--card2:#141414;
   --txt:#fff;--txt2:#b8b8b8;--txt3:#6f6f6f;--acc:#f2f2f2;--acc2:#cfcfcf;
@@ -131,7 +139,7 @@ footer{border-top:1px solid var(--brd2);padding:26px 0 50px;color:var(--txt3);fo
 
 <main class="wrap" id="gal"></main>
 
-<footer class="wrap">© 2026 Organizador de Aulas Prometeu · Organizador de Aulas Prometeu</footer>
+<footer class="wrap">© 2026 Organizador de Aulas Prometeu</footer>
 
 <script>
 /* ===== Conteúdo FIXO da galeria (não muda com o modo/idioma do site) ===== */

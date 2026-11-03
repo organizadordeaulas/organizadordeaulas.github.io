@@ -24,10 +24,18 @@
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
 <style>
+/* ⚠️ CONSERTO DO TIL — nao apagar. A Orbitron TEM os glifos "ã" e "õ", mas os
+   desenha com acento GRAVE ("nào" por "não"); como o glifo existe, nenhuma
+   fonte de reserva entra e o erro passa CALADO. Medido em 22/08/2026: so
+   ã õ Ã Õ estao errados. Esta familia cobre SO esses 4 e vem antes da
+   Orbitron na pilha. Vem do sistema: nao adiciona pedido de rede nem CSP. */
+@font-face{font-family:'TilCerto';
+  src:local('Segoe UI Semibold'),local('Segoe UI'),local('Roboto'),local('Noto Sans'),local('Arial');
+  unicode-range:U+00C3,U+00D5,U+00E3,U+00F5}
 :root{ --bg:#050b13;--bg2:#081420;--card:#0a1a28;--card2:#0e2436;
   --txt:#e3f6ff;--txt2:#8fb6cc;--txt3:#4f7183;--acc:#22d3ee;--acc2:#0ea5b7;--gl:rgba(34,211,238,.35);
   --brd:rgba(34,211,238,.18);--brd2:rgba(255,255,255,.06);--glow1:rgba(34,211,238,.10);--glow2:rgba(14,165,183,.08);
-  --nav:rgba(5,11,19,.72);--btxt:#04121a;--htmlbg:#050b13;--font-h:'Orbitron',sans-serif;--font-b:'Rajdhani',system-ui,sans-serif;
+  --nav:rgba(5,11,19,.72);--btxt:#04121a;--htmlbg:#050b13;--font-h:'TilCerto','Orbitron',sans-serif;--font-b:'Rajdhani',system-ui,sans-serif;
   --ok:#34d399;--warn:#fbbf24; }
 html.t-D{ --bg:#000;--bg2:#070707;--card:#0d0d0d;--card2:#141414;--txt:#fff;--txt2:#b8b8b8;--txt3:#6f6f6f;--acc:#f2f2f2;--acc2:#cfcfcf;
   --gl:rgba(255,255,255,.22);--brd:rgba(255,255,255,.16);--brd2:rgba(255,255,255,.06);--glow1:rgba(255,255,255,.05);--glow2:rgba(255,255,255,.03);
@@ -358,7 +366,7 @@ footer{border-top:1px solid var(--brd2);padding:26px 0 50px;color:var(--txt3);fo
   </div>
 </section>
 
-<footer class="wrap">© 2026 Organizador de Aulas Prometeu · Organizador de Aulas Prometeu</footer>
+<footer class="wrap">© 2026 Organizador de Aulas Prometeu</footer>
 
 <script>
 const LANGS=['pt','en','es','zh'];
@@ -449,7 +457,7 @@ const I={
   i3t:['Computador (Chrome ou Edge)','Computer (Chrome or Edge)','Computadora (Chrome o Edge)','电脑（Chrome 或 Edge）'],
   i3a:['Abra o app no navegador.','Open the app in the browser.','Abre la app en el navegador.','在浏览器中打开应用。'],
   i3b:['Clique no <b>ícone de instalar</b> no fim da barra de endereço (um monitor com uma seta para baixo).','Click the <b>install icon</b> at the end of the address bar (a monitor with a down arrow).','Haz clic en el <b>ícono de instalar</b> al final de la barra de direcciones (un monitor con flecha hacia abajo).','点击地址栏末端的<b>安装图标</b>（带向下箭头的显示器）。'],
-  i3c:['Ou: menu <b>⋮</b>/<b>…</b> → <b>"Instalar Organizador de Aulas Prometeu"</b>. O atalho aparece na área de trabalho e no menu Iniciar.','Or: <b>⋮</b>/<b>…</b> menu → <b>"Install Lesson Organizer"</b>. The shortcut appears on the desktop and Start menu.','O: menú <b>⋮</b>/<b>…</b> → <b>"Instalar Organizador de Clases"</b>. El acceso directo aparece en el escritorio y el menú Inicio.','或：<b>⋮</b>/<b>…</b> 菜单 → <b>"安装课程管理器"</b>。快捷方式会出现在桌面和开始菜单。'],
+  i3c:['Ou: menu <b>⋮</b>/<b>…</b> → <b>"Instalar Organizador de Aulas Prometeu"</b>. O atalho aparece na área de trabalho e no menu Iniciar.','Or: <b>⋮</b>/<b>…</b> menu → <b>"Install Lesson Organizer Prometheus"</b>. The shortcut appears on the desktop and Start menu.','O: menú <b>⋮</b>/<b>…</b> → <b>"Instalar Organizador de Clases Prometeo"</b>. El acceso directo aparece en el escritorio y el menú Inicio.','或：<b>⋮</b>/<b>…</b> 菜单 → <b>"安装课程管理器 普罗米修斯"</b>。快捷方式会出现在桌面和开始菜单。'],
   s3e:['Importante','Important','Importante','重要'],
   s3h:['Onde ficam os seus dados (versão do navegador)','Where your data lives (browser version)','Dónde quedan tus datos (versión del navegador)','数据保存在哪里（浏览器版）'],
   d1:['<span class="ok">✓ Sim, tudo fica salvo entre um uso e outro.</span> Você não precisa "salvar" nada — cada alteração é guardada na hora, automaticamente.',
